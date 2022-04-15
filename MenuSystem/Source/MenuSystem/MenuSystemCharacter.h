@@ -2,9 +2,11 @@
 
 #pragma once
 
+#include "Interfaces/OnlineSessionInterface.h"
 #include "CoreMinimal.h"
 #include "OnlineSubsystem.h"
 #include "GameFramework/Character.h"
+#include "Interfaces/OnlineSessionInterface.h"
 #include "MenuSystemCharacter.generated.h"
 
 UCLASS(config=Game)
@@ -63,7 +65,15 @@ public:
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 public:
+	IOnlineSessionPtr  OnlineSessionInterface;
+protected:
 	
-	TSharedPtr<class IOnlineSession,ESPMode::ThreadSafe>  OnlineSessionInterface;
-};
+	UFUNCTION(BlueprintCallable)
+	void CreateGameSession();
 
+	void OnCreteSessionComplete(FName SessionName, bool bWasSuccessful);
+
+private:
+	 FOnCreateSessionCompleteDelegate CreateSessionCompleteDelegate;
+	
+};
