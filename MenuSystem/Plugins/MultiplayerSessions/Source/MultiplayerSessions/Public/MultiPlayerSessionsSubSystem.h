@@ -18,9 +18,40 @@ class MULTIPLAYERSESSIONS_API UMultiPlayerSessionsSubSystem : public UGameInstan
 public:
 	UMultiPlayerSessionsSubSystem();
 
+	//TO ahndle Funtinality
+
+	void CreateSession(int32 NumPublicConnections,FString MatchType);
+	void FindSessions(int32 MacSearchResults);
+	void JoinSession(const FOnlineSessionSearchResult& SessionResult);
+	void DestroySession();
+	void StartSessions();
 protected:
 
+	//
+	//Internal callback for Delegates
+	//
+	void OnCreateSessionComplete(FName SessionName,bool bWasSuccessful);
+	void OnFindSessionComplete(bool bWasSuccessful);
+	void OnJoinsSessionComplete(FName SessionName,EOnJoinSessionCompleteResult::Type Result);
+	void OnDestroySessionComplete(FName SessionName,bool bWasSuccessful);
+	void OnStartSessionComplete(FName SessionName,bool bWasSuccessful);
+	
 private:
 	IOnlineSessionPtr SessionInterface;
+	TSharedPtr<FOnlineSessionSettings> LastSessionSettings;
+	//
+	// TO add to the ONline Interface Sesion delgate
+	// Bind our Mulplayer internal callbakc to these
+	//
+	FOnCreateSessionCompleteDelegate CreateSessionCompleteDelegate;
+	FDelegateHandle CreateSessionCompleteDelegateHandle;
+	FOnFindSessionsCompleteDelegate FindSessionsCompleteDelegate;
+	FDelegateHandle FindSessionCompleteDelegateHandle;
+	FOnJoinSessionCompleteDelegate JoinSessionCompleteDelegate;
+	FDelegateHandle JoinSessionCompleteDelegateHandle;
+	FOnDestroySessionCompleteDelegate DestroySessionCompleteDelegate;
+	FDelegateHandle DestroySessionCompleteDelegateHandle;
+	FOnStartSessionCompleteDelegate StartSessionCompleteDelegate;
+	FDelegateHandle StartSessionCompleteDelegateHandle;
 	
 };

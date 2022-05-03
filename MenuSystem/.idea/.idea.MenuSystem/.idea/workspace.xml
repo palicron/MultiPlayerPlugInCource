@@ -15,7 +15,9 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Plugins/MultiplayerSessions/Source/MultiplayerSessions/Private/Menu.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/MultiplayerSessions/Source/MultiplayerSessions/Private/MultiPlayerSessionsSubSystem.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Plugins/MultiplayerSessions/Source/MultiplayerSessions/Public/Menu.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/MultiplayerSessions/Source/MultiplayerSessions/Public/MultiPlayerSessionsSubSystem.h" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -275,6 +277,14 @@
       <workItem from="1650167110074" duration="2163000" />
       <workItem from="1650204897690" duration="1189000" />
       <workItem from="1650944864641" duration="1212000" />
+      <workItem from="1651335063129" duration="2427000" />
+      <workItem from="1651354415733" duration="1074000" />
+      <workItem from="1651356617084" duration="3390000" />
+      <workItem from="1651367193440" duration="699000" />
+      <workItem from="1651436104399" duration="3000" />
+      <workItem from="1651464124556" duration="1987000" />
+      <workItem from="1651540891113" duration="3328000" />
+      <workItem from="1651548966942" duration="595000" />
     </task>
     <servers />
   </component>
@@ -285,16 +295,5 @@
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Plugins/MultiplayerSessions/Source/MultiplayerSessions/Public/MultiPlayerSessionsSubSystem.h</url>
-          <line>4</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
