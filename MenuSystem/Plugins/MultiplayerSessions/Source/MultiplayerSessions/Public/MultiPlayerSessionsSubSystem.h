@@ -7,6 +7,11 @@
 #include "Interfaces/OnlineSessionInterface.h"
 #include "MultiPlayerSessionsSubSystem.generated.h"
 
+
+//
+// Delegate DEclare for menu class
+//
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMultiplayerOnCreateSessionComplete,bool, bWasSuccessful);
 /**
  * 
  */
@@ -25,6 +30,9 @@ public:
 	void JoinSession(const FOnlineSessionSearchResult& SessionResult);
 	void DestroySession();
 	void StartSessions();
+
+	//Delegate for Menu class
+	FMultiplayerOnCreateSessionComplete MultiplayerOnCreateSessionComplete;
 protected:
 
 	//

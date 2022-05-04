@@ -20,6 +20,10 @@ public:
 protected:
 	virtual bool Initialize() override;
 	virtual void OnLevelRemovedFromWorld(ULevel* InLevel, UWorld* InWorld) override;
+
+	//Callback for Delegates in MultipalyerSessionSubsystem
+	UFUNCTION()
+	void OnCreateSession(bool bWasSuccessful);
 private:
 	UPROPERTY(meta=(BindWidget))
 	class UButton* Host_Button;
@@ -34,6 +38,7 @@ private:
 
 	void MenuTearDown();
 	
+	UPROPERTY()
 	class UMultiPlayerSessionsSubSystem* MultiPlayerSessionsSubSystem;
 
 	int32 NumPublicConnections{4};
