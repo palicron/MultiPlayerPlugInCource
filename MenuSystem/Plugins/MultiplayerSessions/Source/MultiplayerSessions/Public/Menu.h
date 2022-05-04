@@ -39,5 +39,7 @@ private:
 	int32 NumPublicConnections{4};
 
 	FString MatchType{TEXT("FreeForAll")};
+
+	float test1;
 	
 };
