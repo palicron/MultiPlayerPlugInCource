@@ -4,6 +4,9 @@
 #include "Menu.h"
 #include "MultiPlayerSessionsSubSystem.h"
 #include "Components/Button.h"
+#include "Microsoft/AllowMicrosoftPlatformTypes.h"
+#include "OnlineSessionSettings.h"
+#include "Interfaces/OnlineSessionInterface.h"
 
 void UMenu::MenuSetUp(int32 NumberOfPublicConnections ,FString TypeOfMatch)
 {
@@ -36,6 +39,10 @@ void UMenu::MenuSetUp(int32 NumberOfPublicConnections ,FString TypeOfMatch)
 	if(MultiPlayerSessionsSubSystem)
 	{
 		MultiPlayerSessionsSubSystem->MultiplayerOnCreateSessionComplete.AddDynamic(this,&ThisClass::OnCreateSession);
+		MultiPlayerSessionsSubSystem->MultiplayerOnFindSessionsComplete.AddUObject(this,&UMenu::OnFindSession);
+		MultiPlayerSessionsSubSystem->MultiplayerOnJoinSessionComplete.AddUObject(this,&UMenu::OnJoinSession);
+		MultiPlayerSessionsSubSystem->MultiplayerOnDestroySessionComplete.AddDynamic(this,&ThisClass::OnDestroySession);
+		MultiPlayerSessionsSubSystem->MultiplayerOnStartSessionComplete.AddDynamic(this,&ThisClass::OnStartSession);
 	}
 }
 
@@ -120,5 +127,21 @@ void UMenu::OnCreateSession(bool bWasSuccessful)
 	{
 		GEngine->AddOnScreenDebugMessage(-1,15.f,FColor::Red,FString(TEXT("Session Failed to create")));
 	}
+}
+
+void UMenu::OnFindSession(const TArray<FOnlineSessionSearchResult>& SessionResults, bool bWasSuccessful)
+{
+}
+
+void UMenu::OnJoinSession(EOnJoinSessionCompleteResult::Type Result)
+{
+}
+
+void UMenu::OnDestroySession(bool bWasSuccessful)
+{
+}
+
+void UMenu::OnStartSession(bool bWasSuccessful)
+{
 }
 

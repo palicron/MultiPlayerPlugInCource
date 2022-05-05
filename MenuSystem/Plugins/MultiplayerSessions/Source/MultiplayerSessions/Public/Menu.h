@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Interfaces/OnlineSessionInterface.h"
 #include "Menu.generated.h"
 
 /**
@@ -24,6 +25,14 @@ protected:
 	//Callback for Delegates in MultipalyerSessionSubsystem
 	UFUNCTION()
 	void OnCreateSession(bool bWasSuccessful);
+	
+	void OnFindSession(const TArray<FOnlineSessionSearchResult>& SessionResults,bool bWasSuccessful);
+	
+	void OnJoinSession(EOnJoinSessionCompleteResult::Type Result);
+	UFUNCTION()
+	void OnDestroySession(bool bWasSuccessful);
+	UFUNCTION()
+	void OnStartSession(bool bWasSuccessful);
 private:
 	UPROPERTY(meta=(BindWidget))
 	class UButton* Host_Button;
