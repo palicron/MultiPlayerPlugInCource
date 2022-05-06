@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Fil>l out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -55,6 +55,7 @@ protected:
 private:
 	IOnlineSessionPtr SessionInterface;
 	TSharedPtr<FOnlineSessionSettings> LastSessionSettings;
+	TSharedPtr<FOnlineSessionSearch> LastSessionSearch;
 	//
 	// TO add to the ONline Interface Sesion delgate
 	// Bind our Mulplayer internal callbakc to these

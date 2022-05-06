@@ -85,10 +85,10 @@ void UMenu::HostButtonClicked()
 
 void UMenu::JoinButtonClicked()
 {
-	if(GEngine)
-	{
-		GEngine->AddOnScreenDebugMessage(-1,15.f,FColor::Yellow,FString(TEXT("JOIN BUTTON CLICK")));
-	}
+   if(MultiPlayerSessionsSubSystem)
+   {
+   	 MultiPlayerSessionsSubSystem->FindSessions(10000);
+   }
 }
 
 void UMenu::MenuTearDown()
@@ -131,6 +131,19 @@ void UMenu::OnCreateSession(bool bWasSuccessful)
 
 void UMenu::OnFindSession(const TArray<FOnlineSessionSearchResult>& SessionResults, bool bWasSuccessful)
 {
+	if(MultiPlayerSessionsSubSystem==nullptr)
+		return;
+	
+	for(auto Result : SessionResults)
+	{
+		FString SettingValue;
+		Result.Session.SessionSettings.Get(FName("MatchType"),SettingValue);
+		if(SettingValue == MatchType)
+		{
+			MultiPlayerSessionsSubSystem->JoinSession(Result);
+			return;
+		}
+	}
 }
 
 void UMenu::OnJoinSession(EOnJoinSessionCompleteResult::Type Result)

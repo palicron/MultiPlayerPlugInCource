@@ -34,7 +34,7 @@ void UMultiPlayerSessionsSubSystem::CreateSession(int32 NumPublicConnections, FS
 	CreateSessionCompleteDelegateHandle = SessionInterface->AddOnCreateSessionCompleteDelegate_Handle(CreateSessionCompleteDelegate);
 
 	LastSessionSettings = MakeShareable(new FOnlineSessionSettings);
-	LastSessionSettings->bIsLANMatch = IOnlineSubsystem::Get()->GetSubsystemName()=="Null"? true : false;
+	LastSessionSettings->bIsLANMatch = IOnlineSubsystem::Get()->GetSubsystemName()=="NULL"? true : false;
 	LastSessionSettings->NumPublicConnections = NumPublicConnections;
 	LastSessionSettings->bAllowJoinInProgress = true;
 	LastSessionSettings->bAllowJoinViaPresence = true;
@@ -57,6 +57,23 @@ void UMultiPlayerSessionsSubSystem::CreateSession(int32 NumPublicConnections, FS
 
 void UMultiPlayerSessionsSubSystem::FindSessions(int32 MacSearchResults)
 {
+	if(!SessionInterface.IsValid())
+	{
+		return;
+	}
+	FindSessionCompleteDelegateHandle = SessionInterface->AddOnFindSessionsCompleteDelegate_Handle(FindSessionsCompleteDelegate);
+	LastSessionSearch = MakeShareable(new FOnlineSessionSearch());
+	LastSessionSearch->MaxSearchResults = MacSearchResults;
+	LastSessionSearch->bIsLanQuery = IOnlineSubsystem::Get()->GetSubsystemName()=="NULL"? true : false;
+	LastSessionSearch->QuerySettings.Set(SEARCH_PRESENCE,true,EOnlineComparisonOp::Equals);
+
+	const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
+	if(!SessionInterface->FindSessions(*LocalPlayer->GetPreferredUniqueNetId(),LastSessionSearch.ToSharedRef()))
+	{
+		SessionInterface->ClearOnFindSessionsCompleteDelegate_Handle(FindSessionCompleteDelegateHandle);
+
+		MultiplayerOnFindSessionsComplete.Broadcast(TArray<FOnlineSessionSearchResult>(),false);
+	}
 }
 
 void UMultiPlayerSessionsSubSystem::JoinSession(const FOnlineSessionSearchResult& SessionResult)
@@ -83,6 +100,17 @@ void UMultiPlayerSessionsSubSystem::OnCreateSessionComplete(FName SessionName, b
 
 void UMultiPlayerSessionsSubSystem::OnFindSessionComplete(bool bWasSuccessful)
 {
+	if(SessionInterface)
+	{
+		SessionInterface->ClearOnFindSessionsCompleteDelegate_Handle(FindSessionCompleteDelegateHandle);
+	}
+
+	if(LastSessionSearch->SearchResults.Num()<=0)
+	{
+		MultiplayerOnFindSessionsComplete.Broadcast(TArray<FOnlineSessionSearchResult>(),false);
+		return;
+	}
+	MultiplayerOnFindSessionsComplete.Broadcast(LastSessionSearch->SearchResults,bWasSuccessful);
 }
 
 void UMultiPlayerSessionsSubSystem::OnJoinsSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result)
