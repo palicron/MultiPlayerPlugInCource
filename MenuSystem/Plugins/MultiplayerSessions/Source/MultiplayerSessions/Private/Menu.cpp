@@ -6,6 +6,7 @@
 #include "Components/Button.h"
 #include "Microsoft/AllowMicrosoftPlatformTypes.h"
 #include "OnlineSessionSettings.h"
+#include "OnlineSubsystem.h"
 #include "Interfaces/OnlineSessionInterface.h"
 
 void UMenu::MenuSetUp(int32 NumberOfPublicConnections ,FString TypeOfMatch)
@@ -148,6 +149,22 @@ void UMenu::OnFindSession(const TArray<FOnlineSessionSearchResult>& SessionResul
 
 void UMenu::OnJoinSession(EOnJoinSessionCompleteResult::Type Result)
 {
+	IOnlineSubsystem* Subsystem = IOnlineSubsystem::Get();
+	if(Subsystem)
+	{
+		IOnlineSessionPtr SessionInterface = Subsystem->GetSessionInterface();
+		if(SessionInterface.IsValid())
+		{
+			FString Address;
+			SessionInterface->GetResolvedConnectString(NAME_GameSession,Address);
+
+			APlayerController* PlayerController = GetGameInstance()->GetFirstLocalPlayerController();
+			if(PlayerController)
+			{
+				PlayerController->ClientTravel(Address,ETravelType::TRAVEL_Absolute);
+			}
+		}
+	}
 }
 
 void UMenu::OnDestroySession(bool bWasSuccessful)

@@ -39,6 +39,7 @@ void UMultiPlayerSessionsSubSystem::CreateSession(int32 NumPublicConnections, FS
 	LastSessionSettings->bAllowJoinInProgress = true;
 	LastSessionSettings->bAllowJoinViaPresence = true;
 	LastSessionSettings->bShouldAdvertise = true;
+	LastSessionSettings->bUseLobbiesIfAvailable = true;
 	LastSessionSettings->bUsesPresence = true;
 	LastSessionSettings->Set(FName("MatchType"),MatchType,EOnlineDataAdvertisementType::ViaOnlineServiceAndPing);
 
@@ -78,6 +79,19 @@ void UMultiPlayerSessionsSubSystem::FindSessions(int32 MacSearchResults)
 
 void UMultiPlayerSessionsSubSystem::JoinSession(const FOnlineSessionSearchResult& SessionResult)
 {
+	if(!SessionInterface.IsValid())
+	{
+		MultiplayerOnJoinSessionComplete.Broadcast(EOnJoinSessionCompleteResult::UnknownError);
+		return;
+	}
+
+	JoinSessionCompleteDelegateHandle = SessionInterface->AddOnJoinSessionCompleteDelegate_Handle(JoinSessionCompleteDelegate);
+	const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
+	if(!SessionInterface->JoinSession(*LocalPlayer->GetPreferredUniqueNetId(),NAME_GameSession,SessionResult))
+	{
+		SessionInterface->ClearOnMatchmakingCompleteDelegate_Handle(JoinSessionCompleteDelegateHandle);
+		MultiplayerOnJoinSessionComplete.Broadcast(EOnJoinSessionCompleteResult::UnknownError);
+	}
 }
 
 void UMultiPlayerSessionsSubSystem::DestroySession()
@@ -115,6 +129,10 @@ void UMultiPlayerSessionsSubSystem::OnFindSessionComplete(bool bWasSuccessful)
 
 void UMultiPlayerSessionsSubSystem::OnJoinsSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result)
 {
+	if(SessionInterface)
+		SessionInterface->ClearOnJoinSessionCompleteDelegate_Handle(JoinSessionCompleteDelegateHandle);
+
+	MultiplayerOnJoinSessionComplete.Broadcast(Result);
 }
 
 void UMultiPlayerSessionsSubSystem::OnDestroySessionComplete(FName SessionName, bool bWasSuccessful)
