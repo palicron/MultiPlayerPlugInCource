@@ -19,6 +19,8 @@
     <setting file="file://$PROJECT_DIR$/Plugins/MultiplayerSessions/Source/MultiplayerSessions/Private/MultiPlayerSessionsSubSystem.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/MultiplayerSessions/Source/MultiplayerSessions/Public/Menu.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/MultiplayerSessions/Source/MultiplayerSessions/Public/MultiPlayerSessionsSubSystem.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/MenuSystem/LobbyGamemode.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/MenuSystem/LobbyGamemode.h" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -288,6 +290,8 @@
       <workItem from="1651935250952" duration="3315000" />
       <workItem from="1651940574311" duration="1231000" />
       <workItem from="1651941908668" duration="795000" />
+      <workItem from="1652025734864" duration="1472000" />
+      <workItem from="1652028048411" duration="1112000" />
     </task>
     <servers />
   </component>

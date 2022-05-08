@@ -13,6 +13,10 @@ class AMenuSystemGameMode : public AGameModeBase
 
 public:
 	AMenuSystemGameMode();
+	
+	virtual void PostLogin(APlayerController* NewPlayer) override;
+
+	virtual void Logout(AController* Exiting) override;
 };
 
 
