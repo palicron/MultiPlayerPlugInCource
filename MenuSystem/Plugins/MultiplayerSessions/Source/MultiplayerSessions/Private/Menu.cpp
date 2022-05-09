@@ -79,6 +79,7 @@ void UMenu::OnLevelRemovedFromWorld(ULevel* InLevel, UWorld* InWorld)
 
 void UMenu::HostButtonClicked()
 {
+	Host_Button->SetIsEnabled(false);
 	if(MultiPlayerSessionsSubSystem)
 	{
 		MultiPlayerSessionsSubSystem->CreateSession(NumPublicConnections,MatchType);
@@ -87,6 +88,7 @@ void UMenu::HostButtonClicked()
 
 void UMenu::JoinButtonClicked()
 {
+	Join_Button->SetIsEnabled(false);
    if(MultiPlayerSessionsSubSystem)
    {
    	 MultiPlayerSessionsSubSystem->FindSessions(10000);
@@ -128,6 +130,7 @@ void UMenu::OnCreateSession(bool bWasSuccessful)
 	else
 	{
 		GEngine->AddOnScreenDebugMessage(-1,15.f,FColor::Red,FString(TEXT("Session Failed to create")));
+		Host_Button->SetIsEnabled(true);
 	}
 }
 
@@ -145,6 +148,10 @@ void UMenu::OnFindSession(const TArray<FOnlineSessionSearchResult>& SessionResul
 			MultiPlayerSessionsSubSystem->JoinSession(Result);
 			return;
 		}
+	}
+	if(!bWasSuccessful || SessionResults.Num()==0)
+	{
+		Join_Button->SetIsEnabled(true);
 	}
 }
 
@@ -165,6 +172,10 @@ void UMenu::OnJoinSession(EOnJoinSessionCompleteResult::Type Result)
 				PlayerController->ClientTravel(Address,ETravelType::TRAVEL_Absolute);
 			}
 		}
+	}
+	if(Result!= EOnJoinSessionCompleteResult::Success)
+	{
+		Join_Button->SetIsEnabled(true);
 	}
 }
 
