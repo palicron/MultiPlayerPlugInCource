@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="af172d45-ccab-490a-95b1-bf10e17b63a3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Blaster.uproject" beforeDir="false" afterPath="$PROJECT_DIR$/Blaster.uproject" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/LearningKit_Games/Assets/Architecture/Gates/SM_Large_Gate.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/LearningKit_Games/Assets/Architecture/Gates/SM_Large_Gate.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/LearningKit_Games/Assets/Architecture/Walls/SM_Kit_Wall_Straight.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/LearningKit_Games/Assets/Architecture/Walls/SM_Kit_Wall_Straight.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/LearningKit_Games/Assets/Environment/Islands/SM_FloatingIsland_L_Grass.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/LearningKit_Games/Assets/Environment/Islands/SM_FloatingIsland_L_Grass.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/LearningKit_Games/Assets/_Shared/Materials/M_LearningKit_Foliage_Master.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/LearningKit_Games/Assets/_Shared/Materials/M_LearningKit_Foliage_Master.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/LearningKit_Games/Assets/_Shared/Materials/M_LearningKit_MasterMaterial.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/LearningKit_Games/Assets/_Shared/Materials/M_LearningKit_MasterMaterial.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Maps/lobby.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/lobby.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/0/3O/E9VGOHQ22RXJ38CRU44VN4.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/0/3O/E9VGOHQ22RXJ38CRU44VN4.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/0/5V/UFXDRYIE02DIPX39YTBFZD.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/0/8T/YFFBGP39MQMQ1STAINTOVR.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/0/GH/CWYK7KBCMRT11IYE6KO7LQ.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/0/JD/XEAJ37KTOPMGZSGPD57PV4.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/0/VO/LT8LNIDJYVKQ63OELVNE9K.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/1/3N/NFG9EMUPQNT91TL5NLOC2V.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/1/3N/NFG9EMUPQNT91TL5NLOC2V.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/1/FF/6IIBNXYBJY385MJ8ORQG15.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/1/OS/YC0DAOJ9BW1EI2SN2YUSAX.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/1/T2/ZRSFPB1K8W77ZEKND5591E.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/2/UF/6BX6PGZVCW095ZSBXVIRYJ.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/3/01/BZUFKF4BZZRN5CF7758RJV.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/3/K0/DOI9QL7ZSS1P9PM72WSLNH.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/4/07/EP7SF1LYMLT5OU4ONPGB0J.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/4/39/5JP4IIWDMHDARWCUFDOX5B.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/4/DK/SC6CP0FJHM0ARQ60HQRQ7K.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/4/TN/9KJ8N1338QF4PYIH5A2DR9.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/5/6T/JZUWO8DRKY21AQHCTGD1DG.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/5/7E/74IMIF2L5QU9J3BEZ0IV59.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/5/8G/S6X3OTX6GEZF4674JQSPY8.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/5/Q4/7L52RWFGTD9303ZWUR1B9Y.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/5/Q4/7L52RWFGTD9303ZWUR1B9Y.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/5/TF/XNXRNVTADBJ9C6DY0RVODN.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/5/TJ/W7KNX8VNUZ5B08LL0Z4B3L.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/5/V9/NTVPVV1N34LI241H6KDRNT.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/6/7C/UD2JKHRFVGW200WJV8DXBW.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/6/D3/OLMEP9HT0F9KGE0JZBB6EB.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/6/FS/PIN7OJIS2SZ64ANPPMABH9.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/7/A0/M6XVW4VC5S0D0RDJ8CZARQ.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/7/ND/Z0AJOUKMIK27PKLR5MZRGQ.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/7/TN/D82YFDBMDNANYCJT25YHBT.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/8/1G/FRD6XCPPPUUO42AVWKQBI1.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/8/AF/9JIJ1H6VP69Y9W4XXO916F.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/8/BS/UEG1D4DSJTNQFXXVZSU0PT.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/9/00/BCEAKNQIJS2PSJEWPGINNL.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/9/12/EA87MDZYYSQCLCFPM2E75M.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/9/GL/IXFVTAMW7RQIQAAEB7R4HF.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/9/K7/5A46JB0OAYEG7XP0BBHVD7.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/9/LC/K002FT30RAYL33G8WMNH4I.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/9/R8/XX3SU8CL1CU3T094AQ1VTT.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/A/09/K93O5BWGRP7353UJMUN50Y.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/A/NE/Y6MAHI9R4D7WZBDJOXAUQS.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/A/S9/0BPFH881FYYRDNMN0RXKKG.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/A/TH/YK45ID77H9ANIV6SWPVIC3.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/B/7S/KFO7GLIC1VT7ZAAO9NT73W.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/B/8S/Y66TEC2GEOHZ5W1F3YECZQ.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/C/0M/M8H41NBEOG1LKS4UZIF4S7.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/C/H8/WRVM3TTOUS07TPRMQ8QNNF.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/C/NR/8HOUIK946J5T837LJ2AD9H.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/C/OG/RLQC55HSD7TC197VBTMX3M.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/C/OU/XD25T2Z4OJ8ETKLEXTVYQV.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/D/20/LUSMNPPEMBVSECS1SIFF0J.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/D/AS/N3RV2NCFFUPVRUZIWKO5GL.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/D/JL/YPOAIP900VGBB4WHNCY22Z.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/D/O4/I6RVO0IDBC8IYE3QTHBRAH.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/D/S2/R7DOUBU9V0SDG54BPI1EEA.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/D/S2/R7DOUBU9V0SDG54BPI1EEA.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/D/XR/PGV92H9QNLSIE1YYSM90EH.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/D/Z0/OVSFW6NB0TSCEZ0OLSXQE4.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/E/1H/T2STUOIDGA84BPYKAGPFD8.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/E/7K/1TW4V98LSBHFHKVZ62GW6H.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/E/7K/1TW4V98LSBHFHKVZ62GW6H.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/E/MA/B2R6DF51QN7KOP8430CYLB.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/E/MA/B2R6DF51QN7KOP8430CYLB.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/E/N4/I145UVKW93O21HJ6M89FEI.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Maps/GameStartUpMap/F/42/UNBICGBHHQCH3147V8ZVM2.uasset" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectId" id="29Li9hYfxLebZlWOwNWCASHNhhm" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <created>1652898617594</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1652898617594</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+</project>
