@@ -8,6 +8,7 @@
 class USpringArmComponent;
 class UCameraComponent;
 class UWidgetComponent;
+class AWeapon;
 UCLASS()
 class BLASTER_API ABlasterCharacter : public ACharacter
 {
@@ -21,6 +22,7 @@ public:
 	
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 protected:
 
 	virtual void BeginPlay() override;
@@ -29,6 +31,7 @@ protected:
 	void MoveRight(float Value);
 	void Turn(float Value);
 	void LookUp(float Value);
+	
 private:
 	UPROPERTY(VisibleAnywhere,Category= Camera)
 	USpringArmComponent* CameraBoom;
@@ -36,7 +39,16 @@ private:
 	UCameraComponent* FollowCamera;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,meta = (AllowPrivateAccess="true"))
 	UWidgetComponent* OverHeadWidget;
+	UPROPERTY(ReplicatedUsing= OnRep_OverlappingWeapon)
+	AWeapon* OverLappingWeapon;
+    UFUNCTION()
+	void OnRep_OverlappingWeapon(AWeapon* LastWeapon);
+
+public:
+	 void SetOverlappingWeapon(AWeapon* weapon);
+
 	
 
-
 };
+
+
