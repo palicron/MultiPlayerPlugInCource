@@ -51,6 +51,8 @@ private:
 	
 	UPROPERTY(VisibleAnywhere,Category= "Weapon Properties")
 	UWidgetComponent* PickUpWidget;
+public:
+	FORCEINLINE void SetWeaponeState(EWeaponState State){WeaponState = State;}
 
 	
 
