@@ -6,6 +6,7 @@
 #include "Components/SphereComponent.h"
 #include "Components/WidgetComponent.h"
 #include "Blaster/Public/Character/BlasterCharacter.h"
+#include "Net/UnrealNetwork.h"
 
 // Sets default values
 AWeapon::AWeapon()
@@ -56,7 +57,12 @@ void AWeapon::Tick(float DeltaTime)
 
 }
 
+void AWeapon::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
+	DOREPLIFETIME(AWeapon,WeaponState);
+}
 
 void AWeapon::OnSphereOverlap(UPrimitiveComponent* Overlap, AActor* OtherActor, UPrimitiveComponent* otherComp,
                               int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -78,6 +84,37 @@ void AWeapon::OnSphereEndOverlarp(UPrimitiveComponent* Overlap, AActor* OtherAct
 	}
 }
 
+void AWeapon::OnRep_WeaponState()
+{
+	switch (WeaponState)
+	{
+	case EWeaponState::EWS_Initial: break;
+	case EWeaponState::EWS_Equipped:
+		ShowPickUpWidget(false);
+		break;
+	case EWeaponState::EWS_Drop: break;
+	case EWeaponState::EWS_MAX: break;
+	default: ;
+	}
+}
+
+void AWeapon::SetWeaponeState(EWeaponState State)
+{
+	WeaponState = State;
+	switch (WeaponState)
+	{
+	case EWeaponState::EWS_Initial: break;
+	case EWeaponState::EWS_Equipped:
+		ShowPickUpWidget(false);
+		AreaSphere->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		break;
+	case EWeaponState::EWS_Drop: break;
+	case EWeaponState::EWS_MAX: break;
+	default: ;
+	}
+
+}
+
 void AWeapon::ShowPickUpWidget(bool BShowWidget)
 {
 	if(PickUpWidget)
@@ -85,3 +122,5 @@ void AWeapon::ShowPickUpWidget(bool BShowWidget)
 		PickUpWidget->SetVisibility(BShowWidget);
 	}
 }
+
+
