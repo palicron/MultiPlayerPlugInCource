@@ -60,8 +60,6 @@ void UCombatComponent::OnRep_EquippedWeapon()
 }
 
 
-
-
 void UCombatComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
