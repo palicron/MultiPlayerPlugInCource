@@ -42,6 +42,7 @@ protected:
 	void AimButtonPressed();
 	void AimButtonReleased();
 	void AimOffSet(float DeltaTime);
+	virtual void Jump() override;
 	
 private:
 	UPROPERTY(VisibleAnywhere,Category= Camera)
