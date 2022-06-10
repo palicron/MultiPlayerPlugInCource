@@ -5,12 +5,14 @@
 #include "CoreMinimal.h"
 #include "BlasterComponents/CombatComponent.h"
 #include "GameFramework/Character.h"
+#include "Blaster/BlasterTypes/TurningInPlace.h"
 #include "BlasterCharacter.generated.h"
 class USpringArmComponent;
 class UCameraComponent;
 class UWidgetComponent;
 class AWeapon;
 class UCombatComponent;
+
 UCLASS()
 class BLASTER_API ABlasterCharacter : public ACharacter
 {
@@ -64,6 +66,9 @@ private:
 	float AO_Pitch;
 	FRotator StartingAimRotation;
 
+	 ETurningInPlace TurningInPlace;
+
+	void TurnInPlace(float DeltaTime);
 public:
 	 void SetOverlappingWeapon(AWeapon* weapon);
 
@@ -75,9 +80,15 @@ public:
 
 	FORCEINLINE float GetAO_Pitch() const {return AO_Pitch;}
 
+	FORCEINLINE ETurningInPlace GetTurningInPlace() const {return TurningInPlace;}
+	
 	AWeapon* GetEquippedWeapone() const;
+
 	
 
 };
+
+
+
 
 
