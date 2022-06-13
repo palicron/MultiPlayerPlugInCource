@@ -29,6 +29,8 @@ public:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 	virtual void PostInitializeComponents() override;
+
+	void PlayFireMontage(bool bAiming);
 protected:
 
 	virtual void BeginPlay() override;
@@ -43,6 +45,8 @@ protected:
 	void AimButtonReleased();
 	void AimOffSet(float DeltaTime);
 	virtual void Jump() override;
+	void FireButtonPressed();
+	void FireButtonRealese();
 	
 private:
 	UPROPERTY(VisibleAnywhere,Category= Camera)
@@ -72,6 +76,10 @@ private:
 	 ETurningInPlace TurningInPlace;
 
 	void TurnInPlace(float DeltaTime);
+
+	UPROPERTY(EditAnywhere,Category="Combat",meta = (AllowPrivateAccess="true"))
+	class UAnimMontage* FireWeaponeMontage;
+	
 public:
 	 void SetOverlappingWeapon(AWeapon* weapon);
 

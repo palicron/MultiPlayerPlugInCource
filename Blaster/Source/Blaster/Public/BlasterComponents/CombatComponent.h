@@ -33,6 +33,10 @@ protected:
 	UFUNCTION()
 	void OnRep_EquippedWeapon();
 
+	void FireButtonPressed(bool ButtonPress);
+
+	bool bFireButtonPress;
+
 private:
 	
 	UPROPERTY(ReplicatedUsing = OnRep_EquippedWeapon)
