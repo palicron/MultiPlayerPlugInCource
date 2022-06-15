@@ -37,6 +37,11 @@ protected:
 
 	bool bFireButtonPress;
 
+	UFUNCTION(Server,Reliable)
+	void ServerFire();
+	UFUNCTION(NetMulticast,Reliable)
+	void MultiCastFire();
+
 private:
 	
 	UPROPERTY(ReplicatedUsing = OnRep_EquippedWeapon)
