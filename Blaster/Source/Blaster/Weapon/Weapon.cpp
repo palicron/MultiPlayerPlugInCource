@@ -64,6 +64,14 @@ void AWeapon::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeP
 	DOREPLIFETIME(AWeapon,WeaponState);
 }
 
+void AWeapon::Fire()
+{
+	if(FireAnimation)
+	{
+		WeaponMesh->PlayAnimation(FireAnimation,false);
+	}
+}
+
 void AWeapon::OnSphereOverlap(UPrimitiveComponent* Overlap, AActor* OtherActor, UPrimitiveComponent* otherComp,
                               int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
@@ -112,7 +120,7 @@ void AWeapon::SetWeaponeState(EWeaponState State)
 	case EWeaponState::EWS_MAX: break;
 	default: ;
 	}
-
+	
 }
 
 void AWeapon::ShowPickUpWidget(bool BShowWidget)
