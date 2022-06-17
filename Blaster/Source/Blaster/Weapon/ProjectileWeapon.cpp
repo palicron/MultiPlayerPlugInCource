@@ -3,3 +3,8 @@
 
 #include "ProjectileWeapon.h"
 
+void AProjectileWeapon::Fire(const FVector& HitTarget)
+{
+	Super::Fire(HitTarget);
+	
+}
