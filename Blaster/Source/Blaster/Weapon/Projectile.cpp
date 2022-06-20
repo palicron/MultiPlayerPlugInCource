@@ -3,7 +3,7 @@
 
 #include "Projectile.h"
 #include "Components/BoxComponent.h"
-
+#include "GameFramework/ProjectileMovementComponent.h"
 
 
 // Sets default values
@@ -20,6 +20,10 @@ AProjectile::AProjectile()
 	CollisionBox->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
 	CollisionBox->SetCollisionResponseToChannel(ECC_Visibility,ECollisionResponse::ECR_Block);
 	CollisionBox->SetCollisionResponseToChannel(ECC_WorldStatic,ECollisionResponse::ECR_Block);
+
+	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovementCOmponent"));
+	ProjectileMovementComponent->bRotationFollowsVelocity = true;
+	
 }
 
 
