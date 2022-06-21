@@ -4,6 +4,8 @@
 #include "Projectile.h"
 #include "Components/BoxComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "Particles/ParticleSystem.h"
+#include "Kismet/GameplayStatics.h"
 
 
 // Sets default values
@@ -11,6 +13,7 @@ AProjectile::AProjectile()
 {
 
 	PrimaryActorTick.bCanEverTick = true;
+	bReplicates = true;
 
 	CollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("CollisionBox"));
 	SetRootComponent(CollisionBox);
@@ -30,6 +33,12 @@ AProjectile::AProjectile()
 void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
+
+	if(Tracer)
+	{
+		TraceComponent = UGameplayStatics::SpawnEmitterAttached(Tracer,CollisionBox,FName(),
+			GetActorLocation(),GetActorRotation(),EAttachLocation::KeepWorldPosition);
+	}
 	
 }
 
