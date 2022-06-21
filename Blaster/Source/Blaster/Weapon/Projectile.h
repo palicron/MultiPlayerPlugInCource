@@ -21,7 +21,9 @@ protected:
 
 	virtual void BeginPlay() override;
 
-
+	UFUNCTION()
+    virtual void OnHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+	virtual void Destroyed() override;
 private:
 	UPROPERTY(EditAnywhere)
 	UBoxComponent* CollisionBox;
@@ -34,8 +36,12 @@ private:
 
 	class UParticleSystemComponent* TraceComponent;
 
+	UPROPERTY(EditAnywhere)
+	UParticleSystem* ImpactParticles;
+	UPROPERTY(EditAnywhere)
+	class USoundCue* ImpactSound;
 public:	
-
+   
 
 
 };

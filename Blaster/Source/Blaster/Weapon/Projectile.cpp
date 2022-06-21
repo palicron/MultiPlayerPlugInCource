@@ -6,6 +6,7 @@
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Particles/ParticleSystem.h"
 #include "Kismet/GameplayStatics.h"
+#include "Sound/SoundCue.h"
 
 
 // Sets default values
@@ -39,8 +40,20 @@ void AProjectile::BeginPlay()
 		TraceComponent = UGameplayStatics::SpawnEmitterAttached(Tracer,CollisionBox,FName(),
 			GetActorLocation(),GetActorRotation(),EAttachLocation::KeepWorldPosition);
 	}
-	
+
+	if(HasAuthority())
+	{
+		CollisionBox->OnComponentHit.AddDynamic(this,&ThisClass::OnHit);
+	}
 }
+
+void AProjectile::OnHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiveComponent* OtherComp,
+	FVector NormalImpulse, const FHitResult& Hit)
+{
+
+	Destroy();
+}
+
 
 
 void AProjectile::Tick(float DeltaTime)
@@ -48,4 +61,18 @@ void AProjectile::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 }
+
+void AProjectile::Destroyed()
+{
+	Super::Destroyed();
+	if(ImpactParticles)
+	{
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(),ImpactParticles,GetActorTransform());
+	}
+	if(ImpactSound)
+	{
+		UGameplayStatics::PlaySoundAtLocation(this,ImpactSound,GetActorLocation());
+	}
+}
+
 
