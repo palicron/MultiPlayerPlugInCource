@@ -38,9 +38,9 @@ protected:
 	bool bFireButtonPress;
 
 	UFUNCTION(Server,Reliable)
-	void ServerFire();
+	void ServerFire(const FVector_NetQuantize& TraceHitTarget);
 	UFUNCTION(NetMulticast,Reliable)
-	void MultiCastFire();
+	void MultiCastFire(const FVector_NetQuantize& TraceHitTarget);
 
 	void TraceUnderCrossHair(FHitResult& TraceHitResult);
 
@@ -59,7 +59,7 @@ private:
 	UPROPERTY(EditAnywhere)
 	float AimWalkSpeed = 450.f;
 
-	FVector HitTarget;
+	
 
 	
 
