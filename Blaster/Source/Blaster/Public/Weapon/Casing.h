@@ -22,6 +22,13 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* CasingMesh;
 
+	UPROPERTY(EditAnywhere)
+	float ShellEjectionImpulse;
+
+	UPROPERTY(EditAnywhere)
+	class USoundCue* ShellSound;
+	UFUNCTION()
+	virtual void OnHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 public:
 	
 
