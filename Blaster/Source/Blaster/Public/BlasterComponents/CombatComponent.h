@@ -39,6 +39,10 @@ protected:
 
 	bool bFireButtonPress;
 
+	float CrossHairVelocityFactor;
+
+	float CroosHairInAirFactor;
+
 	UFUNCTION(Server,Reliable)
 	void ServerFire(const FVector_NetQuantize& TraceHitTarget);
 	UFUNCTION(NetMulticast,Reliable)

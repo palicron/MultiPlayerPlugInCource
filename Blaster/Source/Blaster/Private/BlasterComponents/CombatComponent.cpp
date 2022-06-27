@@ -153,6 +153,23 @@ void UCombatComponent::SetHUDCrosshairs(float DeltaTime)
 				HUDPackage.CrossHairUp= nullptr;
 				
 			}
+			//Calculate CrossHair Spread
+			FVector2d WalkSpeedRange(0.f,Character->GetCharacterMovement()->MaxWalkSpeed);
+			FVector2d VelocityMultiplayerRange(0.f,1.f);
+			FVector Velocity = Character->GetVelocity();
+			Velocity.Z = 0.f;
+			CrossHairVelocityFactor = FMath::GetMappedRangeValueClamped(WalkSpeedRange,VelocityMultiplayerRange,Velocity.Size());
+			if(Character->GetCharacterMovement()->IsFalling())
+			{
+				CroosHairInAirFactor = FMath::FInterpTo(CroosHairInAirFactor,2.25f,DeltaTime,2.25f);
+			}
+			else
+			{
+				CroosHairInAirFactor = FMath::FInterpTo(CroosHairInAirFactor,0.f,DeltaTime,30.f);
+			}
+
+
+			HUDPackage.CrossHairSpread = CrossHairVelocityFactor + CroosHairInAirFactor;
 			BlasterHUD->SetHUDPackage(HUDPackage);
 		
 		}

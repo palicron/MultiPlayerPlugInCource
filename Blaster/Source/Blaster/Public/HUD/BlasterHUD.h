@@ -21,6 +21,8 @@ struct FHUDPackage
 	UTexture2D*  CrossHairUp;
 	UPROPERTY(EditAnywhere,Category= CrossHair)
 	UTexture2D*  CrossHairDown;
+
+	float CrossHairSpread;
 };
 /**
  * 
@@ -36,7 +38,10 @@ public:
 private:
 	FHUDPackage HUDPackage;
 
-	void DrawCrossHair(UTexture2D* Texture,FVector2d ViewPOrtCenter);
+	void DrawCrossHair(UTexture2D* Texture,FVector2d ViewPOrtCenter,FVector2d Spread);
+
+	UPROPERTY(EditAnywhere)
+	float CrossHairPreadMax = 16.f;
 public:
 	FORCEINLINE void SetHUDPackage(const FHUDPackage Package) {HUDPackage=Package;}
 	
