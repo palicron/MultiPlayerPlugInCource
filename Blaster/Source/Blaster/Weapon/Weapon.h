@@ -7,6 +7,7 @@
 #include "Weapon.generated.h"
 class USphereComponent;
 class UWidgetComponent;
+class UTexture2D;
 UENUM(BlueprintType)
 enum class EWeaponState : uint8
 {
@@ -32,6 +33,17 @@ public:
 
 	
 	virtual void Fire(const FVector& HitTarget);
+	
+	UPROPERTY(EditAnywhere,Category= CrossHair)
+	UTexture2D*  CrossHairCenter;
+	UPROPERTY(EditAnywhere,Category= CrossHair)
+	UTexture2D*  CrossHairLeft;
+	UPROPERTY(EditAnywhere,Category= CrossHair)
+	UTexture2D*  CrossHairRight;
+	UPROPERTY(EditAnywhere,Category= CrossHair)
+	UTexture2D*  CrossHairUp;
+	UPROPERTY(EditAnywhere,Category= CrossHair)
+	UTexture2D*  CrossHairDown;
 
 protected:
 	
@@ -65,6 +77,10 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<class ACasing> CasingClass;
+	/** Tetures fro cross hairs**/
+
+
+	
 public:
 	 void SetWeaponeState(EWeaponState State);
 

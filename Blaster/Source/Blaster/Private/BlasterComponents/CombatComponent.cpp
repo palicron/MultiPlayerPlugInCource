@@ -9,6 +9,8 @@
 #include "Engine/SkeletalMeshSocket.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "blaster/Public/BlasterPlayerCtr/BlasterPlayerController.h"
+#include "blaster/Public/HUD/BlasterHUD.h"
 #include "Net/UnrealNetwork.h"
 
 
@@ -96,6 +98,8 @@ void UCombatComponent::TraceUnderCrossHair(FHitResult& TraceHitResult)
 	}
 }
 
+
+
 void UCombatComponent::MultiCastFire_Implementation(const FVector_NetQuantize& TraceHitTarget)
 {
 	if(EquippedWeapon==nullptr) return;
@@ -115,6 +119,44 @@ void UCombatComponent::ServerFire_Implementation(const FVector_NetQuantize& Trac
 void UCombatComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	SetHUDCrosshairs(DeltaTime);
+}
+
+void UCombatComponent::SetHUDCrosshairs(float DeltaTime)
+{
+	if(Character==nullptr || Character->Controller== nullptr)return;
+
+	Controller = Controller == nullptr ? Cast<ABlasterPlayerController>(Character->Controller):Controller;
+	if(Controller)
+	{
+		BlasterHUD = BlasterHUD == nullptr ? Cast<ABlasterHUD>(Controller->GetHUD()):BlasterHUD;
+		if(BlasterHUD)
+		{
+			FHUDPackage HUDPackage;
+			if(EquippedWeapon)
+			{
+			
+				HUDPackage.CrossHairCenter= EquippedWeapon->CrossHairCenter;
+				HUDPackage.CrossHairDown= EquippedWeapon->CrossHairDown;
+				HUDPackage.CrossHairLeft= EquippedWeapon->CrossHairLeft;
+				HUDPackage.CrossHairRight= EquippedWeapon->CrossHairRight;
+				HUDPackage.CrossHairUp= EquippedWeapon->CrossHairUp;
+				
+			}
+			else
+			{
+				HUDPackage.CrossHairCenter= nullptr;
+				HUDPackage.CrossHairDown= nullptr;
+				HUDPackage.CrossHairLeft= nullptr;
+				HUDPackage.CrossHairRight= nullptr;
+				HUDPackage.CrossHairUp= nullptr;
+				
+			}
+			BlasterHUD->SetHUDPackage(HUDPackage);
+		
+		}
+	}
 }
 
 void UCombatComponent::EquipWeapon(AWeapon* WeaponToEquip)

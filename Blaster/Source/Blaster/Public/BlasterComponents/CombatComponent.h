@@ -3,6 +3,8 @@
 #pragma once
 class ABlasterCharacter;
 class AWeapon;
+class ABlasterPlayerController;
+class ABlasterHUD;
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "CombatComponent.generated.h"
@@ -44,12 +46,17 @@ protected:
 
 	void TraceUnderCrossHair(FHitResult& TraceHitResult);
 
+	void SetHUDCrosshairs(float DeltaTime);
+
 private:
 	
 	UPROPERTY(ReplicatedUsing = OnRep_EquippedWeapon)
 	AWeapon* EquippedWeapon;
 	
 	ABlasterCharacter* Character;
+	ABlasterPlayerController* Controller;
+	ABlasterHUD* BlasterHUD;
+	
 	
     UPROPERTY(Replicated)
 	bool bAiming;
