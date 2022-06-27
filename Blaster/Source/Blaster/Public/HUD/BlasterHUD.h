@@ -35,6 +35,8 @@ public:
 
 private:
 	FHUDPackage HUDPackage;
+
+	void DrawCrossHair(UTexture2D* Texture,FVector2d ViewPOrtCenter);
 public:
 	FORCEINLINE void SetHUDPackage(const FHUDPackage Package) {HUDPackage=Package;}
 	
