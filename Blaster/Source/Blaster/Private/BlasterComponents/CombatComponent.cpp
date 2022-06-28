@@ -10,7 +10,6 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "blaster/Public/BlasterPlayerCtr/BlasterPlayerController.h"
-#include "blaster/Public/HUD/BlasterHUD.h"
 #include "Camera/CameraComponent.h"
 #include "Net/UnrealNetwork.h"
 
@@ -112,6 +111,14 @@ void UCombatComponent::TraceUnderCrossHair(FHitResult& TraceHitResult)
 			NohitResult.ImpactPoint = End;
 			TraceHitResult = NohitResult;
 		}
+		if(TraceHitResult.GetActor() && TraceHitResult.GetActor()->Implements<UInteractWithCrossHairsInterface>())
+		{
+			HUDPackage.CrossHairsColor = FLinearColor::Red;
+		}
+		else
+		{
+			HUDPackage.CrossHairsColor = FLinearColor::White;
+		}
 	}
 }
 
@@ -158,7 +165,7 @@ void UCombatComponent::SetHUDCrosshairs(float DeltaTime)
 		BlasterHUD = BlasterHUD == nullptr ? Cast<ABlasterHUD>(Controller->GetHUD()):BlasterHUD;
 		if(BlasterHUD)
 		{
-			FHUDPackage HUDPackage;
+		
 			if(EquippedWeapon)
 			{
 			

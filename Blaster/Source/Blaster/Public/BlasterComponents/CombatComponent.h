@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
+#include "HUD/BlasterHUD.h"
 class ABlasterCharacter;
 class AWeapon;
 class ABlasterPlayerController;
@@ -76,6 +77,7 @@ private:
 	UPROPERTY(EditAnywhere)
 	float AimWalkSpeed = 450.f;
 
+	FHUDPackage HUDPackage;
 	/**
 	 * Aiming and FOV
 	 */

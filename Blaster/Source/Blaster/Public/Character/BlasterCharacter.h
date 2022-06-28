@@ -6,6 +6,7 @@
 #include "BlasterComponents/CombatComponent.h"
 #include "GameFramework/Character.h"
 #include "Blaster/BlasterTypes/TurningInPlace.h"
+#include "Blaster/Public/Interfaces/InteractWithCrossHairsInterface.h"
 #include "BlasterCharacter.generated.h"
 class USpringArmComponent;
 class UCameraComponent;
@@ -14,7 +15,7 @@ class AWeapon;
 class UCombatComponent;
 
 UCLASS()
-class BLASTER_API ABlasterCharacter : public ACharacter
+class BLASTER_API ABlasterCharacter : public ACharacter,public IInteractWithCrossHairsInterface
 {
 	GENERATED_BODY()
 

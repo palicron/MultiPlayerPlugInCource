@@ -17,32 +17,32 @@ void ABlasterHUD::DrawHUD()
 		if(HUDPackage.CrossHairCenter)
 		{
 			FVector2d Spread(0.f);
-			DrawCrossHair(HUDPackage.CrossHairCenter,ViewportCenter,Spread);
+			DrawCrossHair(HUDPackage.CrossHairCenter,ViewportCenter,Spread,HUDPackage.CrossHairsColor);
 		}
 		if(HUDPackage.CrossHairDown)
 		{
 			FVector2d Spread(0.f,SpreadScale);
-			DrawCrossHair(HUDPackage.CrossHairDown,ViewportCenter,Spread);
+			DrawCrossHair(HUDPackage.CrossHairDown,ViewportCenter,Spread,HUDPackage.CrossHairsColor);
 		}
 		if(HUDPackage.CrossHairLeft)
 		{
 			FVector2d Spread(-SpreadScale,0.f);
-			DrawCrossHair(HUDPackage.CrossHairLeft,ViewportCenter,Spread);
+			DrawCrossHair(HUDPackage.CrossHairLeft,ViewportCenter,Spread,HUDPackage.CrossHairsColor);
 		}
 		if(HUDPackage.CrossHairRight)
 		{
 			FVector2d Spread(SpreadScale,0.f);
-			DrawCrossHair(HUDPackage.CrossHairRight,ViewportCenter,Spread);
+			DrawCrossHair(HUDPackage.CrossHairRight,ViewportCenter,Spread,HUDPackage.CrossHairsColor);
 		}
 		if(HUDPackage.CrossHairUp)
 		{
 			FVector2d Spread(0.f,-SpreadScale);
-			DrawCrossHair(HUDPackage.CrossHairUp,ViewportCenter,Spread);
+			DrawCrossHair(HUDPackage.CrossHairUp,ViewportCenter,Spread,HUDPackage.CrossHairsColor);
 		}
 	}
 }
 
-void ABlasterHUD::DrawCrossHair(UTexture2D* Texture, FVector2d ViewPOrtCenter,FVector2d Spread)
+void ABlasterHUD::DrawCrossHair(UTexture2D* Texture, FVector2d ViewPOrtCenter,FVector2d Spread,FLinearColor CrossHairColor)
 {
 	const float TextureWidth = Texture->GetSizeX();
 	const float TextureHeight = Texture->GetSizeY();
@@ -58,6 +58,6 @@ void ABlasterHUD::DrawCrossHair(UTexture2D* Texture, FVector2d ViewPOrtCenter,FV
 	TextureHeight,
 	0.f,0.f,
 	1.f,1.f,
-	FLinearColor::White
+	CrossHairColor
 	);
 }
