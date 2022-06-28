@@ -32,6 +32,8 @@ public:
 	virtual void PostInitializeComponents() override;
 
 	void PlayFireMontage(bool bAiming);
+
+	virtual void OnRep_ReplicatedMovement() override;
 	
 
 
@@ -49,7 +51,9 @@ protected:
 	void CrouchButtonPressed();
 	void AimButtonPressed();
 	void AimButtonReleased();
+	void Calculate_Pitch();
 	void AimOffSet(float DeltaTime);
+	void SimProxiesTurn();
 	virtual void Jump() override;
 	void FireButtonPressed();
 	void FireButtonRealese();
@@ -92,7 +96,15 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	float CameraTreshold=200.f;
-	
+
+	bool bRotateRootBone;
+	float TurnThreshold = 0.5f;
+	FRotator ProxyRotationLastFrame;
+	FRotator ProxyRotation;
+	float ProxyYaw;
+	float TimeSinceLastMovement;
+
+	float CalculateSpeed();
 public:
 	 void SetOverlappingWeapon(AWeapon* weapon);
 
@@ -111,6 +123,8 @@ public:
 	FVector GetHitTarget() const;
 
 	FORCEINLINE UCameraComponent* GetFollowCamera() const {return FollowCamera;}
+
+	FORCEINLINE bool ShouldRotateRootBone() const {return bRotateRootBone;}
 
 };
 

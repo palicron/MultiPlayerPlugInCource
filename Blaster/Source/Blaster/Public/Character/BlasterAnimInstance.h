@@ -20,7 +20,8 @@ public:
 	virtual void NativeInitializeAnimation() override;
 
 	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
-
+	UPROPERTY(BlueprintReadOnly)
+	bool bRotateRootBone;
 private:
 	UPROPERTY(BlueprintReadOnly,Category=Character,meta=(AllowPrivateAccess="true"))
 	ABlasterCharacter* BlasterCharacter;
@@ -65,4 +66,7 @@ private:
 	FRotator RightHandRotation;
 	UPROPERTY(BlueprintReadOnly, Category = Movement, meta = (AllowPrivateAccess = "true"))
 	bool bLocallyControle;
+
+
+	
 };
