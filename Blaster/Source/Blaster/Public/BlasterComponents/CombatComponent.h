@@ -72,9 +72,18 @@ private:
 	UPROPERTY(EditAnywhere)
 	float AimWalkSpeed = 450.f;
 
-	
+	/**
+	 * Aiming and FOV
+	 */
+	//Field of view when not aiming, set to the cameras base FOV
+	float DefaultFOV;
+	UPROPERTY(EditAnywhere,Category = Combat)
+	float ZoomedFOV = 30.f;
+	UPROPERTY(EditAnywhere,Category = Combat)
+	float ZoomInterpSeed = 20.f;
 
-	
+	float CurrentFOV;
 
-		
+	void InterpFOV(float DeltaTime);
+	
 };

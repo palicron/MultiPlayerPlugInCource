@@ -11,6 +11,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "blaster/Public/BlasterPlayerCtr/BlasterPlayerController.h"
 #include "blaster/Public/HUD/BlasterHUD.h"
+#include "Camera/CameraComponent.h"
 #include "Net/UnrealNetwork.h"
 
 
@@ -30,6 +31,12 @@ void UCombatComponent::BeginPlay()
 	if(Character)
 	{
 		Character->GetCharacterMovement()->MaxWalkSpeed = BaseWalkSpeed;
+
+		if(Character->GetFollowCamera())
+		{
+			DefaultFOV = Character->GetFollowCamera()->FieldOfView;
+			CurrentFOV = DefaultFOV;
+		}
 	}
 
 	
@@ -125,12 +132,14 @@ void UCombatComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	SetHUDCrosshairs(DeltaTime);
+	
 	if (Character && Character->IsLocallyControlled())
 	{
+		SetHUDCrosshairs(DeltaTime);
 		FHitResult HitResult;
 		TraceUnderCrossHair(HitResult);
 		HitTarget = HitResult.ImpactPoint;
+		InterpFOV(DeltaTime);
 	}
 }
 
@@ -184,6 +193,24 @@ void UCombatComponent::SetHUDCrosshairs(float DeltaTime)
 			BlasterHUD->SetHUDPackage(HUDPackage);
 		
 		}
+	}
+}
+
+void UCombatComponent::InterpFOV(float DeltaTime)
+{
+	if(EquippedWeapon == nullptr) return;
+
+	if(bAiming)
+	{
+		CurrentFOV = FMath::FInterpTo(CurrentFOV,EquippedWeapon->GetZoomedFOV(),DeltaTime,EquippedWeapon->GetZoomInterpSpeed());
+	}
+	else
+	{
+		CurrentFOV = FMath::FInterpTo(CurrentFOV,DefaultFOV,DeltaTime,ZoomInterpSeed);
+	}
+	if(Character && Character->GetFollowCamera())
+	{
+		Character->GetFollowCamera()->SetFieldOfView(CurrentFOV);
 	}
 }
 

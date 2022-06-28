@@ -79,13 +79,23 @@ private:
 	TSubclassOf<class ACasing> CasingClass;
 	/** Tetures fro cross hairs**/
 
-
+	/**
+	 * Zommed FOV while aiming
+	 **/
+	UPROPERTY(EditAnywhere)
+	float ZoomFOV = 30.f;
+	UPROPERTY(EditAnywhere)
+	float ZoomInterSpeed = 20.f;
 	
 public:
 	 void SetWeaponeState(EWeaponState State);
 
 	FORCEINLINE USphereComponent* GetAreSphere(){return AreaSphere;}
 	FORCEINLINE USkeletalMeshComponent* GetWeaponMesh() const {return WeaponMesh;}
+
+	FORCEINLINE float GetZoomedFOV() const {return ZoomFOV;}
+	FORCEINLINE float GetZoomInterpSpeed() const {return ZoomInterSpeed; };
+	
     
 	
 
