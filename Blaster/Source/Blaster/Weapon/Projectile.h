@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/BoxComponent.h"
 #include "GameFramework/Actor.h"
+
 #include "Projectile.generated.h"
 class UBoxComponent;
 UCLASS()

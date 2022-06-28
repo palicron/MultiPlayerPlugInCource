@@ -2,6 +2,9 @@
 
 
 #include "Projectile.h"
+
+#include "Character/BlasterCharacter.h"
+#include "Blaster/Blaster.h"
 #include "Components/BoxComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Particles/ParticleSystem.h"
@@ -24,7 +27,7 @@ AProjectile::AProjectile()
 	CollisionBox->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
 	CollisionBox->SetCollisionResponseToChannel(ECC_Visibility,ECollisionResponse::ECR_Block);
 	CollisionBox->SetCollisionResponseToChannel(ECC_WorldStatic,ECollisionResponse::ECR_Block);
-
+	CollisionBox->SetCollisionResponseToChannel(ECC_SkeletalMesh,ECollisionResponse::ECR_Block);
 	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovementCOmponent"));
 	ProjectileMovementComponent->bRotationFollowsVelocity = true;
 	
@@ -50,7 +53,11 @@ void AProjectile::BeginPlay()
 void AProjectile::OnHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiveComponent* OtherComp,
 	FVector NormalImpulse, const FHitResult& Hit)
 {
-
+    ABlasterCharacter* BlasterCharacter = Cast<ABlasterCharacter>(Other);
+	if(BlasterCharacter)
+	{
+		BlasterCharacter->MultiCastHit();
+	}
 	Destroy();
 }
 
@@ -64,7 +71,6 @@ void AProjectile::Tick(float DeltaTime)
 
 void AProjectile::Destroyed()
 {
-	Super::Destroyed();
 	if(ImpactParticles)
 	{
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(),ImpactParticles,GetActorTransform());
@@ -73,6 +79,8 @@ void AProjectile::Destroyed()
 	{
 		UGameplayStatics::PlaySoundAtLocation(this,ImpactSound,GetActorLocation());
 	}
+	Super::Destroyed();
+
 }
 
 

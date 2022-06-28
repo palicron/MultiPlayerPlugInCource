@@ -32,6 +32,11 @@ public:
 	virtual void PostInitializeComponents() override;
 
 	void PlayFireMontage(bool bAiming);
+	
+
+
+	UFUNCTION(NetMulticast,Unreliable)
+	void MultiCastHit();
 protected:
 
 	virtual void BeginPlay() override;
@@ -48,6 +53,7 @@ protected:
 	virtual void Jump() override;
 	void FireButtonPressed();
 	void FireButtonRealese();
+	void PlayHitReactMontage();
 	
 private:
 	UPROPERTY(VisibleAnywhere,Category= Camera)
@@ -80,7 +86,8 @@ private:
 
 	UPROPERTY(EditAnywhere,Category="Combat",meta = (AllowPrivateAccess="true"))
 	class UAnimMontage* FireWeaponeMontage;
-
+	UPROPERTY(EditAnywhere,Category="Combat",meta = (AllowPrivateAccess="true"))
+	 UAnimMontage* HitReactMontage;
 	void HideCameraIfCharacterClose();
 
 	UPROPERTY(EditAnywhere)
