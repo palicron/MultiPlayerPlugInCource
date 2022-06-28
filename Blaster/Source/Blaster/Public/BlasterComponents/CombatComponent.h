@@ -42,6 +42,10 @@ protected:
 	float CrossHairVelocityFactor;
 
 	float CroosHairInAirFactor;
+
+	float CrossHairAimFactor;
+
+	float CrossHairShootingFactor;
 	
 	FVector HitTarget;
 	

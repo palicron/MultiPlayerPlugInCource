@@ -78,6 +78,11 @@ void UCombatComponent::FireButtonPressed(bool ButtonPress)
 		FHitResult Hit;
 		TraceUnderCrossHair(Hit);
 		ServerFire(Hit.ImpactPoint);
+
+		if(EquippedWeapon)
+		{
+			CrossHairShootingFactor = 0.75f;
+		}
 	}
 	 
 
@@ -187,9 +192,17 @@ void UCombatComponent::SetHUDCrosshairs(float DeltaTime)
 			{
 				CroosHairInAirFactor = FMath::FInterpTo(CroosHairInAirFactor,0.f,DeltaTime,30.f);
 			}
-
-
-			HUDPackage.CrossHairSpread = CrossHairVelocityFactor + CroosHairInAirFactor;
+			if(bAiming)
+			{
+				CrossHairAimFactor = FMath::FInterpTo(CrossHairAimFactor,0.58f,DeltaTime,30.f);
+			}
+			else
+			{
+				CrossHairAimFactor = FMath::FInterpTo(CrossHairAimFactor,0.f,DeltaTime,30.f);
+			}
+			CrossHairShootingFactor =  FMath::FInterpTo(CrossHairShootingFactor,0.f,DeltaTime,40.f);
+			HUDPackage.CrossHairSpread = 0.5f + CrossHairVelocityFactor + CroosHairInAirFactor
+			+ CrossHairShootingFactor - CrossHairAimFactor;
 			BlasterHUD->SetHUDPackage(HUDPackage);
 		
 		}
