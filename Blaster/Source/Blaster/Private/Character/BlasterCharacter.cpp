@@ -5,6 +5,7 @@
 
 #include "Blaster/Blaster.h"
 #include "Blaster/Weapon/Weapon.h"
+#include "BlasterPlayerCtr/BlasterPlayerController.h"
 #include "Camera/CameraComponent.h"
 #include "Character/BlasterAnimInstance.h"
 #include "Components/CapsuleComponent.h"
@@ -63,6 +64,12 @@ void ABlasterCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Ou
 void ABlasterCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	BlastertPlayerCtr = Cast<ABlasterPlayerController>(Controller);
+	if(BlastertPlayerCtr)
+	{
+		BlastertPlayerCtr->SetHUDHealth(Health,MaxHealth);
+	}
 	
 }
 

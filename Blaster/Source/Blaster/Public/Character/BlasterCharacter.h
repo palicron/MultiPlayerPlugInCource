@@ -114,6 +114,7 @@ private:
 	UPROPERTY(ReplicatedUsing=OnRep_Health,VisibleAnywhere,Category="Player States")
 	float Health = 100.f;
 
+	class ABlasterPlayerController* BlastertPlayerCtr;
 	UFUNCTION()
 	void OnRep_Health();
 public:
