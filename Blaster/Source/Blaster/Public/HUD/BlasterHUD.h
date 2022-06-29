@@ -36,6 +36,14 @@ class BLASTER_API ABlasterHUD : public AHUD
 public:
 	virtual void DrawHUD() override;
 
+	
+	class UCharacterOverlay* CharacterOverlay;
+	UPROPERTY(EditAnywhere,Category="Player Stats")
+	TSubclassOf<class UUserWidget> CharacterOverlayClass;
+protected:
+	virtual void BeginPlay() override;
+
+	void AddCharacterOverlay();
 private:
 	FHUDPackage HUDPackage;
 
@@ -45,5 +53,6 @@ private:
 	float CrossHairPreadMax = 16.f;
 public:
 	FORCEINLINE void SetHUDPackage(const FHUDPackage Package) {HUDPackage=Package;}
+	
 	
 };
