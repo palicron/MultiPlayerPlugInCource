@@ -11,6 +11,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "blaster/Public/BlasterPlayerCtr/BlasterPlayerController.h"
 #include "Camera/CameraComponent.h"
+#include "TimerManager.h"
 #include "Net/UnrealNetwork.h"
 
 
@@ -68,23 +69,52 @@ void UCombatComponent::OnRep_EquippedWeapon()
 	}
 }
 
+void UCombatComponent::Fire()
+{
+	if(bCanFire)
+	{
+		
+		ServerFire(HitTarget);
+		if(EquippedWeapon)
+		{
+			CrossHairShootingFactor = 0.75f;
+		}
+		StartFireTimer();
+	}
+}
+
+void UCombatComponent::ServerFire_Implementation(const FVector_NetQuantize& TraceHitTarget)
+{
+	MultiCastFire(TraceHitTarget);
+}
+
 void UCombatComponent::FireButtonPressed(bool ButtonPress)
 {
 	bFireButtonPress=ButtonPress;
     
 	if(bFireButtonPress)
 	{
-		FHitResult Hit;
-		TraceUnderCrossHair(Hit);
-		ServerFire(Hit.ImpactPoint);
-
-		if(EquippedWeapon)
-		{
-			CrossHairShootingFactor = 0.75f;
-		}
+		Fire();
 	}
-	 
+	
 
+}
+
+void UCombatComponent::StartFireTimer()
+{
+	if(EquippedWeapon == nullptr || Character == nullptr) return;
+	bCanFire = false;
+	Character->GetWorldTimerManager().SetTimer(FireTimer,this,&UCombatComponent::FireTimerFinish,EquippedWeapon->FireDelay);
+}
+
+void UCombatComponent::FireTimerFinish()
+{
+	if (EquippedWeapon == nullptr) return;
+	bCanFire = true;
+	if(bFireButtonPress && EquippedWeapon->bAutomatic)
+	{
+		Fire();
+	}
 }
 
 void UCombatComponent::TraceUnderCrossHair(FHitResult& TraceHitResult)
@@ -127,8 +157,6 @@ void UCombatComponent::TraceUnderCrossHair(FHitResult& TraceHitResult)
 	}
 }
 
-
-
 void UCombatComponent::MultiCastFire_Implementation(const FVector_NetQuantize& TraceHitTarget)
 {
 	if(EquippedWeapon==nullptr) return;
@@ -139,10 +167,6 @@ void UCombatComponent::MultiCastFire_Implementation(const FVector_NetQuantize& T
 	}
 }
 
-void UCombatComponent::ServerFire_Implementation(const FVector_NetQuantize& TraceHitTarget)
-{
-	MultiCastFire(TraceHitTarget);
-}
 
 
 void UCombatComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
@@ -238,6 +262,8 @@ void UCombatComponent::InterpFOV(float DeltaTime)
 		Character->GetFollowCamera()->SetFieldOfView(CurrentFOV);
 	}
 }
+
+
 
 void UCombatComponent::EquipWeapon(AWeapon* WeaponToEquip)
 {

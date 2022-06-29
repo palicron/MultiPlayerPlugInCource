@@ -35,6 +35,7 @@ protected:
 	void ServerSetAiming(bool bIsAiming);
 	UFUNCTION()
 	void OnRep_EquippedWeapon();
+	void Fire();
 
 	void FireButtonPressed(bool ButtonPress);
 
@@ -91,5 +92,15 @@ private:
 	float CurrentFOV;
 
 	void InterpFOV(float DeltaTime);
-	
+
+	/**
+	 *Auto Fire
+	 ***/
+	FTimerHandle FireTimer;
+
+
+	bool bCanFire = true;
+
+	void StartFireTimer();
+	void FireTimerFinish();
 };
