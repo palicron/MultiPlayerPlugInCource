@@ -60,15 +60,24 @@ void ABlasterCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Ou
 }
 
 
+void ABlasterCharacter::UpdateHudHealth()
+{
+	BlastertPlayerCtr = BlastertPlayerCtr==nullptr ?Cast<ABlasterPlayerController>(Controller):BlastertPlayerCtr;
+	if(BlastertPlayerCtr)
+	{
+		BlastertPlayerCtr->SetHUDHealth(Health,MaxHealth);
+	}
+}
 
 void ABlasterCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	BlastertPlayerCtr = Cast<ABlasterPlayerController>(Controller);
-	if(BlastertPlayerCtr)
+	UpdateHudHealth();
+
+	if(HasAuthority())
 	{
-		BlastertPlayerCtr->SetHUDHealth(Health,MaxHealth);
+		OnTakeAnyDamage.AddDynamic(this,&ABlasterCharacter::ReceiveDamage);
 	}
 	
 }
@@ -137,10 +146,15 @@ void ABlasterCharacter::PlayHitReactMontage()
 	}
 }
 
-void ABlasterCharacter::MultiCastHit_Implementation()
+void ABlasterCharacter::ReceiveDamage(AActor* DamgeActor, float Damage, const UDamageType* DamageType,
+	AController* InstigatorController, AActor* DamageCauser)
 {
+	Health = FMath::Clamp(Health-Damage,0.f,MaxHealth);
+
 	PlayHitReactMontage();
+	UpdateHudHealth();
 }
+
 
 
 void ABlasterCharacter::Tick(float DeltaTime)
@@ -403,6 +417,8 @@ float ABlasterCharacter::CalculateSpeed()
 
 void ABlasterCharacter::OnRep_Health()
 {
+	PlayHitReactMontage();
+	UpdateHudHealth();
 }
 
 void ABlasterCharacter::SetOverlappingWeapon(AWeapon* weapon)

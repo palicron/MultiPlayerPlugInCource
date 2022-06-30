@@ -28,17 +28,14 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	
 
 	virtual void PostInitializeComponents() override;
 
 	void PlayFireMontage(bool bAiming);
 
 	virtual void OnRep_ReplicatedMovement() override;
-	
 
-
-	UFUNCTION(NetMulticast,Unreliable)
-	void MultiCastHit();
 protected:
 
 	virtual void BeginPlay() override;
@@ -58,6 +55,11 @@ protected:
 	void FireButtonPressed();
 	void FireButtonRealese();
 	void PlayHitReactMontage();
+
+	UFUNCTION()
+	void ReceiveDamage(AActor* DamgeActor,float Damage,const UDamageType* DamageType,class AController* InstigatorController,AActor* DamageCauser);
+
+	void UpdateHudHealth();
 	
 private:
 	UPROPERTY(VisibleAnywhere,Category= Camera)
