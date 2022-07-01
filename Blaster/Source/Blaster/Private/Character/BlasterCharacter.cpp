@@ -12,6 +12,7 @@
 #include "Components/WidgetComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "GameMode/BlasterGameMode.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Net/UnrealNetwork.h"
 
@@ -133,6 +134,11 @@ void ABlasterCharacter::OnRep_ReplicatedMovement()
 	TimeSinceLastMovement = 0.f;
 }
 
+void ABlasterCharacter::Elim()
+{
+	
+}
+
 void ABlasterCharacter::PlayHitReactMontage()
 {
 	if(Combat==nullptr || Combat->EquippedWeapon==nullptr) return;
@@ -153,6 +159,18 @@ void ABlasterCharacter::ReceiveDamage(AActor* DamgeActor, float Damage, const UD
 
 	PlayHitReactMontage();
 	UpdateHudHealth();
+
+	if(Health==0.f)
+	{
+		ABlasterGameMode* BlasterGameMode = GetWorld()->GetAuthGameMode<ABlasterGameMode>();
+		if(BlasterGameMode)
+		{
+			BlastertPlayerCtr = BlastertPlayerCtr==nullptr?Cast<ABlasterPlayerController>(Controller):BlastertPlayerCtr;
+			ABlasterPlayerController* attackerCtr = Cast<ABlasterPlayerController>(InstigatorController);
+			BlasterGameMode->PlayerEliminated(this,BlastertPlayerCtr,attackerCtr);
+		}
+	}
+
 }
 
 

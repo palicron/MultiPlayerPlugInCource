@@ -8,14 +8,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="af172d45-ccab-490a-95b1-bf10e17b63a3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/BluePrints/Weapon/BP_AssaultRifle.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BluePrints/Weapon/BP_AssaultRifle.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Private/Character/BlasterCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Private/Character/BlasterCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Public/Character/BlasterCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Public/Character/BlasterCharacter.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Projectile.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Projectile.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Projectile.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Projectile.h" afterDir="false" />
-    </list>
+    <list default="true" id="af172d45-ccab-490a-95b1-bf10e17b63a3" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -266,7 +259,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1652898617594</updated>
-      <workItem from="1656612010063" duration="3384000" />
+      <workItem from="1656612010063" duration="3422000" />
     </task>
     <servers />
   </component>

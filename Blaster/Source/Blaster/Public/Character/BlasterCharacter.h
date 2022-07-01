@@ -36,6 +36,8 @@ public:
 
 	virtual void OnRep_ReplicatedMovement() override;
 
+	void Elim();
+
 protected:
 
 	virtual void BeginPlay() override;
@@ -135,6 +137,8 @@ public:
 	AWeapon* GetEquippedWeapone() const;
 
 	FVector GetHitTarget() const;
+
+	
 
 	FORCEINLINE UCameraComponent* GetFollowCamera() const {return FollowCamera;}
 
