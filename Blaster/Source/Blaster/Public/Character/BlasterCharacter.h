@@ -28,14 +28,15 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
-	
 
 	virtual void PostInitializeComponents() override;
+	
+	virtual void OnRep_ReplicatedMovement() override;
 
 	void PlayFireMontage(bool bAiming);
 
-	virtual void OnRep_ReplicatedMovement() override;
-
+	void PLayElimMontage();
+	UFUNCTION(NetMulticast,Reliable)
 	void Elim();
 
 protected:
@@ -86,6 +87,7 @@ private:
 	float InterpAO_Yaw;
 
 	float AO_Pitch;
+	
 	FRotator StartingAimRotation;
 
 	 ETurningInPlace TurningInPlace;
@@ -95,7 +97,9 @@ private:
 	UPROPERTY(EditAnywhere,Category="Combat",meta = (AllowPrivateAccess="true"))
 	class UAnimMontage* FireWeaponeMontage;
 	UPROPERTY(EditAnywhere,Category="Combat",meta = (AllowPrivateAccess="true"))
-	 UAnimMontage* HitReactMontage;
+	UAnimMontage* HitReactMontage;
+	UPROPERTY(EditAnywhere,Category="Combat",meta = (AllowPrivateAccess="true"))
+	UAnimMontage* ElimMontage;
 	void HideCameraIfCharacterClose();
 
 	UPROPERTY(EditAnywhere)
@@ -119,6 +123,8 @@ private:
 	float Health = 100.f;
 
 	class ABlasterPlayerController* BlastertPlayerCtr;
+
+	bool bElim=false;
 	UFUNCTION()
 	void OnRep_Health();
 public:
@@ -128,17 +134,18 @@ public:
 
 	bool IsAiming();
 
+	AWeapon* GetEquippedWeapone() const;
+
+	FVector GetHitTarget() const;
+
+
 	FORCEINLINE float GetAO_Yaw() const {return AO_Yaw;}
 
 	FORCEINLINE float GetAO_Pitch() const {return AO_Pitch;}
 
 	FORCEINLINE ETurningInPlace GetTurningInPlace() const {return TurningInPlace;}
 	
-	AWeapon* GetEquippedWeapone() const;
-
-	FVector GetHitTarget() const;
-
-	
+	FORCEINLINE bool IsElimmed() {return bElim;};
 
 	FORCEINLINE UCameraComponent* GetFollowCamera() const {return FollowCamera;}
 
