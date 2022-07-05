@@ -138,10 +138,25 @@ void ABlasterCharacter::PLayElimMontage()
 	}
 }
 
-void ABlasterCharacter::Elim_Implementation()
+void ABlasterCharacter::Elim()
+{
+	MulticasElim();
+	GetWorldTimerManager().SetTimer(EliminTimer,this,&ABlasterCharacter::ElimTimerFinish,ElimDelay);
+}
+
+void ABlasterCharacter::MulticasElim_Implementation()
 {
 	bElim = true;
 	PLayElimMontage();
+}
+
+void ABlasterCharacter::ElimTimerFinish()
+{
+	ABlasterGameMode* BlasterGameMode = GetWorld()->GetAuthGameMode<ABlasterGameMode>();
+	if(BlasterGameMode)
+	{
+		BlasterGameMode->RequestRespawn(this,Controller);
+	}
 }
 
 void ABlasterCharacter::OnRep_ReplicatedMovement()
@@ -452,6 +467,8 @@ void ABlasterCharacter::OnRep_Health()
 	UpdateHudHealth();
 }
 
+
+
 void ABlasterCharacter::SetOverlappingWeapon(AWeapon* weapon)
 {
 	if(OverLappingWeapon)
@@ -467,7 +484,6 @@ void ABlasterCharacter::SetOverlappingWeapon(AWeapon* weapon)
 		}
 	}
 }
-
 
 
 void ABlasterCharacter::OnRep_OverlappingWeapon(AWeapon* LastWeapon)

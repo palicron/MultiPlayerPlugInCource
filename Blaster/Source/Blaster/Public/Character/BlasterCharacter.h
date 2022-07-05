@@ -36,8 +36,9 @@ public:
 	void PlayFireMontage(bool bAiming);
 
 	void PLayElimMontage();
-	UFUNCTION(NetMulticast,Reliable)
 	void Elim();
+	UFUNCTION(NetMulticast,Reliable)
+	void MulticasElim();
 
 protected:
 
@@ -127,6 +128,13 @@ private:
 	bool bElim=false;
 	UFUNCTION()
 	void OnRep_Health();
+
+	FTimerHandle EliminTimer;
+	
+	void ElimTimerFinish();
+	
+	UPROPERTY(EditDefaultsOnly)
+	float ElimDelay = 3.0f;
 public:
 	 void SetOverlappingWeapon(AWeapon* weapon);
 
