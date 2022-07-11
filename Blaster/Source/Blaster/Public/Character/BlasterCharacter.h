@@ -7,6 +7,8 @@
 #include "GameFramework/Character.h"
 #include "Blaster/BlasterTypes/TurningInPlace.h"
 #include "Blaster/Public/Interfaces/InteractWithCrossHairsInterface.h"
+#include "Components/TimelineComponent.h"
+
 #include "BlasterCharacter.generated.h"
 class USpringArmComponent;
 class UCameraComponent;
@@ -135,6 +137,29 @@ private:
 	
 	UPROPERTY(EditDefaultsOnly)
 	float ElimDelay = 3.0f;
+	/**
+	 * Disolve Affect
+	 ***/
+
+	UPROPERTY(VisibleAnywhere)
+	UTimelineComponent* DissolbeTimeline;
+
+	FOnTimelineFloat DissolverTrack;
+
+	UFUNCTION()
+	void UpdateDissolveMaterial(float DissolveValue);
+
+	void StartDissolve();
+
+	UPROPERTY(EditAnywhere)
+	UCurveFloat* DisolveCurve;
+
+	UPROPERTY(VisibleAnywhere,Category="Elim")
+	UMaterialInstanceDynamic* DynamicDesolveMaterialIntance;
+
+	UPROPERTY(EditAnywhere,Category="Elim")
+	UMaterialInstance* DesolveMaterialIntance;
+	
 public:
 	 void SetOverlappingWeapon(AWeapon* weapon);
 

@@ -51,6 +51,8 @@ ABlasterCharacter::ABlasterCharacter()
 
 	NetUpdateFrequency = 66.f;
 	MinNetUpdateFrequency = 33.f;
+
+	DissolbeTimeline = CreateDefaultSubobject<UTimelineComponent>(TEXT("DessolveTImeLineComponent"));
 }
 
 void ABlasterCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -148,6 +150,15 @@ void ABlasterCharacter::MulticasElim_Implementation()
 {
 	bElim = true;
 	PLayElimMontage();
+
+	if(DesolveMaterialIntance)
+	{
+		DynamicDesolveMaterialIntance = UMaterialInstanceDynamic::Create(DesolveMaterialIntance,this);
+		GetMesh()->SetMaterial(0,DynamicDesolveMaterialIntance);
+		DynamicDesolveMaterialIntance->SetScalarParameterValue(TEXT("Disolve"),-0.55f);
+		DynamicDesolveMaterialIntance->SetScalarParameterValue(TEXT("Glow"),150.f);
+	}
+	StartDissolve();
 }
 
 void ABlasterCharacter::ElimTimerFinish()
@@ -468,6 +479,23 @@ void ABlasterCharacter::OnRep_Health()
 }
 
 
+void ABlasterCharacter::UpdateDissolveMaterial(float DissolveValue)
+{
+	if(DynamicDesolveMaterialIntance)
+	{
+		DynamicDesolveMaterialIntance->SetScalarParameterValue(TEXT("Disolve"),DissolveValue);
+	}
+}
+
+void ABlasterCharacter::StartDissolve()
+{
+	DissolverTrack.BindDynamic(this,&ABlasterCharacter::UpdateDissolveMaterial);
+	if(DisolveCurve && DissolbeTimeline)
+	{
+		DissolbeTimeline->AddInterpFloat(DisolveCurve,DissolverTrack);
+		DissolbeTimeline->Play();
+	}
+}
 
 void ABlasterCharacter::SetOverlappingWeapon(AWeapon* weapon)
 {
