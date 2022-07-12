@@ -33,6 +33,8 @@ public:
 
 	
 	virtual void Fire(const FVector& HitTarget);
+
+	void Dropped();
 	
 	UPROPERTY(EditAnywhere,Category= CrossHair)
 	UTexture2D*  CrossHairCenter;

@@ -142,6 +142,10 @@ void ABlasterCharacter::PLayElimMontage()
 
 void ABlasterCharacter::Elim()
 {
+	if(Combat && Combat->EquippedWeapon)
+	{
+		Combat->EquippedWeapon->Dropped();
+	}
 	MulticasElim();
 	GetWorldTimerManager().SetTimer(EliminTimer,this,&ABlasterCharacter::ElimTimerFinish,ElimDelay);
 }
@@ -159,6 +163,17 @@ void ABlasterCharacter::MulticasElim_Implementation()
 		DynamicDesolveMaterialIntance->SetScalarParameterValue(TEXT("Glow"),150.f);
 	}
 	StartDissolve();
+
+	//Disable Character movement
+	GetCharacterMovement()->DisableMovement();
+	GetCharacterMovement()->StopMovementImmediately();
+	if(BlastertPlayerCtr)
+	{
+		DisableInput(BlastertPlayerCtr);
+	}
+	//Disable collision
+	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
 void ABlasterCharacter::ElimTimerFinish()
