@@ -9,6 +9,7 @@
 #include "Blaster/Public/Interfaces/InteractWithCrossHairsInterface.h"
 #include "Components/TimelineComponent.h"
 
+
 #include "BlasterCharacter.generated.h"
 class USpringArmComponent;
 class UCameraComponent;
@@ -41,6 +42,8 @@ public:
 	void Elim();
 	UFUNCTION(NetMulticast,Reliable)
 	void MulticasElim();
+
+	virtual void Destroyed() override;
 
 protected:
 
@@ -159,7 +162,19 @@ private:
 
 	UPROPERTY(EditAnywhere,Category="Elim")
 	UMaterialInstance* DesolveMaterialIntance;
+
+	/*
+	 * Elim Bot
+	 */
+
+	UPROPERTY(EditAnywhere)
+	UParticleSystem* ElimBotEffect;
 	
+	UPROPERTY(VisibleAnywhere)
+	UParticleSystemComponent* ElimBotComponet;
+
+	UPROPERTY(EditAnywhere)
+	class USoundCue* ElimBotSound;
 public:
 	 void SetOverlappingWeapon(AWeapon* weapon);
 
