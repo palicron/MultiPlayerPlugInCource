@@ -17,6 +17,7 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "Net/UnrealNetwork.h"
 #include "Particles/ParticleSystemComponent.h"
+#include "PlayerState/BlasterPlayerState.h"
 #include "Sound/SoundCue.h"
 
 
@@ -72,6 +73,18 @@ void ABlasterCharacter::UpdateHudHealth()
 	if(BlastertPlayerCtr)
 	{
 		BlastertPlayerCtr->SetHUDHealth(Health,MaxHealth);
+	}
+}
+
+void ABlasterCharacter::PollInit()
+{
+	if(BlasterPlayerState == nullptr)
+	{
+		BlasterPlayerState = GetPlayerState<ABlasterPlayerState>();
+		if(BlasterPlayerState)
+		{
+			BlasterPlayerState->AddToScore(0.f);
+		}
 	}
 }
 
@@ -271,7 +284,7 @@ void ABlasterCharacter::Tick(float DeltaTime)
 
 	
 	HideCameraIfCharacterClose();
-	
+	PollInit();
 }
 
 

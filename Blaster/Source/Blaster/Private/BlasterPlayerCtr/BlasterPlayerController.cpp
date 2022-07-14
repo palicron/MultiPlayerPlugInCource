@@ -32,6 +32,8 @@ void ABlasterPlayerController::SetHUDHealth(float Health, float MaxHealth)
 	}
 }
 
+
+
 void ABlasterPlayerController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
@@ -40,5 +42,15 @@ void ABlasterPlayerController::OnPossess(APawn* InPawn)
 	if(BlasterCharacter)
 	{
 		SetHUDHealth(BlasterCharacter->GetHealth(),BlasterCharacter->GetMaxHealth());
+	}
+}
+
+void ABlasterPlayerController::SetHUDScore(float Score)
+{
+	BlasterHUD = BlasterHUD==nullptr?Cast<ABlasterHUD>(GetHUD()):BlasterHUD;
+	if(BlasterHUD && BlasterHUD->CharacterOverlay && BlasterHUD->CharacterOverlay->ScoreAmount)
+	{
+		FString ScorText = FString::Printf(TEXT("%d"),FMath::FloorToInt(Score));
+		BlasterHUD->CharacterOverlay->ScoreAmount->SetText(FText::FromString(ScorText));
 	}
 }
