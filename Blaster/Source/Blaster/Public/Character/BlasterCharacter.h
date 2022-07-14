@@ -98,7 +98,7 @@ private:
 	
 	FRotator StartingAimRotation;
 
-	 ETurningInPlace TurningInPlace;
+	ETurningInPlace TurningInPlace;
 
 	void TurnInPlace(float DeltaTime);
 
@@ -177,7 +177,7 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	class USoundCue* ElimBotSound;
-
+	UPROPERTY()
 	class ABlasterPlayerState* BlasterPlayerState;
 public:
 	 void SetOverlappingWeapon(AWeapon* weapon);
@@ -185,6 +185,7 @@ public:
 	bool IsWeaponEquipped();
 
 	bool IsAiming();
+	
 
 	AWeapon* GetEquippedWeapone() const;
 
