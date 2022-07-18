@@ -78,7 +78,7 @@ void UCombatComponent::OnRep_EquippedWeapon()
 
 void UCombatComponent::Fire()
 {
-	if(bCanFire)
+	if(CanFire())
 	{
 		
 		ServerFire(HitTarget);
@@ -122,6 +122,16 @@ void UCombatComponent::FireTimerFinish()
 	{
 		Fire();
 	}
+}
+
+bool UCombatComponent::CanFire() const
+{
+	if(EquippedWeapon == nullptr)
+	{
+		return  false;
+	}
+
+	return !EquippedWeapon->IsEmpty() || !bCanFire;
 }
 
 void UCombatComponent::TraceUnderCrossHair(FHitResult& TraceHitResult)
