@@ -178,6 +178,10 @@ void ABlasterCharacter::Elim()
 
 void ABlasterCharacter::MulticasElim_Implementation()
 {
+	if(BlastertPlayerCtr)
+	{
+		BlastertPlayerCtr->SetHUDWeaponAmmo(0);
+	}
 	bElim = true;
 	PLayElimMontage();
 

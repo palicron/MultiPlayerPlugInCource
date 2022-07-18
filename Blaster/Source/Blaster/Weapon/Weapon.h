@@ -58,6 +58,7 @@ public:
 	UPROPERTY(EditAnywhere,Category = Combat)
 	bool bAutomatic = true;
 
+	void SetHUDAmmo();
 protected:
 	
 	virtual void BeginPlay() override;
@@ -69,6 +70,22 @@ protected:
 		int32 OtherBodyIndex);
 
 private:
+
+	/**
+	* Zommed FOV while aiming
+	**/
+	UPROPERTY(EditAnywhere)
+	float ZoomFOV = 30.f;
+	UPROPERTY(EditAnywhere)
+	float ZoomInterSpeed = 20.f;
+	UPROPERTY(ReplicatedUsing=OnRep_Ammo, EditAnywhere)
+	int32 Ammo;
+	UPROPERTY(EditAnywhere)
+	int32 MagCapacity;
+	UPROPERTY()
+	class ABlasterCharacter* BlasterOwnerCharacter;
+	UPROPERTY()
+	class ABlasterPlayerController* BlasterOwnerController;
 	
 	UPROPERTY(ReplicatedUsing= OnRep_WeaponState, VisibleAnywhere,Category= "Weapon Properties")
 	EWeaponState WeaponState;
@@ -84,21 +101,21 @@ private:
 
 	UFUNCTION()
 	void OnRep_WeaponState();
-
+	
+	UFUNCTION()
+	void OnRep_Ammo();
+	
 	UPROPERTY(EditAnywhere,Category="Weapon propertis")
 	class UAnimationAsset* FireAnimation;
+
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<class ACasing> CasingClass;
 	/** Tetures fro cross hairs**/
 
-	/**
-	 * Zommed FOV while aiming
-	 **/
-	UPROPERTY(EditAnywhere)
-	float ZoomFOV = 30.f;
-	UPROPERTY(EditAnywhere)
-	float ZoomInterSpeed = 20.f;
+	void SpendRound();
+
+	virtual void OnRep_Owner() override;
 	
 public:
 	 void SetWeaponeState(EWeaponState State);

@@ -6,6 +6,7 @@
 #include "Components/SphereComponent.h"
 #include "Components/WidgetComponent.h"
 #include "Blaster/Public/Character/BlasterCharacter.h"
+#include "BlasterPlayerCtr/BlasterPlayerController.h"
 #include "Engine/SkeletalMeshSocket.h"
 #include "Net/UnrealNetwork.h"
 #include "Weapon/Casing.h"
@@ -33,6 +34,19 @@ AWeapon::AWeapon()
 	PickUpWidget->SetupAttachment(RootComponent);
 }
 
+
+void AWeapon::SetHUDAmmo()
+{
+	BlasterOwnerCharacter = BlasterOwnerCharacter == nullptr ? Cast<ABlasterCharacter>(GetOwner()) : BlasterOwnerCharacter;
+	if(BlasterOwnerCharacter)
+	{
+		BlasterOwnerController = BlasterOwnerController== nullptr ? Cast<ABlasterPlayerController>(BlasterOwnerCharacter->Controller) : BlasterOwnerController;
+		if(BlasterOwnerController)
+		{
+			BlasterOwnerController->SetHUDWeaponAmmo(Ammo);
+		}
+	}
+}
 
 void AWeapon::BeginPlay()
 {
@@ -64,6 +78,7 @@ void AWeapon::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeP
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	DOREPLIFETIME(AWeapon,WeaponState);
+	DOREPLIFETIME(AWeapon,Ammo);
 }
 
 void AWeapon::Fire(const FVector& HitTarget)
@@ -93,6 +108,7 @@ void AWeapon::Fire(const FVector& HitTarget)
 		
 		}
 	}
+	SpendRound();
 }
 
 void AWeapon::Dropped()
@@ -101,6 +117,8 @@ void AWeapon::Dropped()
 	FDetachmentTransformRules Detache(EDetachmentRule::KeepWorld,true);
 	WeaponMesh->DetachFromComponent(Detache);
 	SetOwner(nullptr);
+	BlasterOwnerController = nullptr;
+	BlasterOwnerCharacter = nullptr;
 }
 
 void AWeapon::OnSphereOverlap(UPrimitiveComponent* Overlap, AActor* OtherActor, UPrimitiveComponent* otherComp,
@@ -145,6 +163,7 @@ void AWeapon::OnRep_WeaponState()
 	}
 }
 
+
 void AWeapon::SetWeaponeState(EWeaponState State)
 {
 	WeaponState = State;
@@ -180,5 +199,31 @@ void AWeapon::ShowPickUpWidget(bool BShowWidget)
 		PickUpWidget->SetVisibility(BShowWidget);
 	}
 }
+
+void AWeapon::OnRep_Ammo()
+{
+	SetHUDAmmo();
+}
+
+void AWeapon::SpendRound()
+{
+	Ammo--;
+	SetHUDAmmo();
+}
+
+void AWeapon::OnRep_Owner()
+{
+	Super::OnRep_Owner();
+	if(Owner == nullptr)
+	{
+		BlasterOwnerCharacter = nullptr;
+		BlasterOwnerController = nullptr;
+	}
+	else
+	{
+		SetHUDAmmo();
+	}
+}
+
 
 
