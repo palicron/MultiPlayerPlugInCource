@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Weapon/WeaponTypes.h"
 #include "Weapon.generated.h"
 class USphereComponent;
 class UWidgetComponent;
@@ -30,7 +31,6 @@ public:
 	void ShowPickUpWidget(bool BShowWidget);
 
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
-
 	
 	virtual void Fire(const FVector& HitTarget);
 
@@ -46,8 +46,7 @@ public:
 	UTexture2D*  CrossHairUp;
 	UPROPERTY(EditAnywhere,Category= CrossHair)
 	UTexture2D*  CrossHairDown;
-
-
+	
 	/**
 	 * Automatic fire
 	 */
@@ -116,6 +115,9 @@ private:
 	void SpendRound();
 
 	virtual void OnRep_Owner() override;
+
+	UPROPERTY(EditAnywhere)
+	EWeaponType WeaponType;
 	
 public:
 	 void SetWeaponeState(EWeaponState State);
@@ -126,6 +128,7 @@ public:
 	FORCEINLINE float GetZoomedFOV() const {return ZoomFOV;}
 	FORCEINLINE float GetZoomInterpSpeed() const {return ZoomInterSpeed; };
 	FORCEINLINE bool IsEmpty() const { return Ammo <= 0; };
+	FORCEINLINE EWeaponType GetWeaponType() const {return WeaponType;}
 	
     
 	
