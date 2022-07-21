@@ -2,6 +2,7 @@
 
 #pragma once
 #include "HUD/BlasterHUD.h"
+#include "Weapon/WeaponTypes.h"
 class ABlasterCharacter;
 class AWeapon;
 class ABlasterPlayerController;
@@ -97,12 +98,20 @@ private:
 	 *Auto Fire
 	 ***/
 	FTimerHandle FireTimer;
-
-
+	
 	bool bCanFire = true;
 
 	void StartFireTimer();
+	
 	void FireTimerFinish();
 
 	bool CanFire() const;
+
+	UPROPERTY(ReplicatedUsing=OnRep_CarriedAmmo)
+	int32 CarriedAmmo = 0;
+	
+	TMap<EWeaponType,int32> CarriedAmmoMap;
+
+	UFUNCTION()
+	void OnRep_CarriedAmmo();
 };
