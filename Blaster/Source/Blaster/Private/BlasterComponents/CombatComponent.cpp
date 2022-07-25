@@ -267,6 +267,7 @@ void UCombatComponent::SetHUDCrosshairs(float DeltaTime)
 	}
 }
 
+
 void UCombatComponent::InterpFOV(float DeltaTime)
 {
 	if(EquippedWeapon == nullptr) return;
@@ -322,7 +323,20 @@ void UCombatComponent::EquipWeapon(AWeapon* WeaponToEquip)
 	}
 
 }
+void UCombatComponent::Reload()
+{
+	if(CarriedAmmo>0)
+	{
+		ServerReload();
+	}
+}
 
+void UCombatComponent::ServerReload_Implementation()
+{
+    if(Character==nullptr) return;
+
+	Character->PlayReLoadMontage();
+}
 
 void UCombatComponent::OnRep_CarriedAmmo()
 {
@@ -346,4 +360,5 @@ void UCombatComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 	DOREPLIFETIME(UCombatComponent,bAiming);
 	DOREPLIFETIME_CONDITION(UCombatComponent,CarriedAmmo,COND_OwnerOnly);
 }
+
 

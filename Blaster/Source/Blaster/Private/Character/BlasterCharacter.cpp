@@ -123,6 +123,8 @@ void ABlasterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 
 	PlayerInputComponent->BindAction("Fire",IE_Pressed,this,&ABlasterCharacter::FireButtonPressed);
 	PlayerInputComponent->BindAction("Fire",IE_Released,this,&ABlasterCharacter::FireButtonRealese);
+
+	PlayerInputComponent->BindAction("Reload",IE_Pressed,this,&ABlasterCharacter::ReloadButtonPress);
 	
 	PlayerInputComponent->BindAxis("MoveForward",this,&ABlasterCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight",this,&ABlasterCharacter::MoveRight);
@@ -151,6 +153,28 @@ void ABlasterCharacter::PlayFireMontage(bool bAiming)
 		AnimInstance->Montage_Play(FireWeaponeMontage);
 		FName SectionName;
 		SectionName = bAiming?FName("AimFire"):FName("RifleHip");
+		AnimInstance->Montage_JumpToSection(SectionName);
+	}
+}
+
+void ABlasterCharacter::PlayReLoadMontage()
+{
+	if(Combat==nullptr || Combat->EquippedWeapon==nullptr) return;
+
+	UAnimInstance* AnimInstance= GetMesh()->GetAnimInstance();
+	if(AnimInstance && ReloadMontage)
+	{
+		AnimInstance->Montage_Play(ReloadMontage);
+		FName SectionName;
+
+		switch (Combat->EquippedWeapon->GetWeaponType())
+		{
+		case EWeaponType::EWT_AssaultRifle: break;
+			SectionName = FName("Rifle");
+		case EWeaponType::EWT_MAX: break;
+		default: ;
+		}
+	
 		AnimInstance->Montage_JumpToSection(SectionName);
 	}
 }
@@ -349,6 +373,14 @@ void ABlasterCharacter::CrouchButtonPressed()
 		Crouch();
 	}
 
+}
+
+void ABlasterCharacter::ReloadButtonPress()
+{
+	if(Combat)
+	{
+		Combat->Reload();
+	}
 }
 
 void ABlasterCharacter::AimButtonPressed()

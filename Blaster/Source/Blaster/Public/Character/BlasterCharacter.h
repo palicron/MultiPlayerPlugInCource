@@ -37,7 +37,7 @@ public:
 	virtual void OnRep_ReplicatedMovement() override;
 
 	void PlayFireMontage(bool bAiming);
-
+	void PlayReLoadMontage();
 	void PLayElimMontage();
 	void Elim();
 	UFUNCTION(NetMulticast,Reliable)
@@ -55,6 +55,7 @@ protected:
 	void LookUp(float Value);
 	void EquipButtonPressed();
 	void CrouchButtonPressed();
+	void ReloadButtonPress();
 	void AimButtonPressed();
 	void AimButtonReleased();
 	void Calculate_Pitch();
@@ -105,9 +106,13 @@ private:
 	UPROPERTY(EditAnywhere,Category="Combat",meta = (AllowPrivateAccess="true"))
 	class UAnimMontage* FireWeaponeMontage;
 	UPROPERTY(EditAnywhere,Category="Combat",meta = (AllowPrivateAccess="true"))
+	UAnimMontage* ReloadMontage;
+	UPROPERTY(EditAnywhere,Category="Combat",meta = (AllowPrivateAccess="true"))
 	UAnimMontage* HitReactMontage;
 	UPROPERTY(EditAnywhere,Category="Combat",meta = (AllowPrivateAccess="true"))
 	UAnimMontage* ElimMontage;
+
+
 	void HideCameraIfCharacterClose();
 
 	UPROPERTY(EditAnywhere)
