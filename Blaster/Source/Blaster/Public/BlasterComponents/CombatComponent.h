@@ -3,15 +3,15 @@
 #pragma once
 #include "HUD/BlasterHUD.h"
 #include "Weapon/WeaponTypes.h"
+#include "CoreMinimal.h"
+#include "Components/ActorComponent.h"
+#include "Blaster/BlasterTypes/CombatState.h"
+#include "CombatComponent.generated.h"
+#define TRACE_LENGHT  80000.f;
 class ABlasterCharacter;
 class AWeapon;
 class ABlasterPlayerController;
 class ABlasterHUD;
-#include "CoreMinimal.h"
-#include "Components/ActorComponent.h"
-#include "CombatComponent.generated.h"
-#define TRACE_LENGHT  80000.f;
-
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BLASTER_API UCombatComponent : public UActorComponent
 {
@@ -27,6 +27,8 @@ public:
 
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	void Reload();
+	UFUNCTION(BlueprintCallable)
+	void FinishReloading();
 protected:
 
 	virtual void BeginPlay() override;
@@ -64,6 +66,9 @@ protected:
 
 	UFUNCTION(Server,Reliable)
 	void ServerReload();
+
+	UFUNCTION()
+	void HandleReload();
 
 private:
 	
@@ -123,4 +128,10 @@ private:
 	int32 StartingARAmmo = 30;
 	
 	void InitializeCarriedAmmo();
+
+	UPROPERTY(ReplicatedUsing=OnRep_CombatState)
+	ECombatState CombatState = ECombatState::ECS_Unoccupied;
+
+	UFUNCTION()
+	void OnRep_CombatState();
 };
