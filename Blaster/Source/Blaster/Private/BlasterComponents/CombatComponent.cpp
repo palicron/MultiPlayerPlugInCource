@@ -136,7 +136,7 @@ bool UCombatComponent::CanFire() const
 		return  false;
 	}
 
-	return !EquippedWeapon->IsEmpty() || !bCanFire;
+	return !EquippedWeapon->IsEmpty() && bCanFire && CombatState == ECombatState::ECS_Unoccupied;
 }
 
 void UCombatComponent::TraceUnderCrossHair(FHitResult& TraceHitResult)
@@ -182,7 +182,7 @@ void UCombatComponent::TraceUnderCrossHair(FHitResult& TraceHitResult)
 void UCombatComponent::MultiCastFire_Implementation(const FVector_NetQuantize& TraceHitTarget)
 {
 	if(EquippedWeapon==nullptr) return;
-	if(Character)
+	if(Character && CombatState == ECombatState::ECS_Unoccupied)
 	{
 		Character->PlayFireMontage(bAiming);
 		EquippedWeapon->Fire(TraceHitTarget);
@@ -339,6 +339,10 @@ void UCombatComponent::FinishReloading()
 	{
 		CombatState = ECombatState::ECS_Unoccupied;
 	}
+	if(bFireButtonPress)
+	{
+		Fire();
+	}
 }
 
 void UCombatComponent::ServerReload_Implementation()
@@ -351,7 +355,12 @@ void UCombatComponent::ServerReload_Implementation()
 void UCombatComponent::OnRep_CombatState()
 {
 	switch (CombatState) {
-	case ECombatState::ECS_Unoccupied: break;
+	case ECombatState::ECS_Unoccupied:
+		if(bFireButtonPress)
+		{
+			Fire();
+		}
+		break;
 	case ECombatState::ECS_Reloading:
 		HandleReload();
 		break;
