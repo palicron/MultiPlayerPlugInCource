@@ -35,7 +35,8 @@ public:
 	virtual void Fire(const FVector& HitTarget);
 
 	void Dropped();
-	
+
+	void AddAmmo(int32 AmmoToAdd);
 	UPROPERTY(EditAnywhere,Category= CrossHair)
 	UTexture2D*  CrossHairCenter;
 	UPROPERTY(EditAnywhere,Category= CrossHair)
@@ -129,7 +130,8 @@ public:
 	FORCEINLINE float GetZoomInterpSpeed() const {return ZoomInterSpeed; };
 	FORCEINLINE bool IsEmpty() const { return Ammo <= 0; };
 	FORCEINLINE EWeaponType GetWeaponType() const {return WeaponType;}
-	
+	FORCEINLINE int32 GetAmmo() const { return  Ammo;}
+	FORCEINLINE int32 GetMaxCapacity() const { return MagCapacity;}
     
 	
 

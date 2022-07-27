@@ -29,6 +29,8 @@ public:
 	void Reload();
 	UFUNCTION(BlueprintCallable)
 	void FinishReloading();
+
+	int32 AmountToreload();
 protected:
 
 	virtual void BeginPlay() override;
@@ -134,4 +136,6 @@ private:
 
 	UFUNCTION()
 	void OnRep_CombatState();
+
+	void UpdateAmmoValues();
 };

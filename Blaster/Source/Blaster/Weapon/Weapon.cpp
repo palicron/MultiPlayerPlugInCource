@@ -121,6 +121,11 @@ void AWeapon::Dropped()
 	BlasterOwnerCharacter = nullptr;
 }
 
+void AWeapon::AddAmmo(int32 AmmoToAdd)
+{
+	Ammo = FMath::Clamp(Ammo - AmmoToAdd,0,MagCapacity);
+}
+
 void AWeapon::OnSphereOverlap(UPrimitiveComponent* Overlap, AActor* OtherActor, UPrimitiveComponent* otherComp,
                               int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
@@ -129,6 +134,7 @@ void AWeapon::OnSphereOverlap(UPrimitiveComponent* Overlap, AActor* OtherActor, 
 	{
 		BlasterCharacter->SetOverlappingWeapon(this);
 	}
+	
 }
 
 void AWeapon::OnSphereEndOverlarp(UPrimitiveComponent* Overlap, AActor* OtherActor, UPrimitiveComponent* otherComp,
