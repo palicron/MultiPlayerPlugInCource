@@ -58,6 +58,9 @@ public:
 	UPROPERTY(EditAnywhere,Category = Combat)
 	bool bAutomatic = true;
 
+	UPROPERTY(EditAnywhere)
+	class USoundCue* EquipSound;
+
 	void SetHUDAmmo();
 protected:
 	
