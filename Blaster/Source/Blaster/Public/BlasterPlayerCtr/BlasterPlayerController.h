@@ -20,12 +20,19 @@ public:
 	void SetHUDDefeats(int32 Defeats);
 	void SetHUDWeaponAmmo(int32 Ammo);
 	void SetHUDCarriedAmmo(int32 Ammo);
+	void SetHUDMatchCountDown(float CountDownTIme);
 	virtual void OnPossess(APawn* InPawn) override;
 protected:
 	virtual  void BeginPlay() override;
+
+	void SetHUDTime();
+
+	virtual void Tick(float DeltaSeconds) override;
 private:
 	class ABlasterHUD* BlasterHUD;
 
+	float MatchTime = 120.f;
+	uint32 CdInt = 0;
 	
 	
 };
