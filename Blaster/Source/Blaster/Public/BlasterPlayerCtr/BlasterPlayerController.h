@@ -22,12 +22,35 @@ public:
 	void SetHUDCarriedAmmo(int32 Ammo);
 	void SetHUDMatchCountDown(float CountDownTIme);
 	virtual void OnPossess(APawn* InPawn) override;
+	virtual float GetServerTime();
+	virtual void ReceivedPlayer() override;
 protected:
 	virtual  void BeginPlay() override;
+	
+	void CheckTimeSync(float DeltaSeconds);
 
 	void SetHUDTime();
 
 	virtual void Tick(float DeltaSeconds) override;
+	
+	/**
+	 * Sync Time between client and server
+	 */
+
+	//Rquest server time passing client Times 
+	UFUNCTION(Server,Reliable)
+	void ServerRequestServerTime(float TimeOfClientRequest);
+
+	UFUNCTION(Client,Reliable)
+	void ClientReportServerTime(float TimeOfClientRequest,float TimeServerReceiveClientRequest);
+
+	float ClientServerDelta = 0.f;
+
+	UPROPERTY(EditAnywhere,Category= "Time")
+	float TimeSyncFrequency = 5.f;
+
+	float TimeSyncRunningTime = 0.0f;
+	
 private:
 	class ABlasterHUD* BlasterHUD;
 
