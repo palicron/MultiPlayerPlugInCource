@@ -24,6 +24,10 @@ public:
 	virtual void OnPossess(APawn* InPawn) override;
 	virtual float GetServerTime();
 	virtual void ReceivedPlayer() override;
+
+	void OnMatchStateSet(FName State);
+
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 protected:
 	virtual  void BeginPlay() override;
 	
@@ -50,12 +54,28 @@ protected:
 	float TimeSyncFrequency = 5.f;
 
 	float TimeSyncRunningTime = 0.0f;
+
+	void PollInit();
 	
 private:
 	class ABlasterHUD* BlasterHUD;
 
 	float MatchTime = 120.f;
 	uint32 CdInt = 0;
+
+	UPROPERTY(ReplicatedUsing=OnRep_MatchState)
+	FName MatchState;
+
+	UFUNCTION()
+	void OnRep_MatchState();
+
+	UPROPERTY()
+	class UCharacterOverlay* CharacterOverlay;
+
+	bool BInitializeCharacterOverlay = false;
 	
-	
+	float HUDHealth;
+	float HUDMaxHealth;
+	float HUDScore;
+	int32 HUDDefeats;
 };
