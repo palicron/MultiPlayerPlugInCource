@@ -7,6 +7,7 @@
 #include "Components/ProgressBar.h"
 #include "Components/TextBlock.h"
 #include "GameFramework/GameMode.h"
+#include "HUD/Annoucement.h"
 #include "HUD/BlasterHUD.h"
 #include "HUD/CharacterOverlay.h"
 #include "Net/UnrealNetwork.h"
@@ -18,6 +19,11 @@ void ABlasterPlayerController::BeginPlay()
 	Super::BeginPlay();
 
 	BlasterHUD =  Cast<ABlasterHUD>(GetHUD());
+
+	if(BlasterHUD)
+	{
+		BlasterHUD->AddAnnouncement();
+	}
 }
 
 
@@ -181,14 +187,8 @@ void ABlasterPlayerController::ReceivedPlayer()
 void ABlasterPlayerController::OnMatchStateSet(FName State)
 {
 	MatchState = State;
-	if(MatchState == MatchState::InProgress)
-	{
-		BlasterHUD = BlasterHUD==nullptr?Cast<ABlasterHUD>(GetHUD()):BlasterHUD;
-		if(BlasterHUD)
-		{
-			BlasterHUD->AddCharacterOverlay();
-		}
-	}
+
+	HanldeMatchHasStarted();
 }
 
 
@@ -196,14 +196,7 @@ void ABlasterPlayerController::OnMatchStateSet(FName State)
 void ABlasterPlayerController::OnRep_MatchState()
 {
 
-	if(MatchState == MatchState::InProgress)
-	{
-		BlasterHUD = BlasterHUD==nullptr?Cast<ABlasterHUD>(GetHUD()):BlasterHUD;
-		if(BlasterHUD)
-		{
-			BlasterHUD->AddCharacterOverlay();
-		}
-	}
+	HanldeMatchHasStarted();
 }
 
 void ABlasterPlayerController::CheckTimeSync(float DeltaSeconds)
@@ -231,6 +224,23 @@ void ABlasterPlayerController::PollInit()
 		}
 	}
 }
+
+void ABlasterPlayerController::HanldeMatchHasStarted()
+{
+	if(MatchState == MatchState::InProgress)
+	{
+		BlasterHUD = BlasterHUD==nullptr?Cast<ABlasterHUD>(GetHUD()):BlasterHUD;
+		if(BlasterHUD)
+		{
+			BlasterHUD->AddCharacterOverlay();
+			if(BlasterHUD->AnnouncementOverlay)
+			{
+				BlasterHUD->AnnouncementOverlay->SetVisibility(ESlateVisibility::Collapsed);
+			}
+		}
+	}
+}
+
 void ABlasterPlayerController::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);

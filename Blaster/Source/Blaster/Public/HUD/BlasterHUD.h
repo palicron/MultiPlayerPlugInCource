@@ -41,7 +41,12 @@ public:
 	UPROPERTY(EditAnywhere,Category="Player Stats")
 	TSubclassOf<class UUserWidget> CharacterOverlayClass;
 
+	UPROPERTY()
+	class UAnnoucement* AnnouncementOverlay;
+	UPROPERTY(EditAnywhere,Category="Player Stats")
+	TSubclassOf<class UUserWidget> AnnouncementClass;
 	void AddCharacterOverlay();
+	void AddAnnouncement();
 	
 protected:
 	virtual void BeginPlay() override;

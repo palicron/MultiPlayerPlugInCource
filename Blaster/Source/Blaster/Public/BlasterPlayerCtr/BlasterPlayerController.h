@@ -56,6 +56,8 @@ protected:
 	float TimeSyncRunningTime = 0.0f;
 
 	void PollInit();
+
+	void HanldeMatchHasStarted();
 	
 private:
 	class ABlasterHUD* BlasterHUD;
