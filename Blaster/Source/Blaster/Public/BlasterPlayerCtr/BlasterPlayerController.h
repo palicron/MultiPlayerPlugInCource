@@ -21,6 +21,7 @@ public:
 	void SetHUDWeaponAmmo(int32 Ammo);
 	void SetHUDCarriedAmmo(int32 Ammo);
 	void SetHUDMatchCountDown(float CountDownTIme);
+	void SetHUDAnnoucementCountDown(float CountDownTIme);
 	virtual void OnPossess(APawn* InPawn) override;
 	virtual float GetServerTime();
 	virtual void ReceivedPlayer() override;
@@ -28,6 +29,8 @@ public:
 	void OnMatchStateSet(FName State);
 
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
+	void HanldeMatchHasStarted();
 protected:
 	virtual  void BeginPlay() override;
 	
@@ -56,13 +59,17 @@ protected:
 	float TimeSyncRunningTime = 0.0f;
 
 	void PollInit();
-
-	void HanldeMatchHasStarted();
+	UFUNCTION(Server,Reliable)
+	void ServerCheckMatchState();
+	UFUNCTION(Client,Reliable)
+	void ClientJoinMidGame(FName StateOfMatch,float Warmup,float Match, float StartingTime);
 	
 private:
 	class ABlasterHUD* BlasterHUD;
 
-	float MatchTime = 120.f;
+	float MatchTime = 0.f;
+	float WarmupTime =0.f;
+	float LevelStartingTime =0.f;
 	uint32 CdInt = 0;
 
 	UPROPERTY(ReplicatedUsing=OnRep_MatchState)

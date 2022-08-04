@@ -24,6 +24,8 @@ public:
 	virtual void RequestRespawn(ACharacter* ElimCharacter,AController* ElimControler);
 
 	UPROPERTY(EditDefaultsOnly)
+	float MatchTime = 180.f;
+	UPROPERTY(EditDefaultsOnly)
 	float WarmUpTime = 10.f;
 
 	float LevelStartingTime =0.f;
