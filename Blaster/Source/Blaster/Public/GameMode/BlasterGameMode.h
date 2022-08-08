@@ -6,6 +6,11 @@
 #include "GameFramework/GameMode.h"
 #include "BlasterGameMode.generated.h"
 
+namespace MatchState
+{	
+	extern BLASTER_API const FName Cooldown; // match Duration has being reached. Desplay winner and begin 
+}
+
 /**
  * 
  */
@@ -27,7 +32,8 @@ public:
 	float MatchTime = 180.f;
 	UPROPERTY(EditDefaultsOnly)
 	float WarmUpTime = 10.f;
-
+	UPROPERTY(EditDefaultsOnly)
+	float CoolDownTime = 10.f;
 	float LevelStartingTime =0.f;
 
 private:

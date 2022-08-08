@@ -31,6 +31,7 @@ public:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 	void HanldeMatchHasStarted();
+	void HanldeCooldown();
 protected:
 	virtual  void BeginPlay() override;
 	
