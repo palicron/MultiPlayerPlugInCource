@@ -10,9 +10,7 @@
   <component name="ChangeListManager">
     <list default="true" id="af172d45-ccab-490a-95b1-bf10e17b63a3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/BluePrints/GameMode/Bp__BlasteterGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BluePrints/GameMode/Bp__BlasteterGameMode.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Private/BlasterPlayerCtr/BlasterPlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Private/BlasterPlayerCtr/BlasterPlayerController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Private/GameMode/BlasterGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Private/GameMode/BlasterGameMode.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Public/BlasterPlayerCtr/BlasterPlayerController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Public/BlasterPlayerCtr/BlasterPlayerController.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Public/GameMode/BlasterGameMode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Public/GameMode/BlasterGameMode.h" afterDir="false" />
     </list>
@@ -280,7 +278,7 @@
       <workItem from="1659463504732" duration="2815000" />
       <workItem from="1659549326924" duration="653000" />
       <workItem from="1659635691749" duration="3967000" />
-      <workItem from="1659982181522" duration="1062000" />
+      <workItem from="1659982181522" duration="3439000" />
     </task>
     <servers />
   </component>

@@ -43,4 +43,6 @@ protected:
 	virtual void BeginPlay() override;
 
 	virtual void OnMatchStateSet() override;
+public:
+	FORCEINLINE float GetCooldownTime(){ return CountDownTime;}
 };

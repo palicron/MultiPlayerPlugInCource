@@ -63,13 +63,17 @@ protected:
 	UFUNCTION(Server,Reliable)
 	void ServerCheckMatchState();
 	UFUNCTION(Client,Reliable)
-	void ClientJoinMidGame(FName StateOfMatch,float Warmup,float Match, float StartingTime);
+	void ClientJoinMidGame(FName StateOfMatch,float Warmup,float Match, float CoolDown, float StartingTime);
 	
 private:
 	class ABlasterHUD* BlasterHUD;
 
+	UPROPERTY()
+	class ABlasterGameMode* BlasterGameMode;
+
 	float MatchTime = 0.f;
 	float WarmupTime =0.f;
+	float CoolDownTime = 0.f;
 	float LevelStartingTime =0.f;
 	uint32 CdInt = 0;
 

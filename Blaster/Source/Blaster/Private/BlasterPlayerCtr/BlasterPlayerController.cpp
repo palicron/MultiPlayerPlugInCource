@@ -130,7 +130,11 @@ void ABlasterPlayerController::SetHUDMatchCountDown(float CountDownTIme)
 	BlasterHUD = BlasterHUD==nullptr?Cast<ABlasterHUD>(GetHUD()):BlasterHUD;
 	if(BlasterHUD && BlasterHUD->CharacterOverlay && BlasterHUD->CharacterOverlay->MatchCountDownText)
 	{
-		
+		if(CountDownTIme<0.f)
+		{
+			BlasterHUD->CharacterOverlay->MatchCountDownText->SetText(FText());
+			return;
+		}
 		const int32 Minutes = FMath::FloorToInt(CountDownTIme/60.f);
 		int32 Seconds = CountDownTIme - Minutes* 60;
 		FString CountDownText = FString::Printf(TEXT("%02d:%02d"),Minutes,Seconds);
@@ -143,17 +147,23 @@ void ABlasterPlayerController::SetHUDAnnoucementCountDown(float CountDownTIme)
 	BlasterHUD = BlasterHUD==nullptr?Cast<ABlasterHUD>(GetHUD()):BlasterHUD;
 	if(BlasterHUD && BlasterHUD->AnnouncementOverlay && BlasterHUD->AnnouncementOverlay->WarmUpTime)
 	{
-		
+		if(CountDownTIme<0.f)
+		{
+			BlasterHUD->AnnouncementOverlay->WarmUpTime->SetText(FText());
+			return;
+		}
 		const int32 Minutes = FMath::FloorToInt(CountDownTIme/60.f);
 		int32 Seconds = CountDownTIme - Minutes* 60;
 		FString CountDownText = FString::Printf(TEXT("%02d:%02d"),Minutes,Seconds);
 		BlasterHUD->AnnouncementOverlay->WarmUpTime->SetText(FText::FromString(CountDownText));
+		
 	}
 }
 
 void ABlasterPlayerController::SetHUDTime()
 {
 	float TimeLeft = 0.f;
+	
 	if(MatchState == MatchState::WaitingToStart)
 	{
 		TimeLeft = WarmupTime - GetServerTime() + LevelStartingTime;
@@ -161,12 +171,26 @@ void ABlasterPlayerController::SetHUDTime()
 	}
 	else if(MatchState == MatchState::InProgress)
 	{
-		TimeLeft = WarmupTime + MatchTime - GetServerTime() + + LevelStartingTime;
+		TimeLeft = WarmupTime + MatchTime - GetServerTime() +  LevelStartingTime;
 	}
+	else if(MatchState == MatchState::Cooldown)
+	{
+		TimeLeft =CoolDownTime +  WarmupTime + MatchTime - GetServerTime() + LevelStartingTime;
+	}
+			
 	uint32 SecondsLeft = FMath::CeilToInt(TimeLeft);
+	/**if(HasAuthority())
+	{
+		BlasterGameMode = BlasterGameMode == nullptr ? Cast<ABlasterGameMode>(UGameplayStatics::GetGameMode(this)):BlasterGameMode;
+		if(BlasterGameMode)
+		{
+			SecondsLeft = FMath::CeilToInt(BlasterGameMode->GetCooldownTime() + LevelStartingTime); 
+		}
+	}*/
+
 	if(CdInt != SecondsLeft)
 	{
-		if(MatchState == MatchState::WaitingToStart)
+		if(MatchState == MatchState::WaitingToStart || MatchState == MatchState::Cooldown)
 		{
 			SetHUDAnnoucementCountDown(TimeLeft);
 		}
@@ -174,6 +198,7 @@ void ABlasterPlayerController::SetHUDTime()
 		{
 			SetHUDMatchCountDown(TimeLeft);
 		}
+		
 	 
 	}
 	CdInt = SecondsLeft;
@@ -270,10 +295,11 @@ void ABlasterPlayerController::PollInit()
 	}
 }
 
-void ABlasterPlayerController::ClientJoinMidGame_Implementation(FName StateOfMatch,float Warmup,float Match, float StartingTime)
+void ABlasterPlayerController::ClientJoinMidGame_Implementation(FName StateOfMatch,float Warmup,float Match,float CoolDown, float StartingTime)
 {
 	WarmupTime = Warmup;
 	MatchTime = Match;
+	CoolDownTime = CoolDown;
 	LevelStartingTime = StartingTime;
 	MatchState = StateOfMatch;
 	OnMatchStateSet(MatchState);
@@ -290,9 +316,10 @@ void ABlasterPlayerController::ServerCheckMatchState_Implementation()
 	{
 		WarmupTime = GameMode->WarmUpTime;
 		MatchTime = GameMode->MatchTime;
+		CoolDownTime = GameMode->CoolDownTime;
 		LevelStartingTime = GameMode->LevelStartingTime;
 		MatchState = GameMode->GetMatchState();
-		ClientJoinMidGame(MatchState,WarmupTime,MatchTime,LevelStartingTime);
+		ClientJoinMidGame(MatchState,WarmupTime,MatchTime,CoolDownTime,LevelStartingTime);
 
 	}
 }
@@ -318,9 +345,12 @@ void ABlasterPlayerController::HanldeCooldown()
 	if(BlasterHUD)
 	{
 		BlasterHUD->CharacterOverlay->RemoveFromParent();
-		if(BlasterHUD->AnnouncementOverlay)
+		if(BlasterHUD->AnnouncementOverlay && BlasterHUD->AnnouncementOverlay->AnnouncemntText
+			&& BlasterHUD->AnnouncementOverlay->InfoText)
 		{
 			BlasterHUD->AnnouncementOverlay->SetVisibility(ESlateVisibility::Visible);
+			FString AnouncementTExt("New Match Starts In:");
+			BlasterHUD->AnnouncementOverlay->AnnouncemntText->SetText(FText::FromString(AnouncementTExt));
 		}
 	}
 }
