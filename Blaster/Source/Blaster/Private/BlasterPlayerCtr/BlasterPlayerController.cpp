@@ -179,14 +179,14 @@ void ABlasterPlayerController::SetHUDTime()
 	}
 			
 	uint32 SecondsLeft = FMath::CeilToInt(TimeLeft);
-	/**if(HasAuthority())
+	if(HasAuthority())
 	{
 		BlasterGameMode = BlasterGameMode == nullptr ? Cast<ABlasterGameMode>(UGameplayStatics::GetGameMode(this)):BlasterGameMode;
 		if(BlasterGameMode)
 		{
 			SecondsLeft = FMath::CeilToInt(BlasterGameMode->GetCooldownTime() + LevelStartingTime); 
 		}
-	}*/
+	}
 
 	if(CdInt != SecondsLeft)
 	{
@@ -345,6 +345,7 @@ void ABlasterPlayerController::HanldeCooldown()
 	if(BlasterHUD)
 	{
 		BlasterHUD->CharacterOverlay->RemoveFromParent();
+		
 		if(BlasterHUD->AnnouncementOverlay && BlasterHUD->AnnouncementOverlay->AnnouncemntText
 			&& BlasterHUD->AnnouncementOverlay->InfoText)
 		{
@@ -352,6 +353,12 @@ void ABlasterPlayerController::HanldeCooldown()
 			FString AnouncementTExt("New Match Starts In:");
 			BlasterHUD->AnnouncementOverlay->AnnouncemntText->SetText(FText::FromString(AnouncementTExt));
 		}
+	}
+	ABlasterCharacter* BlasterCharacter = Cast<ABlasterCharacter>(GetPawn());
+	if(BlasterCharacter && BlasterCharacter->GetCombat())
+	{
+		BlasterCharacter->bDisableGamePlay = true;
+		BlasterCharacter->GetCombat()->FireButtonPressed(false);
 	}
 }
 

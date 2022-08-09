@@ -43,6 +43,8 @@ public:
 	UFUNCTION(NetMulticast,Reliable)
 	void MulticasElim();
 
+	UPROPERTY(Replicated)
+	bool bDisableGamePlay = false;
 	virtual void Destroyed() override;
 
 protected:
@@ -68,6 +70,7 @@ protected:
 
 	UFUNCTION()
 	void ReceiveDamage(AActor* DamgeActor,float Damage,const UDamageType* DamageType,class AController* InstigatorController,AActor* DamageCauser);
+	void RotateInPlace(float DeltaTime);
 
 	void UpdateHudHealth();
 
@@ -212,6 +215,10 @@ public:
 	FORCEINLINE float GetHealth() const {return Health;}
 
 	FORCEINLINE float GetMaxHealth() const {return MaxHealth;}
+
+	FORCEINLINE UCombatComponent* GetCombat() const {return Combat;}
+
+	FORCEINLINE bool GetDisableGameplay() const {return bDisableGamePlay;}
 
 	ECombatState GetCombatState() const;
 

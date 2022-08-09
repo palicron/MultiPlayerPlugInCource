@@ -31,6 +31,8 @@ public:
 	void FinishReloading();
 
 	int32 AmountToreload();
+
+	void FireButtonPressed(bool ButtonPress);
 protected:
 
 	virtual void BeginPlay() override;
@@ -43,7 +45,7 @@ protected:
 	void OnRep_EquippedWeapon();
 	void Fire();
 
-	void FireButtonPressed(bool ButtonPress);
+
 
 	bool bFireButtonPress;
 
