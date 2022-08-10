@@ -8,12 +8,13 @@
 #include "Components/TextBlock.h"
 #include "GameFramework/GameMode.h"
 #include "GameMode/BlasterGameMode.h"
+#include "GameState/BlasterGameState.h"
 #include "HUD/Annoucement.h"
 #include "HUD/BlasterHUD.h"
 #include "HUD/CharacterOverlay.h"
 #include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
-
+#include "PlayerState/BlasterPlayerState.h"
 
 
 void ABlasterPlayerController::BeginPlay()
@@ -244,6 +245,7 @@ void ABlasterPlayerController::ReceivedPlayer()
 void ABlasterPlayerController::OnMatchStateSet(FName State)
 {
 	MatchState = State;
+	
 	if(MatchState==MatchState::InProgress)
 	{
 		HanldeMatchHasStarted();
@@ -263,7 +265,7 @@ void ABlasterPlayerController::OnRep_MatchState()
 	{
 		HanldeMatchHasStarted();
 	}
-	else if (MatchState == MatchState::Cooldown)
+	else if (MatchState == MatchState::Cooldown )
 	{
 		HanldeCooldown();
 	}
@@ -352,6 +354,37 @@ void ABlasterPlayerController::HanldeCooldown()
 			BlasterHUD->AnnouncementOverlay->SetVisibility(ESlateVisibility::Visible);
 			FString AnouncementTExt("New Match Starts In:");
 			BlasterHUD->AnnouncementOverlay->AnnouncemntText->SetText(FText::FromString(AnouncementTExt));
+			ABlasterGameState* BlasterGameState = Cast<ABlasterGameState>(UGameplayStatics::GetGameState(this));
+			ABlasterPlayerState* BlasterPlayerState = GetPlayerState<ABlasterPlayerState>();
+			if(BlasterGameState && BlasterPlayerState)
+			{
+				FString InfoText("");
+				TArray<ABlasterPlayerState*> TopPlayers = BlasterGameState->TopScoringPlayers;
+				if(TopPlayers.Num()==0)
+				{
+					InfoText = FString("No Winner.");
+				}
+				else if(TopPlayers.Num()==1 && TopPlayers[0] == BlasterPlayerState)
+				{
+					InfoText = FString("Yo Are the Winner.");
+				}
+				else if(TopPlayers.Num()==1 )
+				{
+					InfoText = FString::Printf(TEXT("Winner: \n%s"),*TopPlayers[0]->GetPlayerName());
+				}
+				else
+				{
+					InfoText = FString("Winnig Players:");
+
+					for (auto TiedPlayer : TopPlayers)
+					{
+						InfoText.Append(FString::Printf(TEXT("%s \n"),*TiedPlayer->GetPlayerName()));
+					}
+				}
+
+				
+				BlasterHUD->AnnouncementOverlay->InfoText->SetText(FText::FromString(InfoText));
+			}
 		}
 	}
 	ABlasterCharacter* BlasterCharacter = Cast<ABlasterCharacter>(GetPawn());
