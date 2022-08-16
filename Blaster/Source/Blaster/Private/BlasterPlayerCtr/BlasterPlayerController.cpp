@@ -333,6 +333,7 @@ void ABlasterPlayerController::HanldeMatchHasStarted()
 		if(BlasterHUD)
 		{
 			BlasterHUD->AddCharacterOverlay();
+			if(BlasterHUD->CharacterOverlay == nullptr) BlasterHUD->AddCharacterOverlay();
 			if(BlasterHUD->AnnouncementOverlay)
 			{
 				BlasterHUD->AnnouncementOverlay->SetVisibility(ESlateVisibility::Collapsed);
