@@ -7,18 +7,26 @@
 #include "Sound/SoundCue.h"
 #include "NiagaraComponent.h"
 #include "Components/AudioComponent.h"
+#include "Weapon/RocketMovementComponent.h"
 
 AProyectileRocket::AProyectileRocket()
 {
 	RocketMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Rocket Mesh"));
 	RocketMesh->SetupAttachment(RootComponent);
 	RocketMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	RocketMovementComponent = CreateDefaultSubobject<URocketMovementComponent>(TEXT("Rocket Movement Component"));
+	RocketMovementComponent->bRotationFollowsVelocity= true;
+	RocketMovementComponent->SetIsReplicated(true);
 }
 
 
 void AProyectileRocket::OnHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiveComponent* OtherComp,
                               FVector NormalImpulse, const FHitResult& Hit)
 {
+	if(Other == GetOwner())
+	{
+		return;
+	}
 	APawn* FiringPawn = GetInstigator();
 
 	if(FiringPawn && HasAuthority()) 

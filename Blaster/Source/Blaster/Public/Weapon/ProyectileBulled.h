@@ -14,7 +14,8 @@ class BLASTER_API AProyectileBulled : public AProjectile
 {
 	GENERATED_BODY()
 
-
+public:
+	AProyectileBulled();
 protected:
 	
 	virtual void OnHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit) override;

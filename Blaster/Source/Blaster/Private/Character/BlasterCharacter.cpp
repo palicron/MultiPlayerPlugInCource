@@ -170,9 +170,14 @@ void ABlasterCharacter::PlayReLoadMontage()
 
 		switch (Combat->EquippedWeapon->GetWeaponType())
 		{
-		case EWeaponType::EWT_AssaultRifle: break;
+		case EWeaponType::EWT_AssaultRifle: 
 			SectionName = FName("Rifle");
+			break;
+		case EWeaponType::EWT_RocketLauncher:
+			SectionName = FName("Rifle");
+			break;
 		case EWeaponType::EWT_MAX: break;
+			
 		default: ;
 		}
 	

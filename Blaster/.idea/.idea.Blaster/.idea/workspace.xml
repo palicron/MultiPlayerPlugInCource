@@ -11,12 +11,14 @@
     <list default="true" id="af172d45-ccab-490a-95b1-bf10e17b63a3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/BluePrints/Weapon/Proyectiles/Bp_Rocket.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BluePrints/Weapon/Proyectiles/Bp_Rocket.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/FX/RocketTrail/NS_TrailSmoke.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/FX/RocketTrail/NS_TrailSmoke.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/MilitaryWeapSilver/Sound/RocketLauncher/Cues/RocketLauncher_InAirLoop_Cue.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MilitaryWeapSilver/Sound/RocketLauncher/Cues/RocketLauncher_InAirLoop_Cue.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Blaster.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Blaster.Build.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Private/Character/BlasterCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Private/Character/BlasterCharacter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Private/Weapon/ProyectileBulled.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Private/Weapon/ProyectileBulled.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Private/Weapon/ProyectileRocket.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Private/Weapon/ProyectileRocket.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Public/Weapon/ProyectileBulled.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Public/Weapon/ProyectileBulled.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Public/Weapon/ProyectileRocket.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Public/Weapon/ProyectileRocket.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Projectile.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Projectile.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Projectile.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Projectile.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,10 +28,12 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Private/HUD/Annoucement.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Private/Weapon/ProyectileBulled.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/Blaster/Private/Weapon/RocketMovementComponent.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Public/GameState/BlasterGameState.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Public/HUD/Annoucement.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Public/Weapon/ProyectileBulled.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Public/Weapon/ProyectileRocket.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/Blaster/Public/Weapon/RocketMovementComponent.h" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -292,7 +296,8 @@
       <workItem from="1660242728538" duration="780000" />
       <workItem from="1660672985584" duration="3422000" />
       <workItem from="1660759512569" duration="985000" />
-      <workItem from="1660846272279" duration="4579000" />
+      <workItem from="1660846272279" duration="4853000" />
+      <workItem from="1660943233103" duration="2427000" />
     </task>
     <servers />
   </component>
