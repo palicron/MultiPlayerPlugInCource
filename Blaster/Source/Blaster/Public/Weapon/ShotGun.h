@@ -13,5 +13,15 @@ UCLASS()
 class BLASTER_API AShotGun : public AHitScanWeapon
 {
 	GENERATED_BODY()
+
+public:
+
+	virtual void Fire(const FVector& HitTarget) override;
+
+private:
+	
+	UPROPERTY(EditAnywhere,Category="Weapone Scatter")
+	uint32 NumberOfPellets = 10;
+	
 	
 };

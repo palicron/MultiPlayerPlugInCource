@@ -7,7 +7,7 @@
 #include "Components/ActorComponent.h"
 #include "Blaster/BlasterTypes/CombatState.h"
 #include "CombatComponent.generated.h"
-#define TRACE_LENGHT  80000.f;
+
 class ABlasterCharacter;
 class AWeapon;
 class ABlasterPlayerController;
@@ -139,6 +139,9 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	int32 StartingSMGAmmo = 25.f;
+
+	UPROPERTY(EditAnywhere)
+	int32 StartingShotGunAmmo = 0.f;
 	void InitializeCarriedAmmo();
 
 	UPROPERTY(ReplicatedUsing=OnRep_CombatState)

@@ -31,4 +31,22 @@ protected:
 	USoundCue* FireSound;
 	UPROPERTY(EditAnywhere)
 	USoundCue* HitSound;
+
+
+	/**
+	 * Trace end whit Scatter
+	 **/
+
+	UPROPERTY(EditAnywhere,Category="Weapone Scatter")
+	bool bUseScatter = false;
+	
+	UPROPERTY(EditAnywhere,Category="Weapone Scatter")
+	float DistanceToSphere = 800.f;
+
+	UPROPERTY(EditAnywhere,Category="Weapone Scatter")
+	float SphereRadius = 75.f;
+
+
+	FVector TraceEndWithScatter(const FVector& TraceStart, const FVector& HitTarget);
+	
 };

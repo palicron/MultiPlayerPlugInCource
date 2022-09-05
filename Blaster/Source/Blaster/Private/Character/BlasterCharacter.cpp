@@ -182,6 +182,9 @@ void ABlasterCharacter::PlayReLoadMontage()
 		case EWeaponType::EWT_SubMachineGun:
 			SectionName = FName("Rifle");
 			break;
+		case EWeaponType::EWT_ShotGun:
+			SectionName = FName("Rifle");
+			break;
 		case EWeaponType::EWT_MAX: break;
 			
 		default: ;
