@@ -36,6 +36,30 @@ protected:
 
 	UPROPERTY(VisibleAnywhere)
 	class UProjectileMovementComponent* ProjectileMovementComponent;
+
+	UPROPERTY(EditAnywhere)
+	class UNiagaraSystem* TrailSystem;
+
+	UPROPERTY()
+	class UNiagaraComponent* TrailSystemcomp;
+
+	FTimerHandle DestroyTimer;
+	
+	UPROPERTY(EditAnywhere)
+	float DestroyTime =3.f;
+
+	UFUNCTION()
+	void SpawnTrailSystem();
+	
+
+	void StartDestroyTimer();
+	UFUNCTION()
+	void DestroyTimerFinish();
+
+	UPROPERTY(VisibleAnywhere)
+	UStaticMeshComponent* ProjectileMesh;
+
+	
 private:
 	
 	UPROPERTY(EditAnywhere)

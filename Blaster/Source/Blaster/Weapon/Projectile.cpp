@@ -3,6 +3,7 @@
 
 #include "Projectile.h"
 
+#include "NiagaraFunctionLibrary.h"
 #include "Character/BlasterCharacter.h"
 #include "Blaster/Blaster.h"
 #include "Components/BoxComponent.h"
@@ -62,6 +63,26 @@ void AProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+
+void AProjectile::SpawnTrailSystem()
+{
+	if(TrailSystem)
+	{
+		TrailSystemcomp =  UNiagaraFunctionLibrary::SpawnSystemAttached(TrailSystem,GetRootComponent(),FName(),GetActorLocation(),GetActorRotation(),
+		EAttachLocation::KeepWorldPosition,false);
+	}
+}
+
+void AProjectile::StartDestroyTimer()
+{
+	GetWorldTimerManager().SetTimer(DestroyTimer,this,&ThisClass::DestroyTimerFinish,DestroyTime);
+}
+
+void AProjectile::DestroyTimerFinish()
+{
+	Destroy();
 }
 
 void AProjectile::Destroyed()

@@ -11,9 +11,9 @@
 
 AProyectileRocket::AProyectileRocket()
 {
-	RocketMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Rocket Mesh"));
-	RocketMesh->SetupAttachment(RootComponent);
-	RocketMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	ProjectileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Rocket Mesh"));
+	ProjectileMesh->SetupAttachment(RootComponent);
+	ProjectileMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	RocketMovementComponent = CreateDefaultSubobject<URocketMovementComponent>(TEXT("Rocket Movement Component"));
 	RocketMovementComponent->bRotationFollowsVelocity= true;
 	RocketMovementComponent->SetIsReplicated(true);
@@ -48,7 +48,7 @@ void AProyectileRocket::OnHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimi
 				);
 		}
 	}
-	GetWorldTimerManager().SetTimer(DestroyTimer,this,&ThisClass::DestroyTimerFinish,DestroyTime);
+	StartDestroyTimer();
 	if(ImpactParticles)
 	{
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(),ImpactParticles,GetActorTransform());
@@ -57,9 +57,9 @@ void AProyectileRocket::OnHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimi
 	{
 		UGameplayStatics::PlaySoundAtLocation(this,ImpactSound,GetActorLocation());
 	}
-	if(RocketMesh)
+	if(ProjectileMesh)
 	{
-		RocketMesh->SetVisibility(false);
+		ProjectileMesh->SetVisibility(false);
 	}
 	if(CollisionBox)
 	{
@@ -73,7 +73,8 @@ void AProyectileRocket::OnHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimi
 	{
 		ProjectileLoopComponent->Stop();
 	}
-}  
+}
+
 
 void AProyectileRocket::BeginPlay()
 {
@@ -82,22 +83,16 @@ void AProyectileRocket::BeginPlay()
 	{
 		CollisionBox->OnComponentHit.AddDynamic(this,&ThisClass::OnHit);
 	}
-	if(TrailSystem)
-	{
-	TrailSystemcomp = 	UNiagaraFunctionLibrary::SpawnSystemAttached(TrailSystem,GetRootComponent(),FName(),GetActorLocation(),GetActorRotation(),
-			EAttachLocation::KeepWorldPosition,false);
-	}
+	
+	SpawnTrailSystem();
 	if(ProjectileLoop && LoopingSoundAtten)
 	{
 		ProjectileLoopComponent = UGameplayStatics::SpawnSoundAttached(ProjectileLoop,GetRootComponent(),FName(),GetActorLocation(),EAttachLocation::KeepWorldPosition
-			,false,1.f,1.f,0.f,LoopingSoundAtten,(USoundConcurrency*)nullptr,false);
+		,false,1.f,1.f,0.f,LoopingSoundAtten,(USoundConcurrency*)nullptr,false);
 	}
 }
 
-void AProyectileRocket::DestroyTimerFinish()
-{
-	Destroy();
-}
+
 void AProyectileRocket::Destroyed()
 {
 	
