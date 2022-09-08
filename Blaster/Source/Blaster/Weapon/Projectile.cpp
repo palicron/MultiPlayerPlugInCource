@@ -75,6 +75,32 @@ void AProjectile::SpawnTrailSystem()
 	}
 }
 
+void AProjectile::ExplodeDamage()
+{
+
+	APawn* FiringPawn = GetInstigator();
+
+	if(FiringPawn && HasAuthority()) 
+	{
+		AController* FiringController = FiringPawn->GetController();
+		if(FiringController)
+		{
+			UGameplayStatics::ApplyRadialDamageWithFalloff(this,
+				Damage,
+				10.f,
+				GetActorLocation(),
+				ExploitationInnerRadius,
+				ExploitationOuterRadius,
+				1.f,
+				UDamageType::StaticClass(),
+				TArray<AActor*>(),
+				this,
+				FiringController
+				);
+		}
+	}
+}
+
 void AProjectile::StartDestroyTimer()
 {
 	GetWorldTimerManager().SetTimer(DestroyTimer,this,&ThisClass::DestroyTimerFinish,DestroyTime);

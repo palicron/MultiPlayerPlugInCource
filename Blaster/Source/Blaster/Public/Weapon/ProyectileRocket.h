@@ -23,10 +23,6 @@ protected:
 
 	
 
-	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Rocket Config")
-	float ExploitationInnerRadius = 200.f;
-	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Rocket Config")
-	float ExploitationOuterRadius = 500.f;
 
 
 	UPROPERTY(EditAnywhere)

@@ -50,6 +50,9 @@ protected:
 
 	UFUNCTION()
 	void SpawnTrailSystem();
+
+	UFUNCTION()
+	void ExplodeDamage();
 	
 
 	void StartDestroyTimer();
@@ -58,6 +61,12 @@ protected:
 
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* ProjectileMesh;
+
+	
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Rocket Config")
+	float ExploitationInnerRadius = 200.f;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Rocket Config")
+	float ExploitationOuterRadius = 500.f;
 
 	
 private:

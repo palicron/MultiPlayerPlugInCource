@@ -3,14 +3,22 @@
 
 #include "Weapon/ProjectileGrenada.h"
 
-AProjectileGrenada::AProjectileGrenada()
+#include "GameFramework/ProjectileMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "Sound/SoundCue.h"
+
+AProjectileGrenada::AProjectileGrenada()	
 {
 	ProjectileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Grenade Mesh"));
 	ProjectileMesh->SetupAttachment(RootComponent);
 	ProjectileMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
-	
+	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovementCOmponent"));
+	ProjectileMovementComponent->bRotationFollowsVelocity = true;
+	ProjectileMovementComponent->SetIsReplicated(true);
+	ProjectileMovementComponent->bShouldBounce = true;
 }
+
 
 void AProjectileGrenada::BeginPlay()
 {
@@ -18,9 +26,25 @@ void AProjectileGrenada::BeginPlay()
 
 	StartDestroyTimer();
 
-	void SpawnTrailSystem();
+	SpawnTrailSystem();	
 	
-	void StartDestroyTimer();
+	StartDestroyTimer();
 
+	ProjectileMovementComponent->OnProjectileBounce.AddDynamic(this,&ThisClass::AProjectileGrenada::OnBounce);
 	
+}
+
+void AProjectileGrenada::OnBounce(const FHitResult& ImpactResult, const FVector& ImpactVelocity)
+{
+	if(IsValid(BounceSound) )
+	{
+		UGameplayStatics::PlaySoundAtLocation(this,BounceSound,GetActorLocation());
+	}
+}
+
+void AProjectileGrenada::Destroyed()
+{
+
+	ExplodeDamage();
+	Super::Destroyed();
 }

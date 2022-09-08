@@ -17,8 +17,16 @@ class BLASTER_API AProjectileGrenada : public AProjectile
 public:
 	AProjectileGrenada();
 
-
+	virtual void Destroyed() override;
 protected:
 	virtual void BeginPlay() override;
+
+	UFUNCTION()
+	void OnBounce(const FHitResult& ImpactResult, const FVector& ImpactVelocity);
+
+	
+private:
+	UPROPERTY(EditAnywhere)
+	 USoundCue* BounceSound;
 	
 };

@@ -10,10 +10,10 @@
   <component name="ChangeListManager">
     <list default="true" id="af172d45-ccab-490a-95b1-bf10e17b63a3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/BlasterMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/BlasterMap.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/MilitaryWeapSilver/Weapons/Grenade_Launcher_A_Skeleton.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MilitaryWeapSilver/Weapons/Grenade_Launcher_A_Skeleton.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/BluePrints/Weapon/BP_GrenadaLauncher.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BluePrints/Weapon/BP_GrenadaLauncher.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Private/Weapon/ProjectileGrenada.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Private/Weapon/ProjectileGrenada.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Private/Weapon/ProyectileRocket.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Private/Weapon/ProyectileRocket.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Public/Weapon/ProjectileGrenada.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Public/Weapon/ProjectileGrenada.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Public/Weapon/ProyectileRocket.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Public/Weapon/ProyectileRocket.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Projectile.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Projectile.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Projectile.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Projectile.h" afterDir="false" />
@@ -54,16 +54,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="C++ Project.Blaster">
     <configuration name="Blaster" type="CppProject" factoryName="C++ Project">
       <configuration_1>
@@ -318,6 +321,8 @@
       <workItem from="1662489713253" duration="818000" />
       <workItem from="1662573808094" duration="3234000" />
       <workItem from="1662585987783" duration="1204000" />
+      <workItem from="1662597674196" duration="1460000" />
+      <workItem from="1662602796150" duration="2540000" />
     </task>
     <servers />
   </component>
