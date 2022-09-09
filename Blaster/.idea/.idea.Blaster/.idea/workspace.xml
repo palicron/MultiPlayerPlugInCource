@@ -10,6 +10,17 @@
   <component name="ChangeListManager">
     <list default="true" id="af172d45-ccab-490a-95b1-bf10e17b63a3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Animation/RetagerAnimation/Reload_Pistol_Retargeted.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Animation/RetagerAnimation/Reload_Pistol_Retargeted.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/BluePrints/Character/Animation/Reload.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BluePrints/Character/Animation/Reload.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/BluePrints/Character/BP_BlasterCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BluePrints/Character/BP_BlasterCharacter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/BluePrints/Weapon/BP_SniperRifle.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BluePrints/Weapon/BP_SniperRifle.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/LearningKit_Games/Assets/Characters/Character/Mesh/SK_EpicCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/LearningKit_Games/Assets/Characters/Character/Mesh/SK_EpicCharacter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/LearningKit_Games/Assets/Characters/Character/Mesh/SK_EpicCharacter_Skeleton.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/LearningKit_Games/Assets/Characters/Character/Mesh/SK_EpicCharacter_Skeleton.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Maps/BlasterMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/BlasterMap.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MilitaryWeapSilver/Weapons/Pistols_A_Skeleton.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MilitaryWeapSilver/Weapons/Pistols_A_Skeleton.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MilitaryWeapSilver/Weapons/Shotgun_A.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MilitaryWeapSilver/Weapons/Shotgun_A.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MilitaryWeapSilver/Weapons/Shotgun_A_Skeleton.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MilitaryWeapSilver/Weapons/Shotgun_A_Skeleton.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Private/Character/BlasterCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Private/Character/BlasterCharacter.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -318,6 +329,7 @@
       <workItem from="1662602796150" duration="2540000" />
       <workItem from="1662644978480" duration="599000" />
       <workItem from="1662649286582" duration="2000" />
+      <workItem from="1662692605507" duration="2415000" />
     </task>
     <servers />
   </component>
