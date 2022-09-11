@@ -423,7 +423,7 @@ void UCombatComponent::UpdateAmmoValues()
 		CarriedAmmo = CarriedAmmoMap[EquippedWeapon->GetWeaponType()];
 	}
 	EquippedWeapon->AddAmmo(-ReloadAmount);
-	Controller = Controller ==nullptr ? Cast<ABlasterPlayerController>(Character->Controller):Controller;
+	Controller = Controller == nullptr ? Cast<ABlasterPlayerController>(Character->Controller):Controller;
 	if(Controller)
 	{
 		Controller->SetHUDCarriedAmmo(CarriedAmmo);

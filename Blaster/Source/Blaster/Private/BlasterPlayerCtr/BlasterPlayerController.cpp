@@ -332,7 +332,7 @@ void ABlasterPlayerController::HanldeMatchHasStarted()
 		BlasterHUD = BlasterHUD==nullptr?Cast<ABlasterHUD>(GetHUD()):BlasterHUD;
 		if(BlasterHUD)
 		{
-			BlasterHUD->AddCharacterOverlay();
+			//BlasterHUD->AddCharacterOverlay();
 			if(BlasterHUD->CharacterOverlay == nullptr) BlasterHUD->AddCharacterOverlay();
 			if(BlasterHUD->AnnouncementOverlay)
 			{
