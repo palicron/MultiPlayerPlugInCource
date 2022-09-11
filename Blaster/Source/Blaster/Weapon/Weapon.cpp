@@ -124,6 +124,7 @@ void AWeapon::Dropped()
 void AWeapon::AddAmmo(int32 AmmoToAdd)
 {
 	Ammo = FMath::Clamp(Ammo - AmmoToAdd,0,MagCapacity);
+	SetHUDAmmo();
 }
 
 void AWeapon::OnSphereOverlap(UPrimitiveComponent* Overlap, AActor* OtherActor, UPrimitiveComponent* otherComp,
@@ -228,6 +229,11 @@ void AWeapon::ShowPickUpWidget(bool BShowWidget)
 
 void AWeapon::OnRep_Ammo()
 {
+	BlasterOwnerCharacter = BlasterOwnerCharacter == nullptr ? Cast<ABlasterCharacter>(GetOwner()) : BlasterOwnerCharacter;
+	if(BlasterOwnerCharacter && IsValid(BlasterOwnerCharacter->GetCombat()) && IsFull() )
+	{
+		BlasterOwnerCharacter->GetCombat()->JumpToShotGunEnd();
+	}
 	SetHUDAmmo();
 }
 

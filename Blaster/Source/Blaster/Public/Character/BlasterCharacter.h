@@ -224,6 +224,8 @@ public:
 
 	FORCEINLINE bool GetDisableGameplay() const {return bDisableGamePlay;}
 
+	FORCEINLINE UAnimMontage* GetReloadMontage() const {return ReloadMontage;}
+
 	ECombatState GetCombatState() const;
 
 };
