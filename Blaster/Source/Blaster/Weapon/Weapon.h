@@ -62,6 +62,12 @@ public:
 	class USoundCue* EquipSound;
 
 	void SetHUDAmmo();
+
+	/**
+	 *
+	 **/
+
+	void EnableCustomDepth(bool bEnable);
 protected:
 	
 	virtual void BeginPlay() override;
