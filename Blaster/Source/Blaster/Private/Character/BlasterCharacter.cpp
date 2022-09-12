@@ -125,6 +125,8 @@ void ABlasterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	PlayerInputComponent->BindAction("Fire",IE_Pressed,this,&ABlasterCharacter::FireButtonPressed);
 	PlayerInputComponent->BindAction("Fire",IE_Released,this,&ABlasterCharacter::FireButtonRealese);
 
+	PlayerInputComponent->BindAction("ThrowGrenade",IE_Pressed,this,&ABlasterCharacter::GrenadeButtonPress);
+	
 	PlayerInputComponent->BindAction("Reload",IE_Pressed,this,&ABlasterCharacter::ReloadButtonPress);
 	
 	PlayerInputComponent->BindAxis("MoveForward",this,&ABlasterCharacter::MoveForward);
@@ -202,12 +204,20 @@ void ABlasterCharacter::PlayReLoadMontage()
 
 void ABlasterCharacter::PLayElimMontage()
 {
-
-
+	
 	UAnimInstance* AnimInstance= GetMesh()->GetAnimInstance();
 	if(AnimInstance && ElimMontage)
 	{
 		AnimInstance->Montage_Play(ElimMontage);
+	}
+}
+
+void ABlasterCharacter::PlayTrowGrenadeMontage()
+{
+	UAnimInstance* AnimInstance= GetMesh()->GetAnimInstance();
+	if(AnimInstance && TrowGrenadeMontage)
+	{
+		AnimInstance->Montage_Play(TrowGrenadeMontage);
 	}
 }
 
@@ -297,8 +307,16 @@ void ABlasterCharacter::PlayHitReactMontage()
 	}
 }
 
+void ABlasterCharacter::GrenadeButtonPress()
+{
+	if(Combat)
+	{
+		Combat->ThrowGrenade();
+	}
+}
+
 void ABlasterCharacter::ReceiveDamage(AActor* DamgeActor, float Damage, const UDamageType* DamageType,
-	AController* InstigatorController, AActor* DamageCauser)
+                                      AController* InstigatorController, AActor* DamageCauser)
 {
 	Health = FMath::Clamp(Health-Damage,0.f,MaxHealth);
 

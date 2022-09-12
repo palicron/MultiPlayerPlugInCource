@@ -39,6 +39,7 @@ public:
 	void PlayFireMontage(bool bAiming);
 	void PlayReLoadMontage();
 	void PLayElimMontage();
+	void PlayTrowGrenadeMontage();
 	void Elim();
 	UFUNCTION(NetMulticast,Reliable)
 	void MulticasElim();
@@ -71,6 +72,7 @@ protected:
 	void FireButtonPressed();
 	void FireButtonRealese();
 	void PlayHitReactMontage();
+	void GrenadeButtonPress();
 
 	UFUNCTION()
 	void ReceiveDamage(AActor* DamgeActor,float Damage,const UDamageType* DamageType,class AController* InstigatorController,AActor* DamageCauser);
@@ -118,7 +120,8 @@ private:
 	UAnimMontage* HitReactMontage;
 	UPROPERTY(EditAnywhere,Category="Combat",meta = (AllowPrivateAccess="true"))
 	UAnimMontage* ElimMontage;
-
+	UPROPERTY(EditAnywhere,Category="Combat",meta = (AllowPrivateAccess="true"))
+	UAnimMontage* TrowGrenadeMontage;
 
 	void HideCameraIfCharacterClose();
 

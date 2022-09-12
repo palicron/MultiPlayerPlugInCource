@@ -38,6 +38,9 @@ public:
 	void ShotGunShellReload();
 
 	void JumpToShotGunEnd();
+
+	UFUNCTION(BlueprintCallable)
+	void ThrowGrenadeFinished();
 	
 protected:
 
@@ -79,6 +82,11 @@ protected:
 
 	UFUNCTION()
 	void HandleReload();
+
+	void ThrowGrenade();
+
+	UFUNCTION(Server,Reliable)
+	void ServerThrowGrenade();
 
 private:
 	

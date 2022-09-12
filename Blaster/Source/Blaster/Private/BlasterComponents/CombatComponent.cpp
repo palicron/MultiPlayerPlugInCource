@@ -327,7 +327,7 @@ void UCombatComponent::InterpFOV(float DeltaTime)
 void UCombatComponent::EquipWeapon(AWeapon* WeaponToEquip)
 {
 	if(Character == nullptr || WeaponToEquip==nullptr) return;
-
+	if(CombatState != ECombatState::ECS_Unoccupied) return;
 	if(EquippedWeapon)
 	{
 		EquippedWeapon->Dropped();
@@ -371,7 +371,7 @@ void UCombatComponent::EquipWeapon(AWeapon* WeaponToEquip)
 }
 void UCombatComponent::Reload()
 {
-	if(CarriedAmmo>0 && CombatState != ECombatState::ECS_Reloading)
+	if(CarriedAmmo>0 && CombatState  == ECombatState::ECS_Unoccupied )
 	{
 		ServerReload();
 	}
@@ -427,6 +427,12 @@ void UCombatComponent::OnRep_CombatState()
 		break;
 	case ECombatState::ECS_Reloading:
 		HandleReload();
+		break;
+	case ECombatState::ECS_ThrowingGrenade:
+		if(Character && !Character->IsLocallyControlled())
+		{
+			Character->PlayTrowGrenadeMontage();
+		}
 		break;
 	case ECombatState::ECS_Max: break;
 	default: ;
@@ -486,6 +492,12 @@ void UCombatComponent::JumpToShotGunEnd()
 	}
 		
 }
+
+void UCombatComponent::ThrowGrenadeFinished()
+{
+	CombatState = ECombatState::ECS_Unoccupied;
+}
+
 void UCombatComponent::OnRep_CarriedAmmo()
 {
 	Controller = Controller ==nullptr ? Cast<ABlasterPlayerController>(Character->Controller):Controller;
@@ -505,6 +517,30 @@ void UCombatComponent::OnRep_CarriedAmmo()
 void UCombatComponent::HandleReload()
 {
 	Character->PlayReLoadMontage();
+}
+
+void UCombatComponent::ThrowGrenade()
+{
+	if(CombatState != ECombatState::ECS_Unoccupied) return;
+	CombatState = ECombatState::ECS_ThrowingGrenade;
+	if(Character)
+	{
+		Character->PlayTrowGrenadeMontage();
+	}
+	if(Character && !Character->HasAuthority())
+	{
+		ServerThrowGrenade();
+	}
+
+}
+
+void UCombatComponent::ServerThrowGrenade_Implementation()
+{
+	CombatState = ECombatState::ECS_ThrowingGrenade;
+	if(Character )
+	{
+		Character->PlayTrowGrenadeMontage();
+	}
 }
 
 void UCombatComponent::InitializeCarriedAmmo()
