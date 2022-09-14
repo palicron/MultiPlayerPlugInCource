@@ -25,6 +25,9 @@ public:
 
 	void EquipWeapon(AWeapon* WeaponToEquip);
 
+	void AttachActorToRightHand(AActor* ActorToAttach);
+
+	void AttachActorToLeftHand(AActor* ActorToAttach);
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	void Reload();
 	UFUNCTION(BlueprintCallable)
@@ -88,6 +91,11 @@ protected:
 	UFUNCTION(Server,Reliable)
 	void ServerThrowGrenade();
 
+	void DropEquippedWeapon();
+	void UpdateCarryAmmo();
+	void PlayEquippedWeaponSound();
+	void ReloadEmptyWeapone();
+
 private:
 	
 	UPROPERTY(ReplicatedUsing = OnRep_EquippedWeapon)
@@ -120,6 +128,7 @@ private:
 	float CurrentFOV;
 
 	void InterpFOV(float DeltaTime);
+
 
 	/**
 	 *Auto Fire
