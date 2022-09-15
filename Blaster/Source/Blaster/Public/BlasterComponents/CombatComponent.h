@@ -44,6 +44,10 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void ThrowGrenadeFinished();
+
+	
+	UFUNCTION(BlueprintCallable)
+	void LaunchGrenade();
 	
 protected:
 
@@ -182,4 +186,6 @@ private:
 	void UpdateAmmoValues();
 
 	void UpdateShotgunAmmoValues();
+
+	void ShowAttachedGrenade(bool bShowGrenade) const;
 };

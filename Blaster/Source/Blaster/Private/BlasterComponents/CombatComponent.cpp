@@ -489,6 +489,7 @@ void UCombatComponent::OnRep_CombatState()
 		if(Character && !Character->IsLocallyControlled())
 		{
 			Character->PlayTrowGrenadeMontage();
+			ShowAttachedGrenade(true);
 			AttachActorToLeftHand(EquippedWeapon);
 		}
 		break;
@@ -539,6 +540,13 @@ void UCombatComponent::UpdateShotgunAmmoValues()
 	}
 }
 
+void UCombatComponent::ShowAttachedGrenade(bool bShowGrenade) const
+{
+	if(Character && Character->GetAttachedGrenade())
+	{
+		Character->GetAttachedGrenade()->SetVisibility(bShowGrenade);
+	}
+}
 
 
 void UCombatComponent::JumpToShotGunEnd()
@@ -555,6 +563,11 @@ void UCombatComponent::ThrowGrenadeFinished()
 {
 	CombatState = ECombatState::ECS_Unoccupied;
 	AttachActorToRightHand(EquippedWeapon);
+}
+
+void UCombatComponent::LaunchGrenade()
+{
+	ShowAttachedGrenade(false);
 }
 
 void UCombatComponent::OnRep_CarriedAmmo()
@@ -586,6 +599,7 @@ void UCombatComponent::ThrowGrenade()
 	{
 		Character->PlayTrowGrenadeMontage();
 		AttachActorToLeftHand(EquippedWeapon);
+		ShowAttachedGrenade(true);
 	}
 	if(Character && !Character->HasAuthority())
 	{
@@ -601,6 +615,7 @@ void UCombatComponent::ServerThrowGrenade_Implementation()
 	{
 		Character->PlayTrowGrenadeMontage();
 		AttachActorToLeftHand(EquippedWeapon);
+		ShowAttachedGrenade(true);
 	}
 }
 
