@@ -57,6 +57,11 @@ ABlasterCharacter::ABlasterCharacter()
 	MinNetUpdateFrequency = 33.f;
 
 	DissolbeTimeline = CreateDefaultSubobject<UTimelineComponent>(TEXT("DessolveTImeLineComponent"));
+
+	AttachGrenade = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Attache Grenade"));
+	AttachGrenade->SetupAttachment(GetMesh(),FName("GrenadeSocket"));
+	AttachGrenade->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	
 }
 
 void ABlasterCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const

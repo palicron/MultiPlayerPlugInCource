@@ -194,6 +194,13 @@ private:
 	class USoundCue* ElimBotSound;
 	UPROPERTY()
 	class ABlasterPlayerState* BlasterPlayerState;
+
+	/**
+	 * Grenade
+	 */
+
+	UPROPERTY(VisibleAnywhere)
+	UStaticMeshComponent* AttachGrenade;
 public:
 	 void SetOverlappingWeapon(AWeapon* weapon);
 
