@@ -326,6 +326,8 @@ void ABlasterCharacter::GrenadeButtonPress()
 void ABlasterCharacter::ReceiveDamage(AActor* DamgeActor, float Damage, const UDamageType* DamageType,
                                       AController* InstigatorController, AActor* DamageCauser)
 {
+
+	if(bElim) return;
 	Health = FMath::Clamp(Health-Damage,0.f,MaxHealth);
 
 	PlayHitReactMontage();

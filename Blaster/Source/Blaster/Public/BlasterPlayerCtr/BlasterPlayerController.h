@@ -22,6 +22,7 @@ public:
 	void SetHUDCarriedAmmo(int32 Ammo);
 	void SetHUDMatchCountDown(float CountDownTIme);
 	void SetHUDAnnoucementCountDown(float CountDownTIme);
+	void SetHUDGrenades(int32 Grenades);
 	virtual void OnPossess(APawn* InPawn) override;
 	virtual float GetServerTime();
 	virtual void ReceivedPlayer() override;
@@ -92,4 +93,5 @@ private:
 	float HUDMaxHealth;
 	float HUDScore;
 	int32 HUDDefeats;
+	int32 HUDGrenades;
 };

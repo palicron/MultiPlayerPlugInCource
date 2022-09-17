@@ -106,6 +106,17 @@ protected:
 	void PlayEquippedWeaponSound();
 	void ReloadEmptyWeapone();
 
+	UPROPERTY(ReplicatedUsing=OnRep_Grenades)
+	int32 Grenades = 4;
+
+	UFUNCTION()
+	void OnRep_Grenades();
+
+	UPROPERTY(EditAnywhere)
+	int32 MaxGrenades = 4;
+
+	void UpdateHUDGrenades();
+
 private:
 	
 	UPROPERTY(ReplicatedUsing = OnRep_EquippedWeapon)
@@ -183,6 +194,8 @@ private:
 	int32 StartingGrenadeLauncherAmmo = 0.f;
 	void InitializeCarriedAmmo();
 
+
+
 	UPROPERTY(ReplicatedUsing=OnRep_CombatState)
 	ECombatState CombatState = ECombatState::ECS_Unoccupied;
 
@@ -194,4 +207,7 @@ private:
 	void UpdateShotgunAmmoValues();
 
 	void ShowAttachedGrenade(bool bShowGrenade) const;
+
+public:
+	FORCEINLINE int32 GetGrenades() const {return Grenades;}
 };

@@ -368,6 +368,21 @@ void UCombatComponent::ReloadEmptyWeapone()
 	}
 }
 
+void UCombatComponent::OnRep_Grenades()
+{
+	UpdateHUDGrenades();
+}
+
+void UCombatComponent::UpdateHUDGrenades()
+{
+	Controller = Controller == nullptr ? Cast<ABlasterPlayerController>(Character->Controller):Controller;
+	if(Controller)
+	{
+		Controller->SetHUDGrenades(Grenades);
+	}
+		
+}
+
 void UCombatComponent::EquipWeapon(AWeapon* WeaponToEquip)
 {
 	if(Character == nullptr || WeaponToEquip==nullptr) return;
@@ -573,7 +588,6 @@ void UCombatComponent::LaunchGrenade()
 	{
 		ServerLaunchGrenade(HitTarget);
 	}
-	
 }
 
 void UCombatComponent::ServerLaunchGrenade_Implementation(const FVector_NetQuantize& Target)
@@ -619,7 +633,8 @@ void UCombatComponent::HandleReload()
 
 void UCombatComponent::ThrowGrenade()
 {
-	if(CombatState != ECombatState::ECS_Unoccupied && EquippedWeapon == nullptr) return;
+	if(Grenades == 0) return;
+	if(CombatState != ECombatState::ECS_Unoccupied && EquippedWeapon == nullptr ) return;
 	CombatState = ECombatState::ECS_ThrowingGrenade;
 	if(Character)
 	{
@@ -631,18 +646,26 @@ void UCombatComponent::ThrowGrenade()
 	{
 		ServerThrowGrenade();
 	}
+	if(Character && Character->HasAuthority())
+	{
+		Grenades = FMath::Clamp(Grenades-1,0,MaxGrenades);
+		UpdateHUDGrenades();	
+	}
 
 }
 
 void UCombatComponent::ServerThrowGrenade_Implementation()
 {
+	if(Grenades == 0) return;
 	CombatState = ECombatState::ECS_ThrowingGrenade;
-	if(Character )
+	if(Character)
 	{
 		Character->PlayTrowGrenadeMontage();
 		AttachActorToLeftHand(EquippedWeapon);
 		ShowAttachedGrenade(true);
 	}
+	Grenades = FMath::Clamp(Grenades-1,0,MaxGrenades);
+	UpdateHUDGrenades();	
 }
 
 void UCombatComponent::InitializeCarriedAmmo()
@@ -665,6 +688,7 @@ void UCombatComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 	DOREPLIFETIME(UCombatComponent,EquippedWeapon);
 	DOREPLIFETIME(UCombatComponent,bAiming);
 	DOREPLIFETIME(UCombatComponent,CombatState);
+	DOREPLIFETIME(UCombatComponent,Grenades);
 	DOREPLIFETIME_CONDITION(UCombatComponent,CarriedAmmo,COND_OwnerOnly);
 	
 }
