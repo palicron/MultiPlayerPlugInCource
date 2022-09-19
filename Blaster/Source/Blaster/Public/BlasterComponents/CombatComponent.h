@@ -51,6 +51,8 @@ public:
 
 	UFUNCTION(Server,Reliable)
 	void ServerLaunchGrenade(const FVector_NetQuantize& Target);
+
+	void PickUpAmmo(EWeaponType Type,int32 AmmoAmount);
 	
 protected:
 
@@ -168,6 +170,9 @@ private:
 	int32 CarriedAmmo = 0;
 	
 	TMap<EWeaponType,int32> CarriedAmmoMap;
+
+	UPROPERTY(EditAnywhere)
+	int32 MaxCarriedAmmo = 500;
 
 	UFUNCTION()
 	void OnRep_CarriedAmmo();

@@ -26,6 +26,13 @@ UCombatComponent::UCombatComponent()
 }
 
 
+void UCombatComponent::PickUpAmmo(EWeaponType Type, int32 AmmoAmount)
+{
+	if(CarriedAmmoMap.Contains(Type))
+	{
+		CarriedAmmoMap[Type] =  FMath::Clamp(CarriedAmmoMap[Type] + AmmoAmount,0,MaxCarriedAmmo);
+	}
+}
 
 void UCombatComponent::BeginPlay()
 {
