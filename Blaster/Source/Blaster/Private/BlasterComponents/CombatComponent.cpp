@@ -31,6 +31,12 @@ void UCombatComponent::PickUpAmmo(EWeaponType Type, int32 AmmoAmount)
 	if(CarriedAmmoMap.Contains(Type))
 	{
 		CarriedAmmoMap[Type] =  FMath::Clamp(CarriedAmmoMap[Type] + AmmoAmount,0,MaxCarriedAmmo);
+		
+		UpdateCarryAmmo();
+	}
+	if(EquippedWeapon && EquippedWeapon->IsEmpty() && EquippedWeapon->GetWeaponType() == Type)
+	{
+		Reload();
 	}
 }
 

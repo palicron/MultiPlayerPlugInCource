@@ -6,6 +6,7 @@
 #include "Components/SphereComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Sound/SoundCue.h"
+#include "Weapon/WeaponTypes.h"
 
 
 APickUp::APickUp()
@@ -14,6 +15,7 @@ APickUp::APickUp()
 	PrimaryActorTick.bCanEverTick = true;
 	bReplicates = true;
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
+	
 	OverLapSphere = CreateDefaultSubobject<USphereComponent>(TEXT("Overlap Sphere"));
 	OverLapSphere->SetupAttachment(RootComponent);
 	OverLapSphere->SetSphereRadius(150.f);
@@ -25,6 +27,9 @@ APickUp::APickUp()
 
 	PickUpMesh->SetupAttachment(RootComponent);
 	PickUpMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	PickUpMesh->SetRelativeScale3D(FVector(5.f, 5.f, 5.f));
+	PickUpMesh->SetRenderCustomDepth(true);
+	PickUpMesh->SetCustomDepthStencilValue(CUSTOM_DEPTH_PURPLE);
 	
 }
 
@@ -51,6 +56,10 @@ void APickUp::OnSphereOverlap(UPrimitiveComponent* Overlap, AActor* OtherActor, 
 void APickUp::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	if(PickUpMesh)
+	{
+		PickUpMesh->AddLocalRotation(FRotator(0.f,BaseTurnRate*DeltaTime,0.f));
+	}
 
 }
 
