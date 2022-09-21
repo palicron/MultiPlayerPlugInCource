@@ -100,6 +100,9 @@ private:
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,meta = (AllowPrivateAccess="true"))
 	UCombatComponent* Combat;
 
+	UPROPERTY(VisibleAnywhere,meta = (AllowPrivateAccess="true"))
+	class UBuffComponent* Buff;
+
 	float AO_Yaw;
 
 	float InterpAO_Yaw;

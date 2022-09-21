@@ -5,6 +5,7 @@
 
 #include "Blaster/Blaster.h"
 #include "Blaster/Weapon/Weapon.h"
+#include "BlasterComponents/BuffComponent.h"
 #include "BlasterPlayerCtr/BlasterPlayerController.h"
 #include "Camera/CameraComponent.h"
 #include "Character/BlasterAnimInstance.h"
@@ -43,6 +44,9 @@ ABlasterCharacter::ABlasterCharacter()
 
 	Combat = CreateDefaultSubobject<UCombatComponent>(TEXT("CombatComponent"));
 	Combat->SetIsReplicated(true);
+
+	Buff = CreateDefaultSubobject<UBuffComponent>(TEXT("Buff COmponent"));
+	Buff->SetIsReplicated(true);
 
 	GetCharacterMovement()->NavAgentProps.bCanCrouch = true;
 
@@ -151,6 +155,10 @@ void ABlasterCharacter::PostInitializeComponents()
 	if(Combat)
 	{
 		Combat->Character = this;
+	}
+	if(Buff)
+	{
+		Buff->Character = this;
 	}
 }
 
