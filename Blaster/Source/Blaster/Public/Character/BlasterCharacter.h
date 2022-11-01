@@ -52,6 +52,7 @@ public:
 	
 	virtual void Destroyed() override;
 
+	void UpdateHudHealth();
 protected:
 
 	virtual void BeginPlay() override;
@@ -78,7 +79,7 @@ protected:
 	void ReceiveDamage(AActor* DamgeActor,float Damage,const UDamageType* DamageType,class AController* InstigatorController,AActor* DamageCauser);
 	void RotateInPlace(float DeltaTime);
 
-	void UpdateHudHealth();
+
 
 	void PollInit();
 	
@@ -152,7 +153,7 @@ private:
 
 	bool bElim=false;
 	UFUNCTION()
-	void OnRep_Health();
+	void OnRep_Health(float LastHealth);
 
 	FTimerHandle EliminTimer;
 	
@@ -231,6 +232,8 @@ public:
 
 	FORCEINLINE float GetHealth() const {return Health;}
 
+	FORCEINLINE void SetHealth(float Amount) { Health = Amount;}
+
 	FORCEINLINE float GetMaxHealth() const {return MaxHealth;}
 
 	FORCEINLINE UCombatComponent* GetCombat() const {return Combat;}
@@ -241,6 +244,8 @@ public:
 
 	FORCEINLINE UStaticMeshComponent* GetAttachedGrenade() const { return AttachGrenade;}
 
+	FORCEINLINE UBuffComponent* GetBuff() const{return Buff;}
+	
 	ECombatState GetCombatState() const;
 
 };
