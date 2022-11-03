@@ -9,20 +9,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="af172d45-ccab-490a-95b1-bf10e17b63a3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/sA_PickupSet_1/Fx/NiagaraSystems/NS_Energy_2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/sA_PickupSet_1/Fx/NiagaraSystems/NS_Energy_2.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/sA_PickupSet_1/Fx/NiagaraSystems/NS_Pickup_2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/sA_PickupSet_1/Fx/NiagaraSystems/NS_Pickup_2.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/sA_PickupSet_1/Materials/Textures/T_Beam_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/sA_PickupSet_1/Materials/Textures/T_Beam_01.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/sA_PickupSet_1/Materials/Textures/T_NoiseCloud_1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/sA_PickupSet_1/Materials/Textures/T_NoiseCloud_1.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/sA_PickupSet_1/Materials/Textures/T_NoiseCloud_2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/sA_PickupSet_1/Materials/Textures/T_NoiseCloud_2.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/sA_PickupSet_1/Materials/Textures/T_NoiseFurry.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/sA_PickupSet_1/Materials/Textures/T_NoiseFurry.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Private/BlasterComponents/BuffComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Private/BlasterComponents/BuffComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Private/Character/BlasterCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Private/Character/BlasterCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Private/PickUps/HealthPickUp.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Private/PickUps/HealthPickUp.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Private/PickUps/PickUp.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Private/PickUps/PickUp.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Public/BlasterComponents/BuffComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Public/BlasterComponents/BuffComponent.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Public/PickUps/HealthPickUp.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Public/PickUps/HealthPickUp.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Public/PickUps/PickUp.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Public/PickUps/PickUp.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/sA_PickupSet_1/Fx/NiagaraSystems/NS_Magic_2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/sA_PickupSet_1/Fx/NiagaraSystems/NS_Magic_2.uasset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
