@@ -123,7 +123,8 @@ void ABlasterCharacter::BeginPlay()
 	Super::BeginPlay();
 
 	UpdateHudHealth();
-
+	UpdateHudShield();
+	
 	if(HasAuthority())
 	{
 		OnTakeAnyDamage.AddDynamic(this,&ABlasterCharacter::ReceiveDamage);
@@ -348,10 +349,30 @@ void ABlasterCharacter::ReceiveDamage(AActor* DamgeActor, float Damage, const UD
 {
 
 	if(bElim) return;
-	Health = FMath::Clamp(Health-Damage,0.f,MaxHealth);
+
+	float DamageToHealth = Damage;
+
+	if(Shield>0.f)
+	{
+		if(Shield >= Damage)
+		{
+			Shield = FMath::Clamp(Shield -Damage,0.f,MaxShield);
+			DamageToHealth = 0.f;
+		}
+		else
+		{
+			Shield = 0.f;
+			DamageToHealth -= FMath::Clamp(DamageToHealth-Shield,0.f,Damage);
+		
+		}
+		UpdateHudShield();
+	}
+	
+	Health = FMath::Clamp(Health-DamageToHealth,0.f,MaxHealth);
 
 	PlayHitReactMontage();
 	UpdateHudHealth();
+
 
 	if(Health==0.f)
 	{
