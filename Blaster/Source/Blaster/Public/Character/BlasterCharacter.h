@@ -53,6 +53,8 @@ public:
 	virtual void Destroyed() override;
 
 	void UpdateHudHealth();
+
+	void UpdateHudShield();
 protected:
 
 	virtual void BeginPlay() override;
@@ -149,11 +151,21 @@ private:
 	UPROPERTY(ReplicatedUsing=OnRep_Health,VisibleAnywhere,Category="Player States")
 	float Health = 100.f;
 
+	UPROPERTY(EditAnywhere, Category="Player Stats")
+	float MaxShield= 100.f;
+	
+	UPROPERTY(ReplicatedUsing=OnRep_Shield,VisibleAnywhere,Category="Player States")
+	float Shield = 100.f;
+
 	class ABlasterPlayerController* BlastertPlayerCtr;
 
 	bool bElim=false;
+	
 	UFUNCTION()
 	void OnRep_Health(float LastHealth);
+
+	UFUNCTION()
+	void OnRep_Shield(float LastShield);
 
 	FTimerHandle EliminTimer;
 	
