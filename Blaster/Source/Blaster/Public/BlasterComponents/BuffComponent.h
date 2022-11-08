@@ -23,14 +23,15 @@ protected:
 
 	void HealRampUp(float DeltaTime);
 
-
+	void ShieldRampUp(float DeltaTime);
 
 public:	
 
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-
+	
 	void Heal(float HealAmount, float HealingTime);
+
+	void ReplenishShield(float ShieldAmount, float ShieldTime);
 
 	void BuffSpeed(float BuffBaseSpeed,float BuffCrouchSpeed,float BuffSpeedTime);
 	
@@ -51,10 +52,16 @@ private:
 	
 
 	bool bHealing = false;
+
+	bool bSheling = false;
 	
 	float HealingRate = 0.f;
 	
 	float AmountToHeal = 0.f;
+
+	float ShieldRate = 0.f;
+	
+	float AmountToShield = 0.f;
 
 	
 	/**

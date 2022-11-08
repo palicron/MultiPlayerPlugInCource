@@ -154,8 +154,8 @@ private:
 	UPROPERTY(EditAnywhere, Category="Player Stats")
 	float MaxShield= 100.f;
 	
-	UPROPERTY(ReplicatedUsing=OnRep_Shield,VisibleAnywhere,Category="Player States")
-	float Shield = 100.f;
+	UPROPERTY(ReplicatedUsing=OnRep_Shield,EditAnywhere,Category="Player States")
+	float Shield = 0.f;
 
 	class ABlasterPlayerController* BlastertPlayerCtr;
 
@@ -245,8 +245,14 @@ public:
 	FORCEINLINE float GetHealth() const {return Health;}
 
 	FORCEINLINE void SetHealth(float Amount) { Health = Amount;}
+	
+	FORCEINLINE float GetShield() const {return Shield;}
+
+	FORCEINLINE void SetShield(float Amount) { Shield = Amount;}
 
 	FORCEINLINE float GetMaxHealth() const {return MaxHealth;}
+
+	FORCEINLINE float GetMaxShield() const {return MaxShield;}
 
 	FORCEINLINE UCombatComponent* GetCombat() const {return Combat;}
 
