@@ -272,7 +272,12 @@ void AWeapon::OnRep_Owner()
 	}
 	else
 	{
-		SetHUDAmmo();
+		BlasterOwnerCharacter = BlasterOwnerCharacter == nullptr ?  Cast<ABlasterCharacter>(Owner) : BlasterOwnerCharacter;
+		if(BlasterOwnerCharacter && BlasterOwnerCharacter->GetEquippedWeapone() && BlasterOwnerCharacter->GetEquippedWeapone() == this)
+		{
+			SetHUDAmmo();
+		}
+		
 	}
 }
 

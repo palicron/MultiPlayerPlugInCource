@@ -25,7 +25,13 @@ public:
 
 	void EquipWeapon(AWeapon* WeaponToEquip);
 
+	void EquipPrimaryWeapon(AWeapon* WeaponToEquip);
+	
+	void EquipSecondaryWeapon(AWeapon* WeaponToEquip);
+
 	void AttachActorToRightHand(AActor* ActorToAttach);
+
+	void AttachActorToBackPack(AActor* ActorToAttach);
 
 	void AttachActorToLeftHand(AActor* ActorToAttach);
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
@@ -64,6 +70,9 @@ protected:
 	void ServerSetAiming(bool bIsAiming);
 	UFUNCTION()
 	void OnRep_EquippedWeapon();
+
+	UFUNCTION()
+	void OnRep_SecondaryWeapon();
 	void Fire();
 
 
@@ -105,7 +114,7 @@ protected:
 
 	void DropEquippedWeapon();
 	void UpdateCarryAmmo();
-	void PlayEquippedWeaponSound();
+	void PlayEquippedWeaponSound(AWeapon* WeaponToEquip);
 	void ReloadEmptyWeapone();
 
 	UPROPERTY(ReplicatedUsing=OnRep_Grenades)
@@ -118,11 +127,16 @@ protected:
 	int32 MaxGrenades = 4;
 
 	void UpdateHUDGrenades();
+	
+
 
 private:
 	
 	UPROPERTY(ReplicatedUsing = OnRep_EquippedWeapon)
 	AWeapon* EquippedWeapon;
+
+	UPROPERTY(ReplicatedUsing=OnRep_SecondaryWeapon)
+	AWeapon* SecondaryWeapon;
 	
 	ABlasterCharacter* Character;
 	ABlasterPlayerController* Controller;
