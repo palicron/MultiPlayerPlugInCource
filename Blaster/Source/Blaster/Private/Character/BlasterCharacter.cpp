@@ -96,6 +96,16 @@ void ABlasterCharacter::UpdateHudShield()
 	}
 }
 
+void ABlasterCharacter::UpdateHUDAmo()
+{
+	BlastertPlayerCtr = BlastertPlayerCtr==nullptr ?Cast<ABlasterPlayerController>(Controller):BlastertPlayerCtr;
+	if(BlastertPlayerCtr && Combat && Combat->EquippedWeapon)
+	{
+		BlastertPlayerCtr->SetHUDCarriedAmmo(Combat->CarriedAmmo);
+		BlastertPlayerCtr->SetHUDWeaponAmmo(Combat->EquippedWeapon->GetAmmo());
+	}
+}
+
 void ABlasterCharacter::PollInit()
 {
 	if(BlasterPlayerState == nullptr)
@@ -122,8 +132,11 @@ void ABlasterCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
+	SpawnDefaultWeapon();
+
 	UpdateHudHealth();
 	UpdateHudShield();
+	UpdateHUDAmo();
 	
 	if(HasAuthority())
 	{
@@ -254,7 +267,15 @@ void ABlasterCharacter::Elim()
 {
 	if(Combat && Combat->EquippedWeapon)
 	{
-		Combat->EquippedWeapon->Dropped();
+		if(Combat->EquippedWeapon->bDestroyWeapon)
+		{
+			Combat->EquippedWeapon->Destroy();
+		}
+		else
+		{
+			Combat->EquippedWeapon->Dropped();
+		}
+		
 	}
 	MulticasElim();
 	GetWorldTimerManager().SetTimer(EliminTimer,this,&ABlasterCharacter::ElimTimerFinish,ElimDelay);
@@ -727,6 +748,23 @@ void ABlasterCharacter::SetOverlappingWeapon(AWeapon* weapon)
 		if(OverLappingWeapon)
 		{
 			OverLappingWeapon->ShowPickUpWidget(true);
+		}
+	}
+}
+
+void ABlasterCharacter::SpawnDefaultWeapon()
+{
+	ABlasterGameMode* BlasterGameMode = Cast<ABlasterGameMode>(UGameplayStatics::GetGameMode(this));
+	UWorld* World = GetWorld();
+	if(BlasterGameMode && World && !bElim && DefaultWeapon)
+	{
+		AWeapon* StartingWeapon = World->SpawnActor<AWeapon>(DefaultWeapon);
+		
+		StartingWeapon->bDestroyWeapon = true;
+
+		if(Combat)
+		{
+			Combat->EquipWeapon(StartingWeapon);
 		}
 	}
 }

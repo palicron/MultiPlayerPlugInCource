@@ -130,6 +130,9 @@ private:
 	EWeaponType WeaponType;
 	
 public:
+
+	bool bDestroyWeapon = false;
+	
 	 void SetWeaponeState(EWeaponState State);
 
 	FORCEINLINE USphereComponent* GetAreSphere(){return AreaSphere;}

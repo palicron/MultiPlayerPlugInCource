@@ -101,4 +101,8 @@ private:
 	int32 HUDDefeats;
 	bool BInitDGrenades = false;
 	int32 HUDGrenades;
+	bool BInitCarryAmmo = false;
+	float HUDCarryAmmo;
+	bool BInitWeaponAmmo = false;
+	float HUDWeaponAmmo;
 };
