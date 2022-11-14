@@ -24,6 +24,8 @@ public:
 	friend class ABlasterCharacter;
 
 	void EquipWeapon(AWeapon* WeaponToEquip);
+	
+	void SawpWeapons();
 
 	void EquipPrimaryWeapon(AWeapon* WeaponToEquip);
 	
@@ -229,4 +231,6 @@ private:
 
 public:
 	FORCEINLINE int32 GetGrenades() const {return Grenades;}
+
+	bool ShouldSwapWeapons() const;
 };

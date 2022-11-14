@@ -14,6 +14,7 @@ enum class EWeaponState : uint8
 {
 	EWS_Initial UMETA(DisplayName="Initial State"),
 	EWS_Equipped UMETA(DisplayName="Equipped"),
+	EWS_EquippedSecondary UMETA(DisplayName="Equipped Secondary"),
 	EWS_Drop UMETA(DisplayName="Drop"),
 	EWS_MAX UMETA(DisplayName="DefaultMax")
 };
@@ -71,6 +72,12 @@ public:
 protected:
 	
 	virtual void BeginPlay() override;
+
+	virtual void OnWeaponStateSet();
+	virtual void OnEquipped();
+	virtual void OnDrop();
+	virtual void OnEquippedSecondary();
+
 	UFUNCTION()
 	virtual void OnSphereOverlap(UPrimitiveComponent* Overlap,AActor* OtherActor,UPrimitiveComponent* otherComp,
 		int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
@@ -78,6 +85,7 @@ protected:
 	void OnSphereEndOverlarp(UPrimitiveComponent* Overlap,AActor* OtherActor,UPrimitiveComponent* otherComp,
 		int32 OtherBodyIndex);
 
+	
 private:
 
 	/**
@@ -134,6 +142,7 @@ public:
 	bool bDestroyWeapon = false;
 	
 	 void SetWeaponeState(EWeaponState State);
+
 
 	FORCEINLINE USphereComponent* GetAreSphere(){return AreaSphere;}
 	FORCEINLINE USkeletalMeshComponent* GetWeaponMesh() const {return WeaponMesh;}

@@ -779,7 +779,14 @@ void ABlasterCharacter::ServerEquipButtonPressed_Implementation()
 {
 	if(Combat)
 	{
-		Combat->EquipWeapon(OverLappingWeapon);
+		if(OverLappingWeapon)
+		{
+			Combat->EquipWeapon(OverLappingWeapon);
+		}
+		else if(Combat->ShouldSwapWeapons())
+		{
+			Combat->SawpWeapons();
+		}
 	}
 }
 
