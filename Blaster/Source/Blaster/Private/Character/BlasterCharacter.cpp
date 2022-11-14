@@ -106,6 +106,7 @@ void ABlasterCharacter::UpdateHUDAmo()
 	}
 }
 
+
 void ABlasterCharacter::PollInit()
 {
 	if(BlasterPlayerState == nullptr)
@@ -263,20 +264,37 @@ void ABlasterCharacter::PlayTrowGrenadeMontage()
 	}
 }
 
+void ABlasterCharacter::DropOrDestroyWeapon(AWeapon* Weapon)
+{
+	if(Weapon==nullptr) return;
+	if(Weapon->bDestroyWeapon)
+	{
+		Weapon->Destroy();
+	}
+	else
+	{
+		Weapon->Dropped();
+	}
+}
+
+void ABlasterCharacter::DropOrDestroyWeapons()
+{
+	if(Combat)
+	{
+		if(Combat->EquippedWeapon)
+		{
+			DropOrDestroyWeapon(Combat->EquippedWeapon);
+		}
+		if(Combat->SecondaryWeapon)
+		{
+			DropOrDestroyWeapon(Combat->SecondaryWeapon);
+		}
+	}
+}
+
 void ABlasterCharacter::Elim()
 {
-	if(Combat && Combat->EquippedWeapon)
-	{
-		if(Combat->EquippedWeapon->bDestroyWeapon)
-		{
-			Combat->EquippedWeapon->Destroy();
-		}
-		else
-		{
-			Combat->EquippedWeapon->Dropped();
-		}
-		
-	}
+	DropOrDestroyWeapons();
 	MulticasElim();
 	GetWorldTimerManager().SetTimer(EliminTimer,this,&ABlasterCharacter::ElimTimerFinish,ElimDelay);
 }

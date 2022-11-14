@@ -88,7 +88,10 @@ protected:
 	void PollInit();
 
 	void UpdateHUDAmo();
-	
+
+	void DropOrDestroyWeapon(AWeapon* Weapon);
+	void DropOrDestroyWeapons();
+
 private:
 	UPROPERTY(VisibleAnywhere,Category= Camera)
 	USpringArmComponent* CameraBoom;
