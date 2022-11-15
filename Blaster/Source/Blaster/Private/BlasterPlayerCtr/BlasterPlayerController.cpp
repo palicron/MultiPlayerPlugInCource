@@ -4,6 +4,7 @@
 #include "BlasterPlayerCtr/BlasterPlayerController.h"
 
 #include "Character/BlasterCharacter.h"
+#include "Components/Image.h"
 #include "Components/ProgressBar.h"
 #include "Components/TextBlock.h"
 #include "GameFramework/GameMode.h"
@@ -28,6 +29,33 @@ void ABlasterPlayerController::BeginPlay()
 }
 
 
+void ABlasterPlayerController::CheckPing(float DeltaSeconds)
+{
+	HighPingRunningTime += DeltaSeconds;
+	if(HighPingRunningTime>CheckPingFrequency)
+	{
+		PlayerState = PlayerState ==nullptr ? GetPlayerState<APlayerState>() : PlayerState;
+		if(PlayerState)
+		{
+			if((PlayerState->GetPing() * 4)> HighPingThresHold ) //Ping is compress it ping/4
+			{
+				HighPingWarning();
+				AnimationPingTime = 0.f;
+			}
+		}
+		HighPingRunningTime = 0.f;
+	}
+
+	if(BlasterHUD && BlasterHUD->CharacterOverlay && BlasterHUD->CharacterOverlay->HigPingAnim &&
+		BlasterHUD->CharacterOverlay->IsAnimationPlaying(BlasterHUD->CharacterOverlay->HigPingAnim))
+	{
+		AnimationPingTime += DeltaSeconds;
+		if(AnimationPingTime > HighPingDuration)
+		{
+			StopHighPingWarning();
+		}
+	}
+}
 
 void ABlasterPlayerController::Tick(float DeltaSeconds)
 {
@@ -38,6 +66,8 @@ void ABlasterPlayerController::Tick(float DeltaSeconds)
 	CheckTimeSync(DeltaSeconds);
 
 	PollInit();
+
+	CheckPing(DeltaSeconds);
 }
 
 
@@ -348,6 +378,34 @@ void ABlasterPlayerController::PollInit()
 			
 			}
 		}
+	}
+}
+
+void ABlasterPlayerController::HighPingWarning()
+{
+	BlasterHUD = BlasterHUD==nullptr?Cast<ABlasterHUD>(GetHUD()):BlasterHUD;
+
+	if(BlasterHUD && BlasterHUD->CharacterOverlay && BlasterHUD->CharacterOverlay->HightPing
+		&& BlasterHUD->CharacterOverlay->HigPingAnim)
+	{
+		BlasterHUD->CharacterOverlay->HightPing->SetOpacity(1.f);
+		BlasterHUD->CharacterOverlay->PlayAnimation(BlasterHUD->CharacterOverlay->HigPingAnim,0.f,5);
+	}
+}
+
+void ABlasterPlayerController::StopHighPingWarning()
+{
+	BlasterHUD = BlasterHUD==nullptr?Cast<ABlasterHUD>(GetHUD()):BlasterHUD;
+
+	if(BlasterHUD && BlasterHUD->CharacterOverlay && BlasterHUD->CharacterOverlay->HightPing
+		&& BlasterHUD->CharacterOverlay->HigPingAnim)
+	{
+		BlasterHUD->CharacterOverlay->HightPing->SetOpacity(0.f);
+		if(BlasterHUD->CharacterOverlay->IsAnimationPlaying(BlasterHUD->CharacterOverlay->HigPingAnim))
+		{
+			BlasterHUD->CharacterOverlay->StopAnimation(BlasterHUD->CharacterOverlay->HigPingAnim);
+		}
+		
 	}
 }
 
