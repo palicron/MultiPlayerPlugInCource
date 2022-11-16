@@ -116,6 +116,7 @@ void UCombatComponent::Fire()
 	{
 		
 		ServerFire(HitTarget);
+		LocalFire(HitTarget);
 		if(EquippedWeapon)
 		{
 			CrossHairShootingFactor = 0.75f;
@@ -223,7 +224,7 @@ void UCombatComponent::TraceUnderCrossHair(FHitResult& TraceHitResult)
 	}
 }
 
-void UCombatComponent::MultiCastFire_Implementation(const FVector_NetQuantize& TraceHitTarget)
+void UCombatComponent::LocalFire(const FVector_NetQuantize& TraceHitTarget)
 {
 	if(EquippedWeapon==nullptr) return;
 	if(Character && CombatState==ECombatState::ECS_Reloading && EquippedWeapon->GetWeaponType()==EWeaponType::EWT_ShotGun)
@@ -231,15 +232,21 @@ void UCombatComponent::MultiCastFire_Implementation(const FVector_NetQuantize& T
 		Character->PlayFireMontage(bAiming);
 		EquippedWeapon->Fire(TraceHitTarget);
 		CombatState = ECombatState::ECS_Unoccupied;
-		return;
+		return ;
 	}
 	if(Character && CombatState == ECombatState::ECS_Unoccupied)
 	{
 		Character->PlayFireMontage(bAiming);
 		EquippedWeapon->Fire(TraceHitTarget);
 	}
+	return ;
 }
 
+void UCombatComponent::MultiCastFire_Implementation(const FVector_NetQuantize& TraceHitTarget)
+{
+	if(Character && Character->IsLocallyControlled() && !Character->HasAuthority()) return;
+	LocalFire(TraceHitTarget);
+}
 
 
 void UCombatComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
@@ -432,6 +439,9 @@ void UCombatComponent::EquipWeapon(AWeapon* WeaponToEquip)
 
 void UCombatComponent::SawpWeapons()
 {
+
+	if(CombatState != ECombatState::ECS_Unoccupied) return;
+	
 	AWeapon* TempWeapon = EquippedWeapon;
 	
 	EquippedWeapon = SecondaryWeapon;
