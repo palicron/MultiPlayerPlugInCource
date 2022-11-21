@@ -64,13 +64,12 @@ void AWeapon::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if(HasAuthority())
-	{
+	
 		AreaSphere->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 		AreaSphere->SetCollisionResponseToChannel(ECollisionChannel::ECC_Pawn,ECollisionResponse::ECR_Overlap);
 		AreaSphere->OnComponentBeginOverlap.AddDynamic(this,&ThisClass::AWeapon::OnSphereOverlap);
 		AreaSphere->OnComponentEndOverlap.AddDynamic(this,&AWeapon::OnSphereEndOverlarp);
-	}
+
 	if(PickUpWidget)
 	{
 		PickUpWidget->SetVisibility(false);
