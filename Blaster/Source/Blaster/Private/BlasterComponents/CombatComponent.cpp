@@ -15,6 +15,7 @@
 #include "Blaster/Weapon/Projectile.h"
 #include "Net/UnrealNetwork.h"
 #include "Sound/SoundCue.h"
+#include "Weapon/ShotGun.h"
 
 
 UCombatComponent::UCombatComponent()
@@ -140,9 +141,12 @@ void UCombatComponent::Fire()
 
 void UCombatComponent::FireProjectileWeapon()
 {
+	if(EquippedWeapon)
+	{
+		HitTarget = EquippedWeapon->bUseScatter ? EquippedWeapon->TraceEndWithScatter(HitTarget) : HitTarget;
 		LocalFire(HitTarget);
 		ServerFire(HitTarget);
-		
+	}	
 }
 
 void UCombatComponent::FireHitScanWeapon()
@@ -158,6 +162,16 @@ void UCombatComponent::FireHitScanWeapon()
 
 void UCombatComponent::FireShoutGun()
 {
+
+    AShotGun* Shotgun = Cast<AShotGun>(EquippedWeapon);
+	if(Shotgun)
+	{
+		TArray<FVector> HitTargets;
+		Shotgun->ShotgunTraceEndWithScatter(HitTarget,HitTargets);
+	}
+	
+	
+	
 }
 
 void UCombatComponent::ServerFire_Implementation(const FVector_NetQuantize& TraceHitTarget)

@@ -103,7 +103,11 @@ protected:
 	UFUNCTION()
 	void OnSphereEndOverlarp(UPrimitiveComponent* Overlap,AActor* OtherActor,UPrimitiveComponent* otherComp,
 		int32 OtherBodyIndex);
+	UPROPERTY(EditAnywhere,Category="Weapone Scatter")
+	float DistanceToSphere = 800.f;
 
+	UPROPERTY(EditAnywhere,Category="Weapone Scatter")
+	float SphereRadius = 75.f;
 	
 private:
 
@@ -156,11 +160,7 @@ private:
 	UPROPERTY(EditAnywhere)
 	EWeaponType WeaponType;
 
-	UPROPERTY(EditAnywhere,Category="Weapone Scatter")
-	float DistanceToSphere = 800.f;
 
-	UPROPERTY(EditAnywhere,Category="Weapone Scatter")
-	float SphereRadius = 75.f;
 
 	
 public:

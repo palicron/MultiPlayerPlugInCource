@@ -312,14 +312,14 @@ FVector AWeapon::TraceEndWithScatter(const FVector& HitTarget) const
 
 	const FVector SphereCenter = TraceStart + ToTargetNormalized * DistanceToSphere;
 
-	FVector RandVec = UKismetMathLibrary::RandomUnitVector() * FMath::FRandRange(0.f,SphereRadius);
+	const FVector RandVec = UKismetMathLibrary::RandomUnitVector() * FMath::FRandRange(0.f,SphereRadius);
 
-	FVector EndLoc = SphereCenter + RandVec;
+	const FVector EndLoc = SphereCenter + RandVec;
 
-	FVector ToEndLoc = EndLoc - TraceStart;
+	const FVector ToEndLoc = EndLoc - TraceStart;
 	
 
-	FVector NewVect = FVector(TraceStart + ToEndLoc * 80000.f / ToEndLoc.Size());
+	const FVector NewVect = FVector(TraceStart + ToEndLoc * 80000.f / ToEndLoc.Size());
 
 
 	return NewVect;
