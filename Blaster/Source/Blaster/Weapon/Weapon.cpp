@@ -8,6 +8,7 @@
 #include "Blaster/Public/Character/BlasterCharacter.h"
 #include "BlasterPlayerCtr/BlasterPlayerController.h"
 #include "Engine/SkeletalMeshSocket.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "Net/UnrealNetwork.h"
 #include "Weapon/Casing.h"
 
@@ -298,4 +299,29 @@ void AWeapon::OnRep_Owner()
 }
 
 
+FVector AWeapon::TraceEndWithScatter(const FVector& HitTarget) const
+{
+	const USkeletalMeshSocket* MuzzleFlashSocket = GetWeaponMesh()->GetSocketByName("MuzzleFlash");
+	if(MuzzleFlashSocket == nullptr) return FVector();
+	
+		
+	const FTransform SocketTransform = MuzzleFlashSocket->GetSocketTransform(GetWeaponMesh());
+	FVector TraceStart  = SocketTransform.GetLocation();
+		
+	
+	const FVector ToTargetNormalized = (HitTarget - TraceStart).GetSafeNormal();
 
+	const FVector SphereCenter = TraceStart + ToTargetNormalized * DistanceToSphere;
+
+	FVector RandVec = UKismetMathLibrary::RandomUnitVector() * FMath::FRandRange(0.f,SphereRadius);
+
+	FVector EndLoc = SphereCenter + RandVec;
+
+	FVector ToEndLoc = EndLoc - TraceStart;
+	
+
+	FVector NewVect = FVector(TraceStart + ToEndLoc * 80000.f / ToEndLoc.Size());
+
+
+	return NewVect;
+}

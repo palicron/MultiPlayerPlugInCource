@@ -62,7 +62,7 @@ void AHitScanWeapon::WeaponTraceHit(const FVector& TraceStart,const FVector& Hit
 	const UWorld* World = GetWorld();
 	if(World)
 	{
-		FVector End = bUseScatter? TraceEndWithScatter(TraceStart,HitTarget) :TraceStart + (HitTarget-TraceStart) * 1.25f;
+		FVector End = TraceStart + (HitTarget-TraceStart) * 1.25f;
 		
 		World->LineTraceSingleByChannel(
 			OutHit, TraceStart,End,ECollisionChannel::ECC_Visibility
@@ -84,23 +84,6 @@ void AHitScanWeapon::WeaponTraceHit(const FVector& TraceStart,const FVector& Hit
 	}
 }
 
-FVector AHitScanWeapon::TraceEndWithScatter(const FVector& TraceStart, const FVector& HitTarget)
-{
-	const FVector ToTargetNormalized = (HitTarget - TraceStart).GetSafeNormal();
 
-	const FVector SphereCenter = TraceStart + ToTargetNormalized * DistanceToSphere;
-
-	FVector RandVec = UKismetMathLibrary::RandomUnitVector() * FMath::FRandRange(0.f,SphereRadius);
-
-	FVector EndLoc = SphereCenter + RandVec;
-
-	FVector ToEndLoc = EndLoc - TraceStart;
-	
-
-	FVector NewVect = FVector(TraceStart + ToEndLoc * 80000.f / ToEndLoc.Size());
-
-
-	return NewVect;
-}
 
 

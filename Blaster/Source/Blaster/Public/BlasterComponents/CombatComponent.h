@@ -77,6 +77,11 @@ protected:
 	void OnRep_SecondaryWeapon();
 	void Fire();
 
+	void FireProjectileWeapon();
+	
+	void FireHitScanWeapon();
+
+	void FireShoutGun();
 
 
 	bool bFireButtonPress;
