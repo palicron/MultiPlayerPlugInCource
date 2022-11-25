@@ -10,11 +10,11 @@
 #include "Particles/ParticleSystemComponent.h"
 #include "Sound/SoundCue.h"
 
-void AShotGun::Fire(const FVector& HitTarget)
-{
 
-	AWeapon::Fire(HitTarget);
-	 
+void AShotGun::FirShotgun(const TArray<FVector_NetQuantize>& HitTargets)
+{
+	AWeapon::Fire(FVector());
+
 	APawn* OwnerPawn = Cast<APawn>(GetOwner());
 	if(OwnerPawn == nullptr) return;
 	AController* InstigatorCtr = OwnerPawn->GetController();
@@ -22,16 +22,17 @@ void AShotGun::Fire(const FVector& HitTarget)
 	if(MuzzleFlashSocket)
 	{
 		const FTransform SocketTransform = MuzzleFlashSocket->GetSocketTransform(GetWeaponMesh());
-		FVector Start = SocketTransform.GetLocation();
-		
+		const FVector Start = SocketTransform.GetLocation();
+
 		TMap<ABlasterCharacter*,uint32> HitMap;
-		for(uint32 i =0;i< NumberOfPellets;i++)
-		{			
+		for (FVector_NetQuantize HitTarget : HitTargets)
+		{
 			FHitResult FireHit;
 			WeaponTraceHit(Start,HitTarget,FireHit);
 
+			
 			ABlasterCharacter* Character = Cast<ABlasterCharacter>(FireHit.GetActor());
-			if(Character && InstigatorCtr && HasAuthority() )
+			if(Character)
 			{
 				if(HitMap.Contains(Character))
 				{
@@ -41,18 +42,19 @@ void AShotGun::Fire(const FVector& HitTarget)
 				{
 					HitMap.Emplace(Character,1);
 				}
-			}
-			if(ImpactParticles)
-			{
-				UGameplayStatics::SpawnEmitterAtLocation(GetWorld(),ImpactParticles,FireHit.ImpactPoint,FireHit.ImpactNormal.Rotation());
-			}
-			if(HitSound)
-			{
-				UGameplayStatics::PlaySoundAtLocation(this,HitSound,FireHit.ImpactPoint,
-					.5f,FMath::FRandRange(-.5f,.5f));
+				
+				if(ImpactParticles)
+				{
+					UGameplayStatics::SpawnEmitterAtLocation(GetWorld(),ImpactParticles,FireHit.ImpactPoint,FireHit.ImpactNormal.Rotation());
+				}
+				if(HitSound)
+				{
+					UGameplayStatics::PlaySoundAtLocation(this,HitSound,FireHit.ImpactPoint,
+						.5f,FMath::FRandRange(-.5f,.5f));
+				}
 			}
 		}
-	
+
 		for(auto HitPair :HitMap)
 		{
 			if(HitPair.Key && InstigatorCtr && HasAuthority() )
@@ -62,11 +64,10 @@ void AShotGun::Fire(const FVector& HitTarget)
 				
 			}
 		}
-		
-	}
+	}	
 }
 
-void AShotGun::ShotgunTraceEndWithScatter(const FVector& HitTarget, TArray<FVector>& HitTargets)
+void AShotGun::ShotgunTraceEndWithScatter(const FVector& HitTarget, TArray<FVector_NetQuantize>& HitTargets)
 {
 	const USkeletalMeshSocket* MuzzleFlashSocket = GetWeaponMesh()->GetSocketByName("MuzzleFlash");
 	if(MuzzleFlashSocket == nullptr) return;

@@ -141,20 +141,20 @@ void UCombatComponent::Fire()
 
 void UCombatComponent::FireProjectileWeapon()
 {
-	if(EquippedWeapon)
+	if(EquippedWeapon && Character)
 	{
 		HitTarget = EquippedWeapon->bUseScatter ? EquippedWeapon->TraceEndWithScatter(HitTarget) : HitTarget;
-		LocalFire(HitTarget);
+		if(!Character->HasAuthority()) LocalFire(HitTarget);
 		ServerFire(HitTarget);
 	}	
 }
 
 void UCombatComponent::FireHitScanWeapon()
 {
-	if(EquippedWeapon)
+	if(EquippedWeapon && Character)
 	{
 		HitTarget = EquippedWeapon->bUseScatter ? EquippedWeapon->TraceEndWithScatter(HitTarget) : HitTarget;
-		LocalFire(HitTarget);
+		if(!Character->HasAuthority()) LocalFire(HitTarget);
 		ServerFire(HitTarget);
 		
 	}
@@ -164,10 +164,13 @@ void UCombatComponent::FireShoutGun()
 {
 
     AShotGun* Shotgun = Cast<AShotGun>(EquippedWeapon);
-	if(Shotgun)
+	if(Shotgun && Character)
 	{
-		TArray<FVector> HitTargets;
+		TArray<FVector_NetQuantize> HitTargets;
 		Shotgun->ShotgunTraceEndWithScatter(HitTarget,HitTargets);
+		if(!Character->HasAuthority())ShotgunLocalFire(HitTargets);
+		ServerShotgunFire(HitTargets);
+		
 	}
 	
 	
@@ -179,6 +182,18 @@ void UCombatComponent::ServerFire_Implementation(const FVector_NetQuantize& Trac
 	MultiCastFire(TraceHitTarget);
 }
 
+
+void UCombatComponent::ServerShotgunFire_Implementation(const TArray<FVector_NetQuantize>& TraceHitTarget)
+{
+	MulticastShotgunFire(TraceHitTarget);
+}
+
+
+void UCombatComponent::MulticastShotgunFire_Implementation(const TArray<FVector_NetQuantize>& TraceHitTarget)
+{
+	if(Character && Character->IsLocallyControlled() && !Character->HasAuthority()) return;
+	ShotgunLocalFire(TraceHitTarget);
+}
 void UCombatComponent::FireButtonPressed(bool ButtonPress)
 {
 	bFireButtonPress=ButtonPress;
@@ -233,6 +248,8 @@ bool UCombatComponent::CanFire() const
 	return !EquippedWeapon->IsEmpty() && bCanFire && CombatState == ECombatState::ECS_Unoccupied;
 }
 
+
+
 void UCombatComponent::TraceUnderCrossHair(FHitResult& TraceHitResult)
 {
 	FVector2d ViewPortSize;
@@ -276,19 +293,26 @@ void UCombatComponent::TraceUnderCrossHair(FHitResult& TraceHitResult)
 void UCombatComponent::LocalFire(const FVector_NetQuantize& TraceHitTarget)
 {
 	if(EquippedWeapon==nullptr) return;
-	if(Character && CombatState==ECombatState::ECS_Reloading && EquippedWeapon->GetWeaponType()==EWeaponType::EWT_ShotGun)
-	{
-		Character->PlayFireMontage(bAiming);
-		EquippedWeapon->Fire(TraceHitTarget);
-		CombatState = ECombatState::ECS_Unoccupied;
-		return ;
-	}
+
 	if(Character && CombatState == ECombatState::ECS_Unoccupied)
 	{
 		Character->PlayFireMontage(bAiming);
 		EquippedWeapon->Fire(TraceHitTarget);
 	}
-	return ;
+	
+}
+
+void UCombatComponent::ShotgunLocalFire(const TArray<FVector_NetQuantize>& TraceHitTargets)
+{
+	AShotGun* shotgun = Cast<AShotGun>(EquippedWeapon);
+	if(shotgun == nullptr ||  Character == nullptr) return;
+	if(CombatState==ECombatState::ECS_Reloading || CombatState==ECombatState::ECS_Unoccupied)
+	{
+		Character->PlayFireMontage(bAiming);
+		shotgun->FirShotgun(TraceHitTargets);
+		CombatState = ECombatState::ECS_Unoccupied;
+	}
+	
 }
 
 void UCombatComponent::MultiCastFire_Implementation(const FVector_NetQuantize& TraceHitTarget)

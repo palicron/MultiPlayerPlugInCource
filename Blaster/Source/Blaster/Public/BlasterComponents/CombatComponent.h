@@ -98,11 +98,20 @@ protected:
 	
 	UFUNCTION(Server,Reliable)
 	void ServerFire(const FVector_NetQuantize& TraceHitTarget);
+	
 	UFUNCTION(NetMulticast,Reliable)
 	void MultiCastFire(const FVector_NetQuantize& TraceHitTarget);
 
+	UFUNCTION(Server,Reliable)
+	void ServerShotgunFire(const TArray<FVector_NetQuantize>& TraceHitTarget);
+
+	UFUNCTION(NetMulticast,Reliable)
+	void MulticastShotgunFire(const TArray<FVector_NetQuantize>& TraceHitTarget);
+	
 	void TraceUnderCrossHair(FHitResult& TraceHitResult);
 	void LocalFire(const FVector_NetQuantize& TraceHitTarget);
+
+	void ShotgunLocalFire(const TArray<FVector_NetQuantize>& TraceHitTargets);
 
 	void SetHUDCrosshairs(float DeltaTime);
 
