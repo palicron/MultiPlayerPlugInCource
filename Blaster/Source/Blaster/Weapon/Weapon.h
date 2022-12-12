@@ -83,6 +83,8 @@ public:
 
 	void SetHUDAmmo();
 
+	
+
 	/**
 	 *
 	 **/
@@ -118,7 +120,7 @@ private:
 	float ZoomFOV = 30.f;
 	UPROPERTY(EditAnywhere)
 	float ZoomInterSpeed = 20.f;
-	UPROPERTY(ReplicatedUsing=OnRep_Ammo, EditAnywhere)
+	UPROPERTY( EditAnywhere)
 	int32 Ammo;
 	UPROPERTY(EditAnywhere)
 	int32 MagCapacity;
@@ -139,12 +141,17 @@ private:
 	UPROPERTY(VisibleAnywhere,Category= "Weapon Properties")
 	UWidgetComponent* PickUpWidget;
 
+	UFUNCTION(Client,Reliable)
+	void ClientUpdateAmmo(int32 ServerAmmo);
+
+	UFUNCTION(Client,Reliable)
+	void ClientAddAmmo(int32 AmmoToAdd);
+	
 	UFUNCTION()
 	void OnRep_WeaponState();
-	
-	UFUNCTION()
-	void OnRep_Ammo();
-	
+	// the number of unprocessed Server Request For Ammo.
+	//Increment n Spend Round Decremente in CLientUpdateAmmo;
+	int32 Sequence = 0;
 	UPROPERTY(EditAnywhere,Category="Weapon propertis")
 	class UAnimationAsset* FireAnimation;
 

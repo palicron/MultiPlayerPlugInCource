@@ -90,7 +90,7 @@ void AWeapon::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeP
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	DOREPLIFETIME(AWeapon,WeaponState);
-	DOREPLIFETIME(AWeapon,Ammo);
+
 }
 
 void AWeapon::Fire(const FVector& HitTarget)
@@ -120,10 +120,9 @@ void AWeapon::Fire(const FVector& HitTarget)
 		
 		}
 	}
-	if(HasAuthority())
-	{
-		SpendRound();
-	}
+
+
+	SpendRound();
 
 }
 
@@ -137,11 +136,7 @@ void AWeapon::Dropped()
 	BlasterOwnerCharacter = nullptr;
 }
 
-void AWeapon::AddAmmo(int32 AmmoToAdd)
-{
-	Ammo = FMath::Clamp(Ammo - AmmoToAdd,0,MagCapacity);
-	SetHUDAmmo();
-}
+
 
 void AWeapon::OnSphereOverlap(UPrimitiveComponent* Overlap, AActor* OtherActor, UPrimitiveComponent* otherComp,
                               int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -249,6 +244,9 @@ void AWeapon::OnWeaponStateSet()
 	}
 }
 
+
+
+
 void AWeapon::OnRep_WeaponState()
 {
 	OnWeaponStateSet();
@@ -262,19 +260,48 @@ void AWeapon::ShowPickUpWidget(bool BShowWidget)
 	}
 }
 
-void AWeapon::OnRep_Ammo()
-{
-	BlasterOwnerCharacter = BlasterOwnerCharacter == nullptr ? Cast<ABlasterCharacter>(GetOwner()) : BlasterOwnerCharacter;
-	if(BlasterOwnerCharacter && IsValid(BlasterOwnerCharacter->GetCombat()) && IsFull() )
-	{
-		BlasterOwnerCharacter->GetCombat()->JumpToShotGunEnd();
-	}
-	SetHUDAmmo();
-}
+
 
 void AWeapon::SpendRound()
 {
-	Ammo= FMath::Clamp(Ammo-1,0,MagCapacity);
+	Ammo = FMath::Clamp(Ammo-1,0,MagCapacity);
+	SetHUDAmmo();
+	if(HasAuthority())
+	{
+		ClientUpdateAmmo(Ammo);
+	}
+	else
+	{
+		++Sequence;
+	}
+}
+
+void AWeapon::ClientUpdateAmmo_Implementation(int32 ServerAmmo)
+{
+	if(HasAuthority()) return;
+	Ammo = ServerAmmo;
+	--Sequence;
+	Ammo -= Sequence;
+	SetHUDAmmo();
+}
+
+void AWeapon::AddAmmo(int32 AmmoToAdd)
+{
+	Ammo = FMath::Clamp(Ammo + AmmoToAdd,0,MagCapacity);
+	SetHUDAmmo();
+	ClientAddAmmo(AmmoToAdd);
+}
+
+void AWeapon::ClientAddAmmo_Implementation(int32 AmmoToAdd)
+{
+	if(HasAuthority()) return;
+	
+	Ammo = FMath::Clamp(Ammo + AmmoToAdd,0,MagCapacity);
+	BlasterOwnerCharacter = BlasterOwnerCharacter == nullptr ? Cast<ABlasterCharacter>(GetOwner()):BlasterOwnerCharacter;
+	if(BlasterOwnerCharacter && BlasterOwnerCharacter->GetCombat() && IsFull())
+	{
+		BlasterOwnerCharacter->GetCombat()->JumpToShotGunEnd();
+	}
 	SetHUDAmmo();
 }
 
