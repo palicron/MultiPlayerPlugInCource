@@ -284,6 +284,8 @@ public:
 	
 	ECombatState GetCombatState() const;
 
+	bool IsLocallyreloaded();
+
 };
 
 

@@ -61,6 +61,8 @@ public:
 	void ServerLaunchGrenade(const FVector_NetQuantize& Target);
 
 	void PickUpAmmo(EWeaponType Type,int32 AmmoAmount);
+
+	bool bLocallyReloading = false;
 	
 protected:
 
