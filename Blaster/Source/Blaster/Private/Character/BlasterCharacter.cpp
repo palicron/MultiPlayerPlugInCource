@@ -6,6 +6,7 @@
 #include "Blaster/Blaster.h"
 #include "Blaster/Weapon/Weapon.h"
 #include "BlasterComponents/BuffComponent.h"
+#include "BlasterComponents/LagCompensationComponent.h"
 #include "BlasterPlayerCtr/BlasterPlayerController.h"
 #include "Camera/CameraComponent.h"
 #include "Character/BlasterAnimInstance.h"
@@ -67,6 +68,9 @@ ABlasterCharacter::ABlasterCharacter()
 	AttachGrenade->SetupAttachment(GetMesh(),FName("GrenadeSocket"));
 	AttachGrenade->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
+
+	LagCompensation = CreateDefaultSubobject<ULagCompensationComponent>(TEXT("Lag Compensation Component"));
+	
 	/**
 	* Server Side rewind
 	*/
@@ -262,6 +266,14 @@ void ABlasterCharacter::PostInitializeComponents()
 		Buff->Character = this;
 		Buff->SetInitialSpeed(GetCharacterMovement()->MaxWalkSpeed,GetCharacterMovement()->MaxWalkSpeedCrouched);
 		Buff->SetInitialJumpVelocity(GetCharacterMovement()->JumpZVelocity);
+	}
+	if(LagCompensation)
+	{
+		LagCompensation->Character = this;
+		if(Controller)
+		{
+			LagCompensation->Controller = Cast<ABlasterPlayerController>(Controller);
+		}
 	}
 }
 

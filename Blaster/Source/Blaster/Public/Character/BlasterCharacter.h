@@ -163,12 +163,15 @@ private:
 
 	UFUNCTION(Server,Reliable)
 	void ServerEquipButtonPressed();
-
+	
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,meta = (AllowPrivateAccess="true"))
 	UCombatComponent* Combat;
 
 	UPROPERTY(VisibleAnywhere,meta = (AllowPrivateAccess="true"))
 	class UBuffComponent* Buff;
+
+	UPROPERTY(VisibleAnywhere,meta = (AllowPrivateAccess="true"))
+	class ULagCompensationComponent* LagCompensation;
 
 	float AO_Yaw;
 
