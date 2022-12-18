@@ -46,9 +46,13 @@ public:
 
 	friend class ABlasterCharacter;
 
+	void ShowFramePackage(const FFramePackage& Package,const FColor& Color) const;
+
 protected:
 	
 	virtual void BeginPlay() override;
+
+	void SaveFramePackage(FFramePackage& Package);
 
 public:	
 

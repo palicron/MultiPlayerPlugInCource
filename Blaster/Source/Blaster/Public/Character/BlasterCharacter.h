@@ -56,12 +56,52 @@ public:
 
 	void UpdateHudShield();
 	
+
+
+	UPROPERTY()
+	TMap<FName,class UBoxComponent*>  HitCollisionBoxes;
+
+protected:
+
+	virtual void BeginPlay() override;
+
+	void MoveForward(float Value);
+	void MoveRight(float Value);
+	void Turn(float Value);
+	void LookUp(float Value);
+	void EquipButtonPressed();
+	void CrouchButtonPressed();
+	void ReloadButtonPress();
+	void AimButtonPressed();
+	void AimButtonReleased();
+	void Calculate_Pitch();
+	void AimOffSet(float DeltaTime);
+	void SimProxiesTurn();
+	virtual void Jump() override;
+	void FireButtonPressed();
+	void FireButtonRealese();
+	void PlayHitReactMontage();
+	void GrenadeButtonPress();
+
+	UFUNCTION()
+	void ReceiveDamage(AActor* DamgeActor,float Damage,const UDamageType* DamageType,class AController* InstigatorController,AActor* DamageCauser);
+	void RotateInPlace(float DeltaTime);
+
+
+
+	void PollInit();
+
+	void UpdateHUDAmo();
+
+	void DropOrDestroyWeapon(AWeapon* Weapon);
+	void DropOrDestroyWeapons();
+
 	/*
 	Server Boxes
 	*/
 
 	UPROPERTY(EditAnywhere)
-	class UBoxComponent* Head;	
+	UBoxComponent* Head;	
 
 	UPROPERTY(EditAnywhere)
 	UBoxComponent* pelvis;
@@ -113,41 +153,6 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	UBoxComponent* foot_r;
-
-protected:
-
-	virtual void BeginPlay() override;
-
-	void MoveForward(float Value);
-	void MoveRight(float Value);
-	void Turn(float Value);
-	void LookUp(float Value);
-	void EquipButtonPressed();
-	void CrouchButtonPressed();
-	void ReloadButtonPress();
-	void AimButtonPressed();
-	void AimButtonReleased();
-	void Calculate_Pitch();
-	void AimOffSet(float DeltaTime);
-	void SimProxiesTurn();
-	virtual void Jump() override;
-	void FireButtonPressed();
-	void FireButtonRealese();
-	void PlayHitReactMontage();
-	void GrenadeButtonPress();
-
-	UFUNCTION()
-	void ReceiveDamage(AActor* DamgeActor,float Damage,const UDamageType* DamageType,class AController* InstigatorController,AActor* DamageCauser);
-	void RotateInPlace(float DeltaTime);
-
-
-
-	void PollInit();
-
-	void UpdateHUDAmo();
-
-	void DropOrDestroyWeapon(AWeapon* Weapon);
-	void DropOrDestroyWeapons();
 
 private:
 	UPROPERTY(VisibleAnywhere,Category= Camera)

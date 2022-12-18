@@ -10,6 +10,7 @@
   <component name="ChangeListManager">
     <list default="true" id="af172d45-ccab-490a-95b1-bf10e17b63a3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Private/BlasterComponents/LagCompensationComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Private/BlasterComponents/LagCompensationComponent.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Private/Character/BlasterCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Private/Character/BlasterCharacter.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Public/BlasterComponents/LagCompensationComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Public/BlasterComponents/LagCompensationComponent.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Public/Character/BlasterCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Public/Character/BlasterCharacter.h" afterDir="false" />
@@ -28,6 +29,7 @@
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Private/Weapon/RocketMovementComponent.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Private/Weapon/ShotGun.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Public/BlasterComponents/CombatComponent.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/Blaster/Public/BlasterComponents/LagCompensationComponent.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Public/Character/BlasterCharacter.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Public/GameState/BlasterGameState.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Public/HUD/Annoucement.h" root0="FORCE_HIGHLIGHTING" />
@@ -61,6 +63,13 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;C:\\Users\\ELGRA\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\ELGRA\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\ELGRA\\AppData\\Local\\Symbols\\src&quot;
+    ]
   }
 }</component>
   <component name="RunManager" selected="C++ Project.Blaster">
@@ -360,6 +369,8 @@
       <workItem from="1671128696481" duration="2204000" />
       <workItem from="1671195313460" duration="47000" />
       <workItem from="1671223011365" duration="936000" />
+      <workItem from="1671384449101" duration="1254000" />
+      <workItem from="1671386618130" duration="2827000" />
     </task>
     <servers />
   </component>
