@@ -54,6 +54,9 @@ protected:
 
 	void SaveFramePackage(FFramePackage& Package);
 
+	UPROPERTY(EditAnywhere)
+	float MaxRecordTIme = 4.f;
+
 public:	
 
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
@@ -65,5 +68,9 @@ private:
 
 	UPROPERTY()
 	class ABlasterPlayerController* Controller;
+	
+	TDoubleLinkedList<FFramePackage> FrameHistory;
+
+
 		
 };
