@@ -345,11 +345,15 @@ public:
 
 	FORCEINLINE UStaticMeshComponent* GetAttachedGrenade() const { return AttachGrenade;}
 
+	FORCEINLINE ULagCompensationComponent* GetLagCompensation() const {return LagCompensation;}
+
 	FORCEINLINE UBuffComponent* GetBuff() const{return Buff;}
 	
 	ECombatState GetCombatState() const;
 
 	bool IsLocallyreloaded();
+
+
 
 };
 

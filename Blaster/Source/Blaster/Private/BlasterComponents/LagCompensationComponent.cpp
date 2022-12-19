@@ -83,3 +83,65 @@ void ULagCompensationComponent::ShowFramePackage(const FFramePackage& Package, c
 		
 	}
 }
+
+void ULagCompensationComponent::ServerSideRewind(ABlasterCharacter* HitCharacter, const FVector_NetQuantize& TraceStart,
+	const FVector_NetQuantize& HitLocation, float HitTime)
+{
+	bool bReturn = HitCharacter == nullptr ||
+		HitCharacter->GetLagCompensation() == nullptr ||
+			HitCharacter->GetLagCompensation()->FrameHistory.GetHead() == nullptr ||
+				HitCharacter->GetLagCompensation()->FrameHistory.GetTail() == nullptr;
+
+	if(bReturn) return;
+
+	FFramePackage FrameToCheck;
+	bool bShouldInterpolate = true;
+	
+	//Frame Histoy of the Character
+	const TDoubleLinkedList<FFramePackage>& History = HitCharacter->GetLagCompensation()->FrameHistory;
+	const float OldestHistoryTIme = History.GetTail()->GetValue().Time;
+	const float NewestHistoryTime = History.GetHead()->GetValue().Time;
+
+	if(OldestHistoryTIme>HitTime)
+	{
+		return;
+	}
+	if(OldestHistoryTIme == HitTime)
+	{
+		FrameToCheck = History.GetTail()->GetValue();
+		bShouldInterpolate = false;
+	}
+	if(NewestHistoryTime<= HitTime)
+	{
+		FrameToCheck = History.GetHead()->GetValue();
+		bShouldInterpolate = false;
+	}
+
+	TDoubleLinkedList<FFramePackage>::TDoubleLinkedListNode* Younger = History.GetHead();
+	TDoubleLinkedList<FFramePackage>::TDoubleLinkedListNode* Older = Younger;
+
+	while(Older->GetValue().Time>HitTime)
+	{
+		if(Older->GetNextNode() == nullptr) break;
+		
+		Older = Older->GetNextNode();
+		
+		if(Older->GetValue().Time>HitTime)
+		{
+			Younger = Older;
+		}
+	}
+	
+	if(Older->GetValue().Time == HitTime)
+	{
+		FrameToCheck = Older->GetValue();
+		bShouldInterpolate = false;
+	}
+
+	if(bShouldInterpolate)
+	{
+		
+	}
+
+	
+}
