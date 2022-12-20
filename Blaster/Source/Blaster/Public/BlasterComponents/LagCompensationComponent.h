@@ -57,6 +57,8 @@ protected:
 
 	void SaveFramePackage(FFramePackage& Package);
 
+	FFramePackage InterpBetweenFrames(const FFramePackage& OlderFrame, const FFramePackage& YoungerFrame,float HitTime);
+
 	UPROPERTY(EditAnywhere)
 	float MaxRecordTIme = 4.f;
 
