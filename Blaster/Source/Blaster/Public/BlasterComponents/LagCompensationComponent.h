@@ -33,6 +33,17 @@ struct FFramePackage
 	TMap<FName,FBoxInformation> HitBoxInfo;
 };
 
+USTRUCT()
+struct FServerSideRewindResult
+{
+	GENERATED_BODY()
+
+	UPROPERTY()
+	bool bHitConfirmed;
+	
+	UPROPERTY()
+	bool bHeadShot;
+};
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -48,7 +59,7 @@ public:
 
 	void ShowFramePackage(const FFramePackage& Package,const FColor& Color) const;
 
-	void ServerSideRewind(class ABlasterCharacter* HitCharacter,const FVector_NetQuantize& TraceStart,
+	FServerSideRewindResult ServerSideRewind(class ABlasterCharacter* HitCharacter,const FVector_NetQuantize& TraceStart,
 		const FVector_NetQuantize& HitLocation, float HitTime);
 
 protected:
@@ -58,6 +69,17 @@ protected:
 	void SaveFramePackage(FFramePackage& Package);
 
 	FFramePackage InterpBetweenFrames(const FFramePackage& OlderFrame, const FFramePackage& YoungerFrame,float HitTime);
+
+	FServerSideRewindResult ConfirmHit(const FFramePackage& Package,
+		ABlasterCharacter* HitCharacter, const FVector_NetQuantize& TraceStart,const FVector_NetQuantize& HitLocation);
+
+	void CacheBoxPosition(ABlasterCharacter* HitCharacter,FFramePackage& FramePackage);
+
+	void MoveBoxes(ABlasterCharacter* HitCharacter,const FFramePackage& OutFramePackage);
+
+	void ResetHitBoxes(ABlasterCharacter* HitCharacter,const FFramePackage& OutFramePackage);
+
+	void EnableCharacterMeshCollision(ABlasterCharacter* HitCharacter,ECollisionEnabled::Type CollisionEnable);
 
 	UPROPERTY(EditAnywhere)
 	float MaxRecordTIme = 4.f;
@@ -79,3 +101,6 @@ private:
 
 		
 };
+
+
+
