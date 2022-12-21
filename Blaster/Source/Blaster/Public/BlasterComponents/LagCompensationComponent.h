@@ -62,9 +62,16 @@ public:
 	FServerSideRewindResult ServerSideRewind(class ABlasterCharacter* HitCharacter,const FVector_NetQuantize& TraceStart,
 		const FVector_NetQuantize& HitLocation, float HitTime);
 
+	UFUNCTION(Server,Reliable)
+	void ServerScoreRequest(ABlasterCharacter* HitCharacter, const FVector_NetQuantize& TraceStart,
+		const FVector_NetQuantize& HitLocation,float HitTime , class AWeapon* DamageCauser);
+
 protected:
 	
 	virtual void BeginPlay() override;
+
+	UFUNCTION()
+	void SaveFramePackage();
 
 	void SaveFramePackage(FFramePackage& Package);
 

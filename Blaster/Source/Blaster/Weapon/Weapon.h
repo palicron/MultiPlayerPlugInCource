@@ -110,7 +110,16 @@ protected:
 
 	UPROPERTY(EditAnywhere,Category="Weapone Scatter")
 	float SphereRadius = 75.f;
-	
+
+	UPROPERTY(EditAnywhere)
+	float Damage = 20.f;
+	UPROPERTY(EditAnywhere)
+	bool bUseServerSideRewind = false;
+
+	UPROPERTY()
+	class ABlasterCharacter* BlasterOwnerCharacter;
+	UPROPERTY()
+	class ABlasterPlayerController* BlasterOwnerController;
 private:
 
 	/**
@@ -124,10 +133,7 @@ private:
 	int32 Ammo;
 	UPROPERTY(EditAnywhere)
 	int32 MagCapacity;
-	UPROPERTY()
-	class ABlasterCharacter* BlasterOwnerCharacter;
-	UPROPERTY()
-	class ABlasterPlayerController* BlasterOwnerController;
+
 	
 	UPROPERTY(ReplicatedUsing= OnRep_WeaponState, VisibleAnywhere,Category= "Weapon Properties")
 	EWeaponState WeaponState;
@@ -169,12 +175,14 @@ private:
 
 
 
+
 	
 public:
 
+	
 	bool bDestroyWeapon = false;
 	
-	 void SetWeaponeState(EWeaponState State);
+	void SetWeaponeState(EWeaponState State);
 
 
 	FORCEINLINE USphereComponent* GetAreSphere(){return AreaSphere;}
@@ -187,7 +195,6 @@ public:
 	FORCEINLINE EWeaponType GetWeaponType() const {return WeaponType;}
 	FORCEINLINE int32 GetAmmo() const { return  Ammo;}
 	FORCEINLINE int32 GetMaxCapacity() const { return MagCapacity;}
-    
-	
+	FORCEINLINE int32 GetDamage() const {return Damage;}
 
 };

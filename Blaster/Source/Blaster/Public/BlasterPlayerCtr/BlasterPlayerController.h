@@ -15,6 +15,9 @@ class BLASTER_API ABlasterPlayerController : public APlayerController
 	GENERATED_BODY()
 
 public:
+
+	float SingleTripTime = 0.f;
+	
     void SetHUDHealth(float Health,float MaxHealth);
 	void SetHUDShield(float Shield,float MaxShield);
 	void SetHUDScore(float Score);
