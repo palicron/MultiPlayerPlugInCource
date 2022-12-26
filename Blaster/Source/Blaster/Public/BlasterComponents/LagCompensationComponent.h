@@ -30,10 +30,14 @@ struct FFramePackage
 	UPROPERTY()
 	float Time;
 
+	UPROPERTY()
 	TMap<FName,FBoxInformation> HitBoxInfo;
+
+	UPROPERTY()
+	class ABlasterCharacter* Character = nullptr;
 };
 
-USTRUCT()
+USTRUCT(BlueprintType)
 struct FServerSideRewindResult
 {
 	GENERATED_BODY()
@@ -45,6 +49,18 @@ struct FServerSideRewindResult
 	bool bHeadShot;
 };
 
+USTRUCT(BlueprintType)
+struct FShotgunServerSideRewindResult
+{
+	GENERATED_BODY()
+
+	UPROPERTY()
+	TMap<class ABlasterCharacter*, uint32> HeadShots;
+
+	UPROPERTY()
+	TMap< ABlasterCharacter*, uint32> NodyShots;
+	
+};
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BLASTER_API ULagCompensationComponent : public UActorComponent
@@ -91,6 +107,16 @@ protected:
 	UPROPERTY(EditAnywhere)
 	float MaxRecordTIme = 4.f;
 
+	FFramePackage GetFrameToCheck(ABlasterCharacter* HitCharacter, float HitTime);
+	/**
+	 * ShoutGuun 
+	 */
+
+	FShotgunServerSideRewindResult ShotgunServerSideRewind(const TArray<ABlasterCharacter*>& HitCharacters,const FVector_NetQuantize& TraceStart,
+		const TArray<FVector_NetQuantize>& HitLocations,float HitTime);
+	
+	FShotgunServerSideRewindResult ShotgunConfirmHit(const TArray<FFramePackage>& FramesPackages,const FVector_NetQuantize& TraceStart,
+		const TArray<FVector_NetQuantize>& Hitlocations);
 public:	
 
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
