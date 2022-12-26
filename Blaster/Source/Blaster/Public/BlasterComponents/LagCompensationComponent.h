@@ -58,7 +58,7 @@ struct FShotgunServerSideRewindResult
 	TMap<class ABlasterCharacter*, uint32> HeadShots;
 
 	UPROPERTY()
-	TMap< ABlasterCharacter*, uint32> NodyShots;
+	TMap< ABlasterCharacter*, uint32> BodyShots;
 	
 };
 
