@@ -17,6 +17,8 @@ ULagCompensationComponent::ULagCompensationComponent()
 }
 
 
+
+
 void ULagCompensationComponent::BeginPlay()
 {
 	Super::BeginPlay();
@@ -397,7 +399,31 @@ void ULagCompensationComponent::ServerScoreRequest_Implementation(ABlasterCharac
 			Character->Controller,DamageCauser,UDamageType::StaticClass());
 	}
 }
+void ULagCompensationComponent::ShotgunServerScoreRequest_Implementation(
+	const TArray<ABlasterCharacter*>& HitCharacters, const FVector_NetQuantize& TraceStart,
+	const TArray<FVector_NetQuantize>& HitLocation, float HitTime, class AWeapon* DamageCauser)
+{
+	FShotgunServerSideRewindResult Confirm = ShotgunServerSideRewind(HitCharacters,TraceStart,HitLocation,HitTime);
 
+	for (auto& HitCharacter : HitCharacters)
+	{
+		if(HitCharacter == nullptr || DamageCauser==nullptr) continue;
+		float TotalDamage = 0.f;
+		if(Confirm.HeadShots.Contains(HitCharacter))
+		{
+			const float HeadShotDamage = Confirm.HeadShots[HitCharacter] * DamageCauser->GetDamage();
+			TotalDamage += HeadShotDamage;
+		}
+		if(Confirm.BodyShots.Contains(HitCharacter))
+		{
+			const float BodyShotDamage = Confirm.BodyShots[HitCharacter] * DamageCauser->GetDamage();
+			TotalDamage += BodyShotDamage;
+		}
+
+		UGameplayStatics::ApplyDamage(HitCharacter,TotalDamage,
+		Character->Controller,DamageCauser,UDamageType::StaticClass());
+	}
+}
 FFramePackage ULagCompensationComponent::GetFrameToCheck(ABlasterCharacter* HitCharacter, float HitTime)
 {
 	bool bReturn = HitCharacter == nullptr ||

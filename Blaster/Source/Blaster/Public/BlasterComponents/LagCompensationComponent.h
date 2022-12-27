@@ -82,6 +82,9 @@ public:
 	void ServerScoreRequest(ABlasterCharacter* HitCharacter, const FVector_NetQuantize& TraceStart,
 		const FVector_NetQuantize& HitLocation,float HitTime , class AWeapon* DamageCauser);
 
+	UFUNCTION(Server,Reliable)
+	void ShotgunServerScoreRequest(const TArray<ABlasterCharacter*>&  HitCharacters, const FVector_NetQuantize& TraceStart,
+		const TArray<FVector_NetQuantize>& HitLocation,float HitTime , class AWeapon* DamageCauser);
 protected:
 	
 	virtual void BeginPlay() override;
