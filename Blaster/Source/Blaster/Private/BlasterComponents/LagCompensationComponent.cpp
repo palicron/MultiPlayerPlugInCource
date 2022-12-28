@@ -138,7 +138,7 @@ FShotgunServerSideRewindResult ULagCompensationComponent::ShotgunConfirmHit(cons
 	
 	for (const FFramePackage& Frame : FramesPackages)
 	{
-		if(Frame.Character)
+		if(Frame.Character == nullptr)
 			return FShotgunServerSideRewindResult();
 		
 		FFramePackage CurrentFrame;
@@ -172,16 +172,16 @@ FShotgunServerSideRewindResult ULagCompensationComponent::ShotgunConfirmHit(cons
 			TraceEnd,
 			ECC_Visibility);
 			
-			ABlasterCharacter* Character = Cast<ABlasterCharacter>(ConfirmHitResult.GetActor());
-			if(Character)
+			ABlasterCharacter* Characterhit = Cast<ABlasterCharacter>(ConfirmHitResult.GetActor());
+			if(Characterhit)
 			{
-				if(ShotGunResult.HeadShots.Contains(Character))
+				if(ShotGunResult.HeadShots.Contains(Characterhit))
 				{
-					ShotGunResult.HeadShots[Character]++;
+					ShotGunResult.HeadShots[Characterhit]++;
 				}
 				else
 				{
-					ShotGunResult.HeadShots.Emplace(Character,1);
+					ShotGunResult.HeadShots.Emplace(Characterhit,1);
 				}
 				
 			}
@@ -217,16 +217,16 @@ FShotgunServerSideRewindResult ULagCompensationComponent::ShotgunConfirmHit(cons
 			TraceEnd,
 			ECC_Visibility);
 			
-			ABlasterCharacter* Character = Cast<ABlasterCharacter>(ConfirmHitResult.GetActor());
-			if(Character)
+			ABlasterCharacter* CharacterHit = Cast<ABlasterCharacter>(ConfirmHitResult.GetActor());
+			if(CharacterHit)
 			{
-				if(ShotGunResult.BodyShots.Contains(Character))
+				if(ShotGunResult.BodyShots.Contains(CharacterHit))
 				{
-					ShotGunResult.BodyShots[Character]++;
+					ShotGunResult.BodyShots[CharacterHit]++;
 				}
 				else
 				{
-					ShotGunResult.BodyShots.Emplace(Character,1);
+					ShotGunResult.BodyShots.Emplace(CharacterHit,1);
 				}
 				
 			}
@@ -485,6 +485,9 @@ FFramePackage ULagCompensationComponent::GetFrameToCheck(ABlasterCharacter* HitC
 	{
 		FrameToCheck = InterpBetweenFrames(Older->GetValue(),Younger->GetValue(),HitTime);
 	}
+	
+	FrameToCheck.Character = HitCharacter;
+	
 	return FrameToCheck;
 }
 

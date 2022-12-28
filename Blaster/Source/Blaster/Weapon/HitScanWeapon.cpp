@@ -39,7 +39,7 @@ void AHitScanWeapon::Fire(const FVector& HitTarget)
 		Character,Damage,InstigatorCtr,this,UDamageType::StaticClass());	
 			}
 			
-			if(!HasAuthority() && bUseServerSideRewind)
+			if(!HasAuthority() && bUseServerSideRewind && BlasterOwnerCharacter->IsLocallyControlled())
 			{
 				BlasterOwnerCharacter = BlasterOwnerCharacter == nullptr ? Cast<ABlasterCharacter>(OwnerPawn):
 				BlasterOwnerCharacter;
