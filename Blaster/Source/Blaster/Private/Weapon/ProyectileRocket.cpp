@@ -77,3 +77,19 @@ void AProyectileRocket::Destroyed()
 {
 	
 }
+
+void AProyectileRocket::PostEditChangeChainProperty(FPropertyChangedChainEvent& PropertyChangedEvent)
+{
+	Super::PostEditChangeChainProperty(PropertyChangedEvent);
+
+	if(PropertyChangedEvent.Property!=nullptr &&
+PropertyChangedEvent.Property->GetFName().IsEqual(GET_MEMBER_NAME_CHECKED(URocketMovementComponent,InitialSpeed)))
+	{
+		if(RocketMovementComponent)
+		{
+			RocketMovementComponent->InitialSpeed = InitialSpeed;
+			RocketMovementComponent->MaxSpeed = InitialSpeed;
+		}
+	
+	}
+}

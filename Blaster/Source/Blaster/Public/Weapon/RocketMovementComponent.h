@@ -13,6 +13,7 @@ UCLASS()
 class BLASTER_API URocketMovementComponent : public UProjectileMovementComponent
 {
 	GENERATED_BODY()
+public:
 
 protected:
 	

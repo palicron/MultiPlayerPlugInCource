@@ -15,6 +15,23 @@ AProyectileBulled::AProyectileBulled()
 	ProjectileMovementComponent->InitialSpeed = InitialSpeed;
 	ProjectileMovementComponent->MaxSpeed = InitialSpeed;
 }
+#if WITH_EDITOR
+void AProyectileBulled::PostEditChangeChainProperty(FPropertyChangedChainEvent& PropertyChangedEvent)
+{
+	Super::PostEditChangeChainProperty(PropertyChangedEvent);
+	if(PropertyChangedEvent.Property!=nullptr &&
+		PropertyChangedEvent.Property->GetFName().IsEqual(GET_MEMBER_NAME_CHECKED(AProyectileBulled,InitialSpeed)))
+	{
+		if(ProjectileMovementComponent)
+		{
+			ProjectileMovementComponent->InitialSpeed = InitialSpeed;
+			ProjectileMovementComponent->MaxSpeed = InitialSpeed;
+		}
+	
+	}
+}
+#endif
+
 void AProyectileBulled::BeginPlay()
 {
 	Super::BeginPlay();

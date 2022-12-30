@@ -16,6 +16,11 @@ class BLASTER_API AProyectileBulled : public AProjectile
 
 public:
 	AProyectileBulled();
+
+#if WITH_EDITOR
+	virtual void PostEditChangeChainProperty(FPropertyChangedChainEvent& PropertyChangedEvent) override;
+#endif
+	
 protected:
 	
 	virtual void OnHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit) override;

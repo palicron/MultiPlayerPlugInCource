@@ -13,7 +13,6 @@
       <change beforePath="$PROJECT_DIR$/Content/BluePrints/Weapon/Proyectiles/Bp_ProyectalBullet.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BluePrints/Weapon/Proyectiles/Bp_ProyectalBullet.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Private/Weapon/ProyectileBulled.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Private/Weapon/ProyectileBulled.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Public/Weapon/ProyectileBulled.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Public/Weapon/ProyectileBulled.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Projectile.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Projectile.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -375,7 +374,7 @@
       <workItem from="1671679649506" duration="750000" />
       <workItem from="1672165302579" duration="1270000" />
       <workItem from="1672250941384" duration="3079000" />
-      <workItem from="1672427539932" duration="3162000" />
+      <workItem from="1672427539932" duration="4498000" />
     </task>
     <servers />
   </component>
