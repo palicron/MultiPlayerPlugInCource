@@ -31,7 +31,9 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	float InitialSpeed = 15000;
+
 	
+	float Damage = 20.f;
 protected:
 
 	virtual void BeginPlay() override;
@@ -43,8 +45,7 @@ protected:
 	class UParticleSystem* ImpactParticles;
 	UPROPERTY(EditAnywhere)
 	class USoundCue* ImpactSound;
-	UPROPERTY(EditAnywhere)
-	float Damage = 20.f;
+
 	UPROPERTY(EditAnywhere)
 	UBoxComponent* CollisionBox;
 
