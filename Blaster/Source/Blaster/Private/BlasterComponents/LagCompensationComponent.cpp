@@ -6,6 +6,7 @@
 #include "Character/BlasterCharacter.h"
 #include "Components/BoxComponent.h"
 #include "DrawDebugHelpers.h"
+#include "Blaster/Blaster.h"
 #include "Blaster/Weapon/Weapon.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -155,7 +156,7 @@ FShotgunServerSideRewindResult ULagCompensationComponent::ShotgunConfirmHit(cons
 
 		UBoxComponent* HeadBox = Frame.Character->HitCollisionBoxes[FName("head")];
 		HeadBox->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
-		HeadBox->SetCollisionResponseToChannel(ECollisionChannel::ECC_Visibility,ECR_Block);
+		HeadBox->SetCollisionResponseToChannel(ECC_HitBox,ECR_Block);
 		
 	}
 	UWorld* World = GetWorld();
@@ -170,11 +171,22 @@ FShotgunServerSideRewindResult ULagCompensationComponent::ShotgunConfirmHit(cons
 			World->LineTraceSingleByChannel(ConfirmHitResult,
 			TraceStart,
 			TraceEnd,
-			ECC_Visibility);
+			ECC_HitBox);
 			
 			ABlasterCharacter* Characterhit = Cast<ABlasterCharacter>(ConfirmHitResult.GetActor());
 			if(Characterhit)
 			{
+
+				if(ConfirmHitResult.Component.IsValid())
+				{
+					UBoxComponent* Box = Cast<UBoxComponent>(ConfirmHitResult.Component);
+					if(Box)
+					{
+						DrawDebugBox(GetWorld(),Box->GetComponentLocation(),Box->GetScaledBoxExtent(),FQuat(Box->GetComponentRotation())
+							,FColor::Red,false,8.f);
+					}
+				}
+				
 				if(ShotGunResult.HeadShots.Contains(Characterhit))
 				{
 					ShotGunResult.HeadShots[Characterhit]++;
@@ -195,7 +207,7 @@ FShotgunServerSideRewindResult ULagCompensationComponent::ShotgunConfirmHit(cons
 			if(HitBoxPair.Value)
 			{
 				HitBoxPair.Value->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
-				HitBoxPair.Value->SetCollisionResponseToChannel(ECC_Visibility,ECR_Block);
+				HitBoxPair.Value->SetCollisionResponseToChannel(ECC_HitBox,ECR_Block);
 			}
 			
 			UBoxComponent* HeadBox = Frame.Character->HitCollisionBoxes[FName("head")];
@@ -215,11 +227,20 @@ FShotgunServerSideRewindResult ULagCompensationComponent::ShotgunConfirmHit(cons
 			World->LineTraceSingleByChannel(ConfirmHitResult,
 			TraceStart,
 			TraceEnd,
-			ECC_Visibility);
+			ECC_HitBox);
 			
 			ABlasterCharacter* CharacterHit = Cast<ABlasterCharacter>(ConfirmHitResult.GetActor());
 			if(CharacterHit)
 			{
+				if(ConfirmHitResult.Component.IsValid())
+				{
+					UBoxComponent* Box = Cast<UBoxComponent>(ConfirmHitResult.Component);
+					if(Box)
+					{
+						DrawDebugBox(GetWorld(),Box->GetComponentLocation(),Box->GetScaledBoxExtent(),FQuat(Box->GetComponentRotation())
+							,FColor::Blue,false,8.f);
+					}
+				}
 				if(ShotGunResult.BodyShots.Contains(CharacterHit))
 				{
 					ShotGunResult.BodyShots[CharacterHit]++;
@@ -258,7 +279,7 @@ FServerSideRewindResult ULagCompensationComponent::ConfirmHit(const FFramePackag
 
 	UBoxComponent* HeadBox = HitCharacter->HitCollisionBoxes[FName("head")];
 	HeadBox->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
-	HeadBox->SetCollisionResponseToChannel(ECollisionChannel::ECC_Visibility,ECR_Block);
+	HeadBox->SetCollisionResponseToChannel(ECC_HitBox,ECR_Block);
 
 	FHitResult ConfirmHitResult;
 
@@ -270,9 +291,19 @@ FServerSideRewindResult ULagCompensationComponent::ConfirmHit(const FFramePackag
 		World->LineTraceSingleByChannel(ConfirmHitResult,
 			TraceStart,
 			TraceEnd,
-			ECC_Visibility);
+			ECC_HitBox);
 		if(ConfirmHitResult.bBlockingHit)
 		{
+
+			if(ConfirmHitResult.Component.IsValid())
+			{
+				UBoxComponent* Box = Cast<UBoxComponent>(ConfirmHitResult.Component);
+				if(Box)
+				{
+					DrawDebugBox(GetWorld(),Box->GetComponentLocation(),Box->GetScaledBoxExtent(),FQuat(Box->GetComponentRotation())
+						,FColor::Red,false,8.f);
+				}
+			}
 			ResetHitBoxes(HitCharacter,CurrentFrame);
 			EnableCharacterMeshCollision(HitCharacter,ECollisionEnabled::QueryAndPhysics);
 			return FServerSideRewindResult{true,true};
@@ -284,15 +315,24 @@ FServerSideRewindResult ULagCompensationComponent::ConfirmHit(const FFramePackag
 				if(HitBoxPair.Value)
 				{
 					HitBoxPair.Value->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
-					HitBoxPair.Value->SetCollisionResponseToChannel(ECC_Visibility,ECR_Block);
+					HitBoxPair.Value->SetCollisionResponseToChannel(ECC_HitBox,ECR_Block);
 				}
 
 				World->LineTraceSingleByChannel(ConfirmHitResult,
 					TraceStart,
 						TraceEnd,
-				ECC_Visibility);
+					ECC_HitBox);
 				if(ConfirmHitResult.bBlockingHit)
 				{
+					if(ConfirmHitResult.Component.IsValid())
+					{
+						UBoxComponent* Box = Cast<UBoxComponent>(ConfirmHitResult.Component);
+						if(Box)
+						{
+							DrawDebugBox(GetWorld(),Box->GetComponentLocation(),Box->GetScaledBoxExtent(),FQuat(Box->GetComponentRotation())
+								,FColor::Blue,false,8.f);
+						}
+					}
 					ResetHitBoxes(HitCharacter,CurrentFrame);
 					EnableCharacterMeshCollision(HitCharacter,ECollisionEnabled::QueryAndPhysics);
 					return FServerSideRewindResult{true,false};
