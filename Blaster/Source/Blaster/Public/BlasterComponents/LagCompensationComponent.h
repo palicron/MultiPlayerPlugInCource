@@ -75,16 +75,32 @@ public:
 
 	void ShowFramePackage(const FFramePackage& Package,const FColor& Color) const;
 
+	/*
+	* HitScan
+	*/
 	FServerSideRewindResult ServerSideRewind(class ABlasterCharacter* HitCharacter,const FVector_NetQuantize& TraceStart,
 		const FVector_NetQuantize& HitLocation, float HitTime);
+
+	
 
 	UFUNCTION(Server,Reliable)
 	void ServerScoreRequest(ABlasterCharacter* HitCharacter, const FVector_NetQuantize& TraceStart,
 		const FVector_NetQuantize& HitLocation,float HitTime , class AWeapon* DamageCauser);
 
+	/*
+	 * Shotgun
+	 */
 	UFUNCTION(Server,Reliable)
 	void ShotgunServerScoreRequest(const TArray<ABlasterCharacter*>&  HitCharacters, const FVector_NetQuantize& TraceStart,
 		const TArray<FVector_NetQuantize>& HitLocation,float HitTime , class AWeapon* DamageCauser);
+
+	/**
+	 * Projectile
+	 */
+
+	FServerSideRewindResult ProjectileServerSideRewind(ABlasterCharacter* HitCharacter,const FVector_NetQuantize& TraceStart,
+	const FVector_NetQuantize100& StartVelocity, float HitTime);
+	
 protected:
 	
 	virtual void BeginPlay() override;
@@ -96,8 +112,7 @@ protected:
 
 	FFramePackage InterpBetweenFrames(const FFramePackage& OlderFrame, const FFramePackage& YoungerFrame,float HitTime);
 
-	FServerSideRewindResult ConfirmHit(const FFramePackage& Package,
-		ABlasterCharacter* HitCharacter, const FVector_NetQuantize& TraceStart,const FVector_NetQuantize& HitLocation);
+
 
 	void CacheBoxPosition(ABlasterCharacter* HitCharacter,FFramePackage& FramePackage);
 
@@ -120,6 +135,15 @@ protected:
 	
 	FShotgunServerSideRewindResult ShotgunConfirmHit(const TArray<FFramePackage>& FramesPackages,const FVector_NetQuantize& TraceStart,
 		const TArray<FVector_NetQuantize>& Hitlocations);
+
+	FServerSideRewindResult ConfirmHit(const FFramePackage& Package,
+	ABlasterCharacter* HitCharacter, const FVector_NetQuantize& TraceStart,const FVector_NetQuantize& HitLocation);
+
+	FServerSideRewindResult ProjectileConfirmHit(const FFramePackage& Package,ABlasterCharacter* HitCharacter,
+	const FVector_NetQuantize& TraceStart, const FVector_NetQuantize100& StartVelocity, float HitTime);
+
+
+	
 public:	
 
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;

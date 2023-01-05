@@ -35,7 +35,7 @@ void AProyectileBulled::PostEditChangeChainProperty(FPropertyChangedChainEvent& 
 void AProyectileBulled::BeginPlay()
 {
 	Super::BeginPlay();
-
+/*
 	FPredictProjectilePathParams PathParams;
 	PathParams.bTraceWithChannel = true;
 	PathParams.bTraceWithCollision = true;
@@ -49,7 +49,7 @@ void AProyectileBulled::BeginPlay()
 	PathParams.TraceChannel = ECollisionChannel::ECC_Visibility;
 	PathParams.ActorsToIgnore.Add(this);
 	FPredictProjectilePathResult PathResult;
-	UGameplayStatics::PredictProjectilePath(this,PathParams,PathResult);
+	UGameplayStatics::PredictProjectilePath(this,PathParams,PathResult);*/
 }
 
 void AProyectileBulled::OnHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiveComponent* OtherComp,
