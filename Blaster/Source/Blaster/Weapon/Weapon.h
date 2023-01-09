@@ -113,7 +113,8 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 	float Damage = 20.f;
-	UPROPERTY(EditAnywhere)
+	
+	UPROPERTY(Replicated,EditAnywhere)
 	bool bUseServerSideRewind = false;
 
 	UPROPERTY()
@@ -173,10 +174,6 @@ private:
 	UPROPERTY(EditAnywhere)
 	EWeaponType WeaponType;
 
-
-
-
-	
 public:
 
 	
@@ -196,5 +193,10 @@ public:
 	FORCEINLINE int32 GetAmmo() const { return  Ammo;}
 	FORCEINLINE int32 GetMaxCapacity() const { return MagCapacity;}
 	FORCEINLINE int32 GetDamage() const {return Damage;}
+
+protected:
+
+	UFUNCTION()
+	void OnPingToHigh(bool bPingToHigh);
 
 };
