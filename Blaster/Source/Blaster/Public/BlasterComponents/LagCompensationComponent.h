@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Character/BlasterCharacter.h"
 #include "Components/ActorComponent.h"
 #include "LagCompensationComponent.generated.h"
 
@@ -94,6 +95,10 @@ public:
 	void ShotgunServerScoreRequest(const TArray<ABlasterCharacter*>&  HitCharacters, const FVector_NetQuantize& TraceStart,
 		const TArray<FVector_NetQuantize>& HitLocation,float HitTime , class AWeapon* DamageCauser);
 
+	UFUNCTION(Server,Reliable)
+	void ProjectileServerScoreRequest(ABlasterCharacter* HitCharacter,const FVector_NetQuantize& TraceStart,
+		const FVector_NetQuantize100& StartVelocity
+		, float HitTime );
 	/**
 	 * Projectile
 	 */

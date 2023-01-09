@@ -35,7 +35,6 @@ void AProjectileWeapon::Fire(const FVector& HitTarget)
 				{
 					SpawnedProjectile = world->SpawnActor<AProjectile>(ProjectileClass,SocketTransform.GetLocation(),
 					TargetRotation,	SpawnParams	);
-				
 					SpawnedProjectile->bUseServerSideRewind = false;
 					SpawnedProjectile->Damage = Damage;
 				}
@@ -44,7 +43,7 @@ void AProjectileWeapon::Fire(const FVector& HitTarget)
 					SpawnedProjectile = world->SpawnActor<AProjectile>(ServerSideRewindProjectileClass,SocketTransform.GetLocation(),
 					TargetRotation,	SpawnParams	);
 				
-					SpawnedProjectile->bUseServerSideRewind = false;
+					SpawnedProjectile->bUseServerSideRewind = true;
 				}
 					
 			}

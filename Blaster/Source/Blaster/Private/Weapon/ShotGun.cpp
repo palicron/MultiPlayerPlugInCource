@@ -57,10 +57,11 @@ void AShotGun::FirShotgun(const TArray<FVector_NetQuantize>& HitTargets)
 			}
 		}
 		TArray<ABlasterCharacter*> HitCharacters;
-		
+		const bool bCauseAuthDamage = !bUseServerSideRewind || OwnerPawn->IsLocallyControlled();
 		for(auto HitPair :HitMap)
 		{
-			if(HasAuthority() && !bUseServerSideRewind)
+	
+			if(HasAuthority() && bCauseAuthDamage)
 			{
 				if(HitPair.Key && InstigatorCtr && HasAuthority() )
 				{
@@ -76,7 +77,7 @@ void AShotGun::FirShotgun(const TArray<FVector_NetQuantize>& HitTargets)
 			BlasterOwnerCharacter;
 			BlasterOwnerController = BlasterOwnerController == nullptr ? Cast<ABlasterPlayerController>(InstigatorCtr):
 			BlasterOwnerController;
-			if(BlasterOwnerCharacter && BlasterOwnerController && BlasterOwnerCharacter->GetLagCompensation() && BlasterOwnerCharacter->IsLocallyControlled())
+			if(BlasterOwnerCharacter && BlasterOwnerController && BlasterOwnerCharacter->GetLagCompensation() && BlasterOwnerCharacter->IsLocallyControlled() )
 			{
 				BlasterOwnerCharacter->GetLagCompensation()->ShotgunServerScoreRequest(HitCharacters,Start,HitTargets,
 					BlasterOwnerController->GetServerTime()-BlasterOwnerController->SingleTripTime,this);

@@ -10,9 +10,16 @@
   <component name="ChangeListManager">
     <list default="true" id="af172d45-ccab-490a-95b1-bf10e17b63a3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/BluePrints/Weapon/BP_AssaultRifle.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BluePrints/Weapon/BP_AssaultRifle.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/BluePrints/Weapon/BP_SniperRifle.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BluePrints/Weapon/BP_SniperRifle.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/BluePrints/Weapon/BP_SubMachineGun.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BluePrints/Weapon/BP_SubMachineGun.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/BluePrints/Weapon/Bp_ShotGun.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BluePrints/Weapon/Bp_ShotGun.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Private/BlasterComponents/LagCompensationComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Private/BlasterComponents/LagCompensationComponent.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Private/Weapon/ProyectileBulled.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Private/Weapon/ProyectileBulled.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Private/Weapon/ShotGun.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Private/Weapon/ShotGun.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Public/BlasterComponents/LagCompensationComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Public/BlasterComponents/LagCompensationComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/HitScanWeapon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/HitScanWeapon.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/ProjectileWeapon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/ProjectileWeapon.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,26 +58,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;rider.external.source.directories&quot;: [
-      &quot;C:\\Users\\TG-Remote16\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache&quot;,
-      &quot;C:\\Users\\TG-Remote16\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache&quot;,
-      &quot;C:\\Users\\TG-Remote16\\AppData\\Local\\Symbols\\src&quot;
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\ELGRA\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache",
+      "C:\\Users\\ELGRA\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache",
+      "C:\\Users\\ELGRA\\AppData\\Local\\Symbols\\src"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="C++ Project.Blaster">
     <configuration name="Blaster" type="CppProject" factoryName="C++ Project">
       <configuration_1>
@@ -377,6 +384,7 @@
       <workItem from="1672427539932" duration="5096000" />
       <workItem from="1672855650776" duration="2313000" />
       <workItem from="1672941935954" duration="1543000" />
+      <workItem from="1673233571891" duration="3237000" />
     </task>
     <servers />
   </component>
@@ -434,42 +442,32 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Source/Blaster/Private/BlasterComponents/LagCompensationComponent.cpp</url>
-          <line>511</line>
-          <option name="timeStamp" value="21" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Source/Blaster/Private/BlasterComponents/LagCompensationComponent.cpp</url>
-          <line>513</line>
-          <option name="timeStamp" value="22" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Source/Blaster/Private/BlasterComponents/LagCompensationComponent.cpp</url>
-          <line>118</line>
+          <line>115</line>
           <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Source/Blaster/Private/BlasterComponents/LagCompensationComponent.cpp</url>
-          <line>122</line>
+          <line>119</line>
           <option name="timeStamp" value="24" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Source/Blaster/Private/BlasterComponents/LagCompensationComponent.cpp</url>
-          <line>123</line>
+          <line>120</line>
           <option name="timeStamp" value="25" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Source/Blaster/Private/BlasterComponents/LagCompensationComponent.cpp</url>
-          <line>125</line>
+          <line>122</line>
           <option name="timeStamp" value="26" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Source/Blaster/Private/BlasterComponents/LagCompensationComponent.cpp</url>
-          <line>128</line>
+          <line>125</line>
           <option name="timeStamp" value="27" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Source/Blaster/Private/BlasterComponents/LagCompensationComponent.cpp</url>
-          <line>132</line>
+          <line>129</line>
           <option name="timeStamp" value="28" />
         </line-breakpoint>
       </breakpoints>
