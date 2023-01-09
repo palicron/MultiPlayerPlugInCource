@@ -35,12 +35,21 @@ public:
 	virtual void PostInitializeComponents() override;
 	
 	virtual void OnRep_ReplicatedMovement() override;
-
+	/**
+	* Montages
+	*/
 	void PlayFireMontage(bool bAiming);
+	
 	void PlayReLoadMontage();
+	
 	void PLayElimMontage();
+	
 	void PlayTrowGrenadeMontage();
+
+	void PlaySawpMontage();
+	
 	void Elim();
+	
 	UFUNCTION(NetMulticast,Reliable)
 	void MulticasElim();
 
@@ -56,7 +65,7 @@ public:
 
 	void UpdateHudShield();
 	
-
+	bool bFinishSwapping = false;
 
 	UPROPERTY()
 	TMap<FName,class UBoxComponent*>  HitCollisionBoxes;
@@ -200,6 +209,8 @@ private:
 	UAnimMontage* ElimMontage;
 	UPROPERTY(EditAnywhere,Category="Combat",meta = (AllowPrivateAccess="true"))
 	UAnimMontage* TrowGrenadeMontage;
+	UPROPERTY(EditAnywhere,Category="Combat",meta = (AllowPrivateAccess="true"))
+	UAnimMontage* SawpMontage;
 
 	void HideCameraIfCharacterClose();
 

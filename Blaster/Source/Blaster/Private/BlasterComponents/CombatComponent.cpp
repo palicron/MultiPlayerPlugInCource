@@ -242,14 +242,16 @@ bool UCombatComponent::CanFire() const
 	{
 		return  false;
 	}
-	if(bLocallyReloading)
-	{
-		return false;
-	}
+
 	if(!EquippedWeapon->IsEmpty() && bCanFire && CombatState == ECombatState::ECS_Reloading
 		&& EquippedWeapon->GetWeaponType() == EWeaponType::EWT_ShotGun)
 	{
 		return true;
+	}
+	
+	if(bLocallyReloading)
+	{
+		return false;
 	}
 	return !EquippedWeapon->IsEmpty() && bCanFire && CombatState == ECombatState::ECS_Unoccupied;
 }
@@ -525,7 +527,13 @@ void UCombatComponent::EquipWeapon(AWeapon* WeaponToEquip)
 void UCombatComponent::SawpWeapons()
 {
 
-	if(CombatState != ECombatState::ECS_Unoccupied) return;
+	if(CombatState != ECombatState::ECS_Unoccupied || Character == nullptr) return;
+
+	Character->PlaySawpMontage();
+
+	Character->bFinishSwapping = false;
+	
+	CombatState = ECombatState::ECS_SwappingWeapones;
 	
 	AWeapon* TempWeapon = EquippedWeapon;
 	
@@ -533,21 +541,7 @@ void UCombatComponent::SawpWeapons()
 	
 	SecondaryWeapon = TempWeapon;
 
-	EquippedWeapon->SetWeaponeState(EWeaponState::EWS_Equipped);
 	
-	AttachActorToRightHand(EquippedWeapon);
-
-	EquippedWeapon->SetHUDAmmo();
-
-	UpdateCarryAmmo();
-
-	PlayEquippedWeaponSound(EquippedWeapon);
-
-	ReloadEmptyWeapone();
-	
-	SecondaryWeapon->SetWeaponeState(EWeaponState::EWS_EquippedSecondary);
-
-	AttachActorToBackPack(SecondaryWeapon);
 }
 
 void UCombatComponent::EquipPrimaryWeapon(AWeapon* WeaponToEquip)
@@ -652,6 +646,39 @@ void UCombatComponent::FinishReloading()
 	}
 }
 
+void UCombatComponent::FinishSawp()
+{
+	if(Character && Character->HasAuthority())
+	{
+		CombatState = ECombatState::ECS_Unoccupied;
+	}
+
+	if(Character)
+	{
+		Character->bFinishSwapping = true;
+	}
+}
+
+void UCombatComponent::FinishSawpAttachWeapone()
+{
+	EquippedWeapon->SetWeaponeState(EWeaponState::EWS_Equipped);
+	
+	AttachActorToRightHand(EquippedWeapon);
+
+	EquippedWeapon->SetHUDAmmo();
+
+	UpdateCarryAmmo();
+
+	PlayEquippedWeaponSound(EquippedWeapon);
+
+	ReloadEmptyWeapone();
+	
+	SecondaryWeapon->SetWeaponeState(EWeaponState::EWS_EquippedSecondary);
+
+	AttachActorToBackPack(SecondaryWeapon);
+	
+}
+
 int32 UCombatComponent::AmountToreload()
 {
 	if(EquippedWeapon)
@@ -697,6 +724,12 @@ void UCombatComponent::OnRep_CombatState()
 			Character->PlayTrowGrenadeMontage();
 			ShowAttachedGrenade(true);
 			AttachActorToLeftHand(EquippedWeapon);
+		}
+		break;
+	case ECombatState::ECS_SwappingWeapones:
+		if(Character && !Character->IsLocallyControlled())
+		{
+			Character->PlaySawpMontage();
 		}
 		break;
 	case ECombatState::ECS_Max: break;

@@ -41,6 +41,12 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void FinishReloading();
 
+	UFUNCTION(BlueprintCallable)
+	void FinishSawp();
+
+	UFUNCTION(BlueprintCallable)
+	void FinishSawpAttachWeapone();
+	
 	int32 AmountToreload();
 
 	void FireButtonPressed(bool ButtonPress);
