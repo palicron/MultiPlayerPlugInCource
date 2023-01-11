@@ -10,8 +10,7 @@
   <component name="ChangeListManager">
     <list default="true" id="af172d45-ccab-490a-95b1-bf10e17b63a3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Private/BlasterComponents/CombatComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Private/BlasterComponents/CombatComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Public/BlasterComponents/CombatComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Public/BlasterComponents/CombatComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Blaster.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Blaster.Build.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,9 +63,9 @@
   },
   &quot;keyToStringList&quot;: {
     &quot;rider.external.source.directories&quot;: [
-      &quot;C:\\Users\\ELGRA\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache&quot;,
-      &quot;C:\\Users\\ELGRA\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache&quot;,
-      &quot;C:\\Users\\ELGRA\\AppData\\Local\\Symbols\\src&quot;
+      &quot;C:\\Users\\TG-Remote16\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\TG-Remote16\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\TG-Remote16\\AppData\\Local\\Symbols\\src&quot;
     ]
   }
 }</component>
@@ -380,6 +379,8 @@
       <workItem from="1673277672970" duration="386000" />
       <workItem from="1673278145332" duration="4924000" />
       <workItem from="1673304229268" duration="2329000" />
+      <workItem from="1673374992365" duration="418000" />
+      <workItem from="1673459824187" duration="2846000" />
     </task>
     <servers />
   </component>
