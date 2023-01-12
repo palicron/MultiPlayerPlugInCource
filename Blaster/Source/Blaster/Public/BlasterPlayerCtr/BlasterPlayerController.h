@@ -20,6 +20,8 @@ public:
 	float SingleTripTime = 0.f;
 
 	FHighPingDelgate HighPingDelegate; 
+
+	
 	
     void SetHUDHealth(float Health,float MaxHealth);
 	void SetHUDShield(float Shield,float MaxShield);
@@ -41,7 +43,11 @@ public:
 	void HanldeMatchHasStarted();
 	void HanldeCooldown();
 protected:
+
+	virtual void SetupInputComponent() override;
+	
 	virtual  void BeginPlay() override;
+	
 	void CheckPing(float DeltaSeconds);
 
 	void CheckTimeSync(float DeltaSeconds);
@@ -78,7 +84,25 @@ protected:
 
 	void StopHighPingWarning();
 	
+
+	UFUNCTION()
+	void ShowReturnToMainMenu();
+	
 private:
+
+	/**
+	 * Return Menu 
+	 */
+
+	UPROPERTY(EditAnywhere,Category= "HUD")
+	TSubclassOf<class UUserWidget> ReturnToMainMenuWidget;
+
+	UPROPERTY()
+	class UReturnTOMainMenu* ReturnToMainMenu;
+
+	bool bReturnToMainMenuOpen = false;
+
+	UPROPERTY()
 	class ABlasterHUD* BlasterHUD;
 
 	UPROPERTY()

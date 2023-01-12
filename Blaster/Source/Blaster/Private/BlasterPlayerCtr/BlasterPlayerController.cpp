@@ -13,6 +13,7 @@
 #include "HUD/Annoucement.h"
 #include "HUD/BlasterHUD.h"
 #include "HUD/CharacterOverlay.h"
+#include "HUD/ReturnTOMainMenu.h"
 #include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
 #include "PlayerState/BlasterPlayerState.h"
@@ -82,6 +83,16 @@ void ABlasterPlayerController::Tick(float DeltaSeconds)
 	CheckPing(DeltaSeconds);
 }
 
+
+void ABlasterPlayerController::SetupInputComponent()
+{
+	Super::SetupInputComponent();
+
+	if(InputComponent == nullptr) return;
+
+	InputComponent->BindAction("Quit",IE_Pressed,this,&ABlasterPlayerController::ShowReturnToMainMenu);
+	
+}
 
 void ABlasterPlayerController::SetHUDHealth(float Health, float MaxHealth)
 {
@@ -420,6 +431,29 @@ void ABlasterPlayerController::StopHighPingWarning()
 			BlasterHUD->CharacterOverlay->StopAnimation(BlasterHUD->CharacterOverlay->HigPingAnim);
 		}
 		
+	}
+}
+
+void ABlasterPlayerController::ShowReturnToMainMenu()
+{
+	if(ReturnToMainMenuWidget == nullptr) return;
+
+	if(ReturnToMainMenu == nullptr)
+	{
+		ReturnToMainMenu = CreateWidget<UReturnTOMainMenu>(this,ReturnToMainMenuWidget);
+	}
+
+	if(ReturnToMainMenu)
+	{
+		bReturnToMainMenuOpen = !bReturnToMainMenuOpen;
+		if(bReturnToMainMenuOpen)
+		{
+			ReturnToMainMenu->MenuSetUp();
+		}
+		else
+		{
+			ReturnToMainMenu->MenuTearDown();
+		}
 	}
 }
 

@@ -51,7 +51,7 @@ void UReturnTOMainMenu::MenuSetUp()
 		}
 	}
 
-	if(ReturnButton)
+	if(ReturnButton && !ReturnButton->OnClicked.IsBound()) 
 	{
 		ReturnButton->OnClicked.AddDynamic(this,&ThisClass::ReturnButtonClick);
 	}
@@ -75,7 +75,14 @@ void UReturnTOMainMenu::MenuTearDown()
 			PlayerCtr->SetShowMouseCursor(false);
 		}
 	}
-	
+	if(ReturnButton && ReturnButton->OnClicked.IsBound()) 
+	{
+		ReturnButton->OnClicked.RemoveDynamic(this,&ThisClass::ReturnButtonClick);
+	}
+	if(MultiPlayerSessionsSubSystem && MultiPlayerSessionsSubSystem->MultiplayerOnDestroySessionComplete.IsBound())
+	{
+		MultiPlayerSessionsSubSystem->MultiplayerOnDestroySessionComplete.RemoveDynamic(this,&UReturnTOMainMenu::OnDestroySession);
+	}
 }
 
 
