@@ -4,6 +4,7 @@
 #include "HUD/ReturnTOMainMenu.h"
 
 #include "MultiPlayerSessionsSubSystem.h"
+#include "Character/BlasterCharacter.h"
 #include "Components/Button.h"
 #include "GameFramework/GameModeBase.h"
 
@@ -89,10 +90,28 @@ void UReturnTOMainMenu::MenuTearDown()
 void UReturnTOMainMenu::ReturnButtonClick()
 {
 	ReturnButton->SetIsEnabled(false);
-	if(MultiPlayerSessionsSubSystem)
+
+	UWorld* world = GetWorld();
+
+	if(world)
 	{
-		MultiPlayerSessionsSubSystem->DestroySession();
+		APlayerController* FirstPlayerCtr =  world->GetFirstPlayerController();
+
+		if(FirstPlayerCtr)
+		{
+			ABlasterCharacter* BlasterCharacter = Cast<ABlasterCharacter>(FirstPlayerCtr->GetPawn()) ;
+			if(BlasterCharacter)
+			{
+				BlasterCharacter->OnLeftGame.AddDynamic(this,&ThisClass::UReturnTOMainMenu::OnPlayerLeftGame);
+				BlasterCharacter->ServerLeaveGame();
+			}
+			else
+			{
+				ReturnButton->SetIsEnabled(true);
+			}
+		}
 	}
+
 }
 
 void UReturnTOMainMenu::OnDestroySession(bool bWasSuccessful)
@@ -118,5 +137,13 @@ void UReturnTOMainMenu::OnDestroySession(bool bWasSuccessful)
 				PlayerCtr->ClientReturnToMainMenuWithTextReason(FText());
 			}
 		}
+	}
+}
+
+void UReturnTOMainMenu::OnPlayerLeftGame()
+{
+	if(MultiPlayerSessionsSubSystem)
+	{
+		MultiPlayerSessionsSubSystem->DestroySession();
 	}
 }

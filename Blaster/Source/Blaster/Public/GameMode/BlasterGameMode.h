@@ -28,12 +28,17 @@ public:
 
 	virtual void RequestRespawn(ACharacter* ElimCharacter,AController* ElimControler);
 
+	void PlayerLeftGame(class ABlasterPlayerState* PlayerLeaving);
+
 	UPROPERTY(EditDefaultsOnly)
 	float MatchTime = 180.f;
+	
 	UPROPERTY(EditDefaultsOnly)
 	float WarmUpTime = 10.f;
+	
 	UPROPERTY(EditDefaultsOnly)
 	float CoolDownTime = 10.f;
+	
 	float LevelStartingTime =0.f;
 
 private:

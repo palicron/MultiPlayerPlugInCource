@@ -78,6 +78,7 @@ void AProyectileRocket::Destroyed()
 	
 }
 
+#if WITH_EDITOR
 void AProyectileRocket::PostEditChangeChainProperty(FPropertyChangedChainEvent& PropertyChangedEvent)
 {
 	Super::PostEditChangeChainProperty(PropertyChangedEvent);
@@ -93,3 +94,5 @@ PropertyChangedEvent.Property->GetFName().IsEqual(GET_MEMBER_NAME_CHECKED(URocke
 	
 	}
 }
+#endif
+	

@@ -16,22 +16,19 @@ class BLASTER_API AProyectileRocket : public AProjectile
 public:
 	AProyectileRocket();
 	virtual void Destroyed() override;
-
 #if WITH_EDITOR
 	virtual void PostEditChangeChainProperty(FPropertyChangedChainEvent& PropertyChangedEvent) override;
 #endif
+	
 protected:
 	virtual void OnHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit) override;
 
 	virtual void BeginPlay() override;
-
 	
-
-
-
 	UPROPERTY(EditAnywhere)
 	USoundCue* ProjectileLoop;
 
+	UPROPERTY()
 	UAudioComponent* ProjectileLoopComponent;
 	UPROPERTY(EditAnywhere)
 	USoundAttenuation* LoopingSoundAtten;

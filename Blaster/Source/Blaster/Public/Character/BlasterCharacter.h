@@ -17,6 +17,9 @@ class UWidgetComponent;
 class AWeapon;
 class UCombatComponent;
 
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnLeftGame);
+
 UCLASS()
 class BLASTER_API ABlasterCharacter : public ACharacter,public IInteractWithCrossHairsInterface
 {
@@ -48,10 +51,10 @@ public:
 
 	void PlaySawpMontage();
 	
-	void Elim();
+	void Elim(bool bPlayerLeftGame);
 	
 	UFUNCTION(NetMulticast,Reliable)
-	void MulticasElim();
+	void MulticasElim(bool bPlayerLeftGame);
 
 	UPROPERTY(Replicated)
 	bool bDisableGamePlay = false;
@@ -69,6 +72,12 @@ public:
 
 	UPROPERTY()
 	TMap<FName,class UBoxComponent*>  HitCollisionBoxes;
+
+	UFUNCTION(Server,Reliable)
+	void ServerLeaveGame();
+
+	
+	FOnLeftGame OnLeftGame;
 
 protected:
 
@@ -253,7 +262,11 @@ private:
 	FTimerHandle EliminTimer;
 	
 	void ElimTimerFinish();
-	
+
+	bool bLeftGame = false;
+
+
+
 	UPROPERTY(EditDefaultsOnly)
 	float ElimDelay = 3.0f;
 	/**
